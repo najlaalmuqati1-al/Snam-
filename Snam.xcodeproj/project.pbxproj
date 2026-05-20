@@ -45,6 +45,21 @@
 			path = SnamUITests;
 			sourceTree = "<group>";
 		};
+		11FAF18C2FB785B400458A87 /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		11FAF1902FB786E000458A87 /* Models */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		11FAF1922FB7871500458A87 /* ViewModel */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +90,9 @@
 		11FAF1592FB782B100458A87 = {
 			isa = PBXGroup;
 			children = (
+				11FAF18C2FB785B400458A87 /* Views */,
+				11FAF1922FB7871500458A87 /* ViewModel */,
+				11FAF1902FB786E000458A87 /* Models */,
 				11FAF1642FB782B100458A87 /* Snam */,
 				11FAF1722FB782B200458A87 /* SnamTests */,
 				11FAF17C2FB782B200458A87 /* SnamUITests */,
@@ -109,6 +127,8 @@
 			);
 			fileSystemSynchronizedGroups = (
 				11FAF1642FB782B100458A87 /* Snam */,
+				11FAF18C2FB785B400458A87 /* Views */,
+				11FAF1902FB786E000458A87 /* Models */,
 			);
 			name = Snam;
 			packageProductDependencies = (
@@ -155,6 +175,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				11FAF17C2FB782B200458A87 /* SnamUITests */,
+				11FAF1922FB7871500458A87 /* ViewModel */,
 			);
 			name = SnamUITests;
 			packageProductDependencies = (
