@@ -29,6 +29,51 @@
 		11FAF1792FB782B200458A87 /* SnamUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnamUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		EB75AD692FBDD22B00C62D26 /* Exceptions for "Models" folder in "SnamTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MarketData.json,
+			);
+			target = 11FAF16E2FB782B200458A87 /* SnamTests */;
+		};
+		EB75AD6A2FBDD22B00C62D26 /* Exceptions for "Models" folder in "SnamUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MarketData.json,
+			);
+			target = 11FAF1782FB782B200458A87 /* SnamUITests */;
+		};
+		EB75AD6D2FBDD23300C62D26 /* Exceptions for "Views" folder in "SnamTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MarketListView.swift,
+			);
+			target = 11FAF16E2FB782B200458A87 /* SnamTests */;
+		};
+		EB75AD6E2FBDD23300C62D26 /* Exceptions for "Views" folder in "SnamUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MarketListView.swift,
+			);
+			target = 11FAF1782FB782B200458A87 /* SnamUITests */;
+		};
+		EB75AD712FBDD25D00C62D26 /* Exceptions for "ViewModels" folder in "SnamTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MarketViewModel.swift,
+			);
+			target = 11FAF16E2FB782B200458A87 /* SnamTests */;
+		};
+		EB75AD722FBDD25D00C62D26 /* Exceptions for "ViewModels" folder in "SnamUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MarketViewModel.swift,
+			);
+			target = 11FAF1782FB782B200458A87 /* SnamUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		11FAF1642FB782B100458A87 /* Snam */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -47,17 +92,29 @@
 		};
 		11FAF18C2FB785B400458A87 /* Views */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EB75AD6D2FBDD23300C62D26 /* Exceptions for "Views" folder in "SnamTests" target */,
+				EB75AD6E2FBDD23300C62D26 /* Exceptions for "Views" folder in "SnamUITests" target */,
+			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		11FAF1902FB786E000458A87 /* Models */ = {
+		EB75AD542FBDCD6400C62D26 /* ViewModels */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Models;
+			exceptions = (
+				EB75AD712FBDD25D00C62D26 /* Exceptions for "ViewModels" folder in "SnamTests" target */,
+				EB75AD722FBDD25D00C62D26 /* Exceptions for "ViewModels" folder in "SnamUITests" target */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		11FAF1922FB7871500458A87 /* ViewModel */ = {
+		EB75AD5A2FBDCE3F00C62D26 /* Models */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ViewModel;
+			exceptions = (
+				EB75AD692FBDD22B00C62D26 /* Exceptions for "Models" folder in "SnamTests" target */,
+				EB75AD6A2FBDD22B00C62D26 /* Exceptions for "Models" folder in "SnamUITests" target */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -90,9 +147,9 @@
 		11FAF1592FB782B100458A87 = {
 			isa = PBXGroup;
 			children = (
+				EB75AD5A2FBDCE3F00C62D26 /* Models */,
+				EB75AD542FBDCD6400C62D26 /* ViewModels */,
 				11FAF18C2FB785B400458A87 /* Views */,
-				11FAF1922FB7871500458A87 /* ViewModel */,
-				11FAF1902FB786E000458A87 /* Models */,
 				11FAF1642FB782B100458A87 /* Snam */,
 				11FAF1722FB782B200458A87 /* SnamTests */,
 				11FAF17C2FB782B200458A87 /* SnamUITests */,
@@ -128,7 +185,8 @@
 			fileSystemSynchronizedGroups = (
 				11FAF1642FB782B100458A87 /* Snam */,
 				11FAF18C2FB785B400458A87 /* Views */,
-				11FAF1902FB786E000458A87 /* Models */,
+				EB75AD542FBDCD6400C62D26 /* ViewModels */,
+				EB75AD5A2FBDCE3F00C62D26 /* Models */,
 			);
 			name = Snam;
 			packageProductDependencies = (
@@ -175,7 +233,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				11FAF17C2FB782B200458A87 /* SnamUITests */,
-				11FAF1922FB7871500458A87 /* ViewModel */,
 			);
 			name = SnamUITests;
 			packageProductDependencies = (
@@ -423,6 +480,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -454,6 +512,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
