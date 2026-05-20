@@ -3,7 +3,17 @@
 //  Snam
 //
 //  Created by Jojo on 20/05/2026.
+
+
+
+
+import SwiftUI
+//  MarketListView.swift
+//  Snam
 //
+//  Created by Jojo on 20/05/2026.
+
+
 import SwiftUI
 
 // MARK: - MarketListView
@@ -13,105 +23,113 @@ struct MarketListView: View {
     @State private var showSectorPicker = false
 
     var body: some View {
-        ZStack(alignment: .top) {
+        NavigationStack {
+            ZStack(alignment: .top) {
 
-            Color(hex: "#0E0E10")
-                .ignoresSafeArea()
+                Color(hex: "#0E0E10")
+                    .ignoresSafeArea()
 
-            VStack(spacing: 0) {
+                VStack(spacing: 0) {
 
-                // MARK: Header
-                HStack {
-                    Button {
-                        withAnimation(.spring(response: 0.3)) {
-                            showSectorPicker.toggle()
-                        }
-                    } label: {
-                        Image(systemName: "line.3.horizontal")
-                            .font(.system(size: 18, weight: .medium))
-                            .foregroundColor(.white)
-                            .frame(width: 44, height: 44)
-                            .background(Color.white.opacity(0.08))
-                            .clipShape(Circle())
-                    }
-
-                    Spacer()
-
-                    Text("المحاكي")
-                        .font(.system(size: 28, weight: .bold))
-                        .foregroundColor(.white)
-                        .environment(\.layoutDirection, .rightToLeft)
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 16)
-                .padding(.bottom, 12)
-
-                // MARK: شريط الفلتر النشط
-                if vm.selectedSector != "الكل" {
+                    // MARK: Header
                     HStack {
-                        Spacer()
-                        HStack(spacing: 6) {
-                            Text(sectorArabic(vm.selectedSector))
-                                .font(.system(size: 13, weight: .medium))
-                                .foregroundColor(Color(hex: "#A78BFA"))
-
-                            Button {
-                                withAnimation { vm.selectedSector = "الكل" }
-                            } label: {
-                                Image(systemName: "xmark")
-                                    .font(.system(size: 11, weight: .bold))
-                                    .foregroundColor(Color(hex: "#A78BFA"))
+                        Button {
+                            withAnimation(.spring(response: 0.3)) {
+                                showSectorPicker.toggle()
                             }
+                        } label: {
+                            Image(systemName: "line.3.horizontal")
+                                .font(.system(size: 18, weight: .medium))
+                                .foregroundColor(.white)
+                                .frame(width: 44, height: 44)
+                                .background(Color.white.opacity(0.08))
+                                .clipShape(Circle())
                         }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(Color(hex: "#A78BFA").opacity(0.12))
-                        .cornerRadius(20)
+
+                        Spacer()
+
+                        Text("المحاكي")
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundColor(.white)
+                            .environment(\.layoutDirection, .rightToLeft)
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 8)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+                    .padding(.top, 16)
+                    .padding(.bottom, 12)
+
+                    // MARK: شريط الفلتر النشط
+                    if vm.selectedSector != "الكل" {
+                        HStack {
+                            Spacer()
+                            HStack(spacing: 6) {
+                                Text(sectorArabic(vm.selectedSector))
+                                    .font(.system(size: 13, weight: .medium))
+                                    .foregroundColor(Color(hex: "#A78BFA"))
+
+                                Button {
+                                    withAnimation { vm.selectedSector = "الكل" }
+                                } label: {
+                                    Image(systemName: "xmark")
+                                        .font(.system(size: 11, weight: .bold))
+                                        .foregroundColor(Color(hex: "#A78BFA"))
+                                }
+                            }
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(Color(hex: "#A78BFA").opacity(0.12))
+                            .cornerRadius(20)
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 8)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                    }
+
+                    // MARK: القائمة
+                    ScrollView {
+                        LazyVStack(spacing: 0) {
+                            ForEach(vm.filteredCompanies) { company in
+                                // الانتقال لصفحة التفاصيل عند الضغط على الشركة
+                                NavigationLink(destination: CompanyDetailView(company: company)) {
+                                    CompanyRow(company: company)
+                                }
+                                .buttonStyle(PlainButtonStyle()) // للحفاظ على الثيم الداكن للسطر بدون تأثيرات زرقاء
+                                
+                                Divider()
+                                    .background(Color.white.opacity(0.07))
+                                    .padding(.leading, 76)
+                            }
+                        }
+                        .padding(.top, 4)
+                        .padding(.bottom, 32)
+                    }
                 }
 
-                // MARK: القائمة
-                ScrollView {
-                    LazyVStack(spacing: 0) {
-                        ForEach(vm.filteredCompanies) { company in
-                            CompanyRow(company: company)
-                            Divider()
-                                .background(Color.white.opacity(0.07))
-                                .padding(.leading, 76)
+                // MARK: Sector Picker Overlay
+                if showSectorPicker {
+                    Color.black.opacity(0.45)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            withAnimation(.spring(response: 0.3)) {
+                                showSectorPicker = false
+                            }
                         }
-                    }
-                    .padding(.top, 4)
-                    .padding(.bottom, 32)
+                        .transition(.opacity)
+
+                    SectorPickerMenu(
+                        sectors: vm.sectors,
+                        selectedSector: $vm.selectedSector,
+                        isVisible: $showSectorPicker
+                    )
+                    .transition(.opacity.combined(with: .scale(scale: 0.95, anchor: .topLeading)))
+                    .padding(.top, 72)
+                    .padding(.leading, 16)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 }
             }
-
-            // MARK: Sector Picker Overlay
-            if showSectorPicker {
-                Color.black.opacity(0.45)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        withAnimation(.spring(response: 0.3)) {
-                            showSectorPicker = false
-                        }
-                    }
-                    .transition(.opacity)
-
-                SectorPickerMenu(
-                    sectors: vm.sectors,
-                    selectedSector: $vm.selectedSector,
-                    isVisible: $showSectorPicker
-                )
-                .transition(.opacity.combined(with: .scale(scale: 0.95, anchor: .topLeading)))
-                .padding(.top, 72)
-                .padding(.leading, 16)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            }
+            .animation(.spring(response: 0.3), value: showSectorPicker)
+            .animation(.spring(response: 0.3), value: vm.selectedSector)
+            .navigationBarHidden(true)
         }
-        .animation(.spring(response: 0.3), value: showSectorPicker)
-        .animation(.spring(response: 0.3), value: vm.selectedSector)
     }
 }
 
@@ -247,6 +265,7 @@ struct SectorPickerMenu: View {
 
     var body: some View {
         VStack(alignment: .trailing, spacing: 0) {
+            // تم تصحيح الخطأ هنا باستخدام ForEach الخاصة بـ SwiftUI
             ForEach(sectors, id: \.self) { sector in
                 Button {
                     withAnimation(.spring(response: 0.25)) {
@@ -324,6 +343,7 @@ extension Color {
 }
 
 // MARK: - Preview
+
 #Preview {
     MarketListView()
 }
