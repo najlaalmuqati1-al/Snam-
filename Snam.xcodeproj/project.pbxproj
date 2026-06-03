@@ -30,11 +30,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		11FAF1642FB782B100458A87 /* Snam */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Snam;
-			sourceTree = "<group>";
-		};
 		11FAF18C2FB785B400458A87 /* Views */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Views;
@@ -48,6 +43,16 @@
 		EB75AD5A2FBDCE3F00C62D26 /* Models */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Models;
+			sourceTree = "<group>";
+		};
+		EB75ADA52FD049EA00C62D26 /* Component */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Component;
+			sourceTree = "<group>";
+		};
+		EB75ADAD2FD04A0500C62D26 /* Snam */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Snam;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -83,7 +88,8 @@
 				EB75AD5A2FBDCE3F00C62D26 /* Models */,
 				EB75AD542FBDCD6400C62D26 /* ViewModels */,
 				11FAF18C2FB785B400458A87 /* Views */,
-				11FAF1642FB782B100458A87 /* Snam */,
+				EB75ADA52FD049EA00C62D26 /* Component */,
+				EB75ADAD2FD04A0500C62D26 /* Snam */,
 				11FAF1632FB782B100458A87 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -114,10 +120,11 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				11FAF1642FB782B100458A87 /* Snam */,
 				11FAF18C2FB785B400458A87 /* Views */,
 				EB75AD542FBDCD6400C62D26 /* ViewModels */,
 				EB75AD5A2FBDCE3F00C62D26 /* Models */,
+				EB75ADA52FD049EA00C62D26 /* Component */,
+				EB75ADAD2FD04A0500C62D26 /* Snam */,
 			);
 			name = Snam;
 			packageProductDependencies = (
