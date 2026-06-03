@@ -4,7 +4,7 @@
 //
 //  Created by Najla Almuqati on 28/11/1447 AH.
 //
-
+/*
 import SwiftUI
 
 struct ContentView: View {
@@ -18,7 +18,7 @@ struct ContentView: View {
         .padding()
     }
 }
-
+*/
 //#Preview {
 //    ContentView()
 //}
