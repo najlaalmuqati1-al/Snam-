@@ -14,4 +14,5 @@ struct SnamApp: App {
             OnboardingContainerView()
         }
     }
+    
 }
