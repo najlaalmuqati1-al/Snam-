@@ -15,12 +15,13 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             // Background
-            LinearGradient(
-                colors: [Color(red:0.05,green:0.08,blue:0.18),
-                         Color(red:0.02,green:0.04,blue:0.10)],
-                startPoint: .top, endPoint: .bottom
-            ).ignoresSafeArea()
-
+            // هذه الوان الخلفيه من الappcolor
+            RadialGradient.appBackground
+                .ignoresSafeArea()
+           /* Image("background")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()*/
             // زر "انتهيت" في الأسفل
             VStack {
                 Spacer()
