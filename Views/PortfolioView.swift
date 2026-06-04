@@ -680,12 +680,11 @@ struct PortfolioRootView: View {
 
     var body: some View {
         ZStack {
+            PortfolioMainView(vm: vm)
+
             if vm.showCongrats {
                 PortfolioCongratsView(vm: vm)
                     .transition(.opacity.combined(with: .scale))
-            } else {
-                PortfolioMainView(vm: vm)
-                    .transition(.opacity)
             }
         }
         .animation(.easeInOut(duration: 0.4), value: vm.showCongrats)
@@ -1005,18 +1004,19 @@ struct SectorRowCard: View {
                     }
                 }) {
                     HStack(alignment: .center, spacing: 0) {
-                        Text("\(arabicNumber(sector.allocation)) سنام . \(arabicNumber(percentage))%")
-                            .font(.system(size: 10, weight: .medium))
-                            .foregroundColor(Color(red: 0.514, green: 0.514, blue: 0.514))
+                        Text(sector.name)
+                            .font(.system(size: 24, weight: .medium))
+                            .foregroundColor(.white)
+                        Image(systemName: sector.icon)
+                            .font(.system(size: 21))
+                            .foregroundColor(accentBlue)
                         Spacer()
                         HStack(spacing: 6) {
-                            Text(sector.name)
-                                .font(.system(size: 24, weight: .medium))
-                                .foregroundColor(.white)
-                            Image(systemName: sector.icon)
-                                .font(.system(size: 21))
-                                .foregroundColor(accentBlue)
+                            Text("\(arabicNumber(sector.allocation)) سنام . \(arabicNumber(percentage))%")
+                                .font(.system(size: 10, weight: .medium))
+                                .foregroundColor(Color(red: 0.514, green: 0.514, blue: 0.514))
                         }
+                      
                     }
                     .contentShape(Rectangle())
                     .padding(.horizontal, 16)
@@ -1031,12 +1031,14 @@ struct SectorRowCard: View {
 
                     // minus | icon + name | plus
                     HStack {
-                        Button(action: { vm.decrement(id: sector.id) }) {
+                  
+                        
+                        Button(action: { vm.increment(id: sector.id) }) {
                             ZStack {
                                 Circle()
                                     .fill(Color.black.opacity(0.55))
                                     .frame(width: 21, height: 21)
-                                Text("−")
+                                Text("+")
                                     .font(.system(size: 11, weight: .bold))
                                     .foregroundColor(.white)
                             }
@@ -1051,12 +1053,12 @@ struct SectorRowCard: View {
                                 .foregroundColor(.white)
                         }
                         Spacer()
-                        Button(action: { vm.increment(id: sector.id) }) {
+                        Button(action: { vm.decrement(id: sector.id) }) {
                             ZStack {
                                 Circle()
                                     .fill(Color.black.opacity(0.55))
                                     .frame(width: 21, height: 21)
-                                Text("+")
+                                Text("−")
                                     .font(.system(size: 11, weight: .bold))
                                     .foregroundColor(.white)
                             }
@@ -1104,22 +1106,40 @@ struct SectorRowCard: View {
                             .offset(y: 38) // تحت الـ tooltip
 
                             // Tooltip مع سهم
+                            // Tooltip مع سهم
                             VStack(spacing: 0) {
                                 ZStack {
+                                    // الطبقة الخارجية
                                     RoundedRectangle(cornerRadius: 8.45)
-                                        .fill(Color(red: 0.11, green: 0.11, blue: 0.12).opacity(0.84))
-                                        .shadow(color: .black.opacity(0.3), radius: 6.5, x: 0, y: 6.5)
-                                        .frame(width: 100, height: 22)
+                                        .fill(Color.black.opacity(0.08))
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 8.45)
+                                                .fill(
+                                                    LinearGradient(
+                                                        colors: [
+                                                            Color(red: 0.11, green: 0.11, blue: 0.12).opacity(0.84),
+                                                            Color(red: 0.11, green: 0.11, blue: 0.12).opacity(0.84)
+                                                        ],
+                                                        startPoint: .top,
+                                                        endPoint: .bottom
+                                                    )
+                                                )
+                                                .blur(radius: 0.5)
+                                        )
+                                        .shadow(color: .black.opacity(0.3), radius: 65/10, x: 0, y: 6.5)
+                                        .frame(width: 73, height: 19)
+
                                     Text("\(arabicNumber(sector.allocation)) سنام (\(arabicNumber(percentage))%)")
                                         .font(.system(size: 10, weight: .semibold))
                                         .foregroundColor(.white)
                                 }
-                                // سهم لتحت
+
+                                // السهم
                                 Triangle()
                                     .fill(Color(red: 0.11, green: 0.11, blue: 0.12).opacity(0.84))
-                                    .frame(width: 12, height: 7)
+                                    .frame(width: 36.4, height: 8.45)
                             }
-                            .offset(x: max(0, min(thumbX - 50, trackWidth - 100)), y: 0)
+                            .offset(x: max(0, min(thumbX - 36, trackWidth - 73)), y: 0)
                         }
                         .frame(width: trackWidth, height: 60)
                         .contentShape(Rectangle())
@@ -1188,100 +1208,6 @@ struct Triangle: Shape {
         path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
         path.closeSubpath()
         return path
-    }
-}
-// MARK: - Congrats View
-
-struct PortfolioCongratsView: View {
-    @ObservedObject var vm: PortfolioViewModel
-    @State private var bouncing = false
-    @State private var appeared = false
-
-    var body: some View {
-        ZStack {
-            Color(red: 0.06, green: 0.08, blue: 0.13).ignoresSafeArea()
-
-            ForEach(0..<8, id: \.self) { i in
-                PortfolioCoinFloat(index: i, appeared: appeared)
-            }
-
-            VStack(spacing: 28) {
-                Spacer()
-
-                ZStack {
-                    Circle()
-                        .fill(RadialGradient(
-                            colors: [Color(red: 0.3, green: 0.5, blue: 1.0).opacity(0.25), .clear],
-                            center: .center, startRadius: 0, endRadius: 90
-                        ))
-                        .frame(width: 180, height: 180)
-
-                    Image("currency")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 110, height: 110)
-                        .scaleEffect(bouncing ? 1.08 : 1.0)
-                        .animation(.easeInOut(duration: 0.7).repeatForever(autoreverses: true), value: bouncing)
-                }
-
-                VStack(spacing: 8) {
-                    Text("تهانينا!!")
-                        .font(.system(size: 38, weight: .black))
-                        .foregroundColor(.white)
-                    Text("لقد حصلت على")
-                        .font(.system(size: 18))
-                        .foregroundColor(Color.white.opacity(0.6))
-                    HStack(alignment: .firstTextBaseline, spacing: 6) {
-                        Text("currency")
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(Color(red: 0.4, green: 0.6, blue: 1.0))
-                        Text("+١٠٠")
-                            .font(.system(size: 52, weight: .black))
-                            .foregroundColor(Color(red: 0.4, green: 0.6, blue: 1.0))
-                    }
-                }
-
-                Spacer()
-
-                Button(action: { vm.collectReward() }) {
-                    Text("اجمع")
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 18)
-                        .background(
-                            RoundedRectangle(cornerRadius: 50)
-                                .fill(Color(red: 0.22, green: 0.35, blue: 0.75))
-                        )
-                }
-                .padding(.horizontal, 24)
-                .padding(.bottom, 50)
-            }
-        }
-        .environment(\.layoutDirection, .rightToLeft)
-        .onAppear {
-            bouncing = true
-            withAnimation(.easeOut(duration: 0.5).delay(0.15)) { appeared = true }
-        }
-    }
-}
-
-// MARK: - Floating Coin
-
-struct PortfolioCoinFloat: View {
-    let index: Int
-    let appeared: Bool
-    private let xs: [CGFloat] = [-150, -90, -40, 10, 60, 110, 160, -120]
-    private let ys: [CGFloat] = [-310, -200, -360, -260, -290, -330, -190, -240]
-
-    var body: some View {
-        Image("currency")
-            .resizable()
-            .scaledToFit()
-            .frame(width: 36, height: 36)
-            .opacity(appeared ? 0.65 : 0)
-            .offset(x: xs[index % xs.count], y: appeared ? ys[index % ys.count] : 180)
-            .animation(.spring(response: 0.8, dampingFraction: 0.6).delay(Double(index) * 0.07), value: appeared)
     }
 }
 
