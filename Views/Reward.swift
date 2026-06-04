@@ -223,17 +223,18 @@ struct CongratsFloatingCoin: View {
         Image("currency")
             .resizable()
             .scaledToFit()
-            .frame(width: coin.width * 1, height: coin.height * 1)
+            .frame(width: coin.width * 1.5, height: coin.height * 1.5)
             .rotationEffect(.degrees(coin.rotation))
-            .opacity(fly ? 0 : 0.85)
+            .opacity(fly ? 0 : 1.0)
+            .blur(radius: fly ? 8 : 0)
             .offset(
                 x: fly ? coin.xOffset : 0,
                 y: fly ? coin.yOffset : 0
             )
-            .scaleEffect(fly ? 0.8 : 0.3)
+            .scaleEffect(fly ? 1 : 1.5)
             .animation(
-                .spring(response: 0.8, dampingFraction: 0.6)
-                .delay(Double(index) * 0.06),
+                .spring(response: 1.4, dampingFraction: 0.75)
+                .delay(Double(index) * 0.08),
                 value: fly
             )
             .onAppear {
