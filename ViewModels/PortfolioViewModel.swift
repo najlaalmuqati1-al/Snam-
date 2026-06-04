@@ -62,7 +62,7 @@ class PortfolioViewModel: ObservableObject {
 
     func decrement(id: UUID) {
         guard let i = sectors.firstIndex(where: { $0.id == id }) else { return }
-        updateAllocation(id: id, value: sectors[i].allocation - 25)
+        updateAllocation(id: id, value: sectors[i].allocation - 1)
     }
 
     func resetWallet() {

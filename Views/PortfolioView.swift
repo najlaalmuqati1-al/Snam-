@@ -700,24 +700,26 @@ struct PortfolioMainView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            Color(red: 0.06, green: 0.08, blue: 0.13)
+            Image("background")
+                .resizable()
+                .scaledToFill()
                 .ignoresSafeArea()
 
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     navBar
-                        .padding(.top, 52)
-                        .padding(.bottom, 8)
+                        .padding(.top, 90)
+                        .padding(.bottom, 20)
 
                     Text("وزع المبلغ التالي كحد ادنى على قطاعين مختلفين")
                         .font(.system(size: 13, weight: .regular))
                         .foregroundColor(Color.white.opacity(0.55))
-                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 24)
                         .padding(.bottom, 20)
 
                     balanceCard
-                        .padding(.horizontal, 16)
+                        .padding(.horizontal, 20)
                         .padding(.bottom, 20)
 
                     tabsRow
@@ -807,85 +809,92 @@ struct PortfolioMainView: View {
     var balanceCard: some View {
         HStack(spacing: 0) {
 
-            // Coins image — physical LEFT
+            // الصورتين
             ZStack {
+                // الكبيرة مع rotation
                 Image("currency")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 75, height: 75)
-                    .offset(x: 10, y: 0)
-                Image("currency")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 60)
-                    .offset(x: -12, y: 0)
-            }
-            .frame(width: 100, height: 126)
+                    .frame(width: 78, height: 94)
+                    .rotationEffect(.degrees(7.39))
+                    .offset(x: -8, y: 0)
 
-            // الرصيد المتبقي
-            VStack(alignment: .center, spacing: 6) {
+                // الصغيرة
+                Image("currency")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 57, height: 69)
+                    .offset(x: 18, y: 8)
+            }
+            .frame(width: 100, height: 110)
+
+            // الرصيد المتبقي — صار أول
+            VStack(alignment: .center, spacing: 15) {
                 Text("الرصيد المتبقي")
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(Color.white.opacity(0.55))
-                HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text("\(vm.totalBalance)")
-                        .font(.system(size: 26, weight: .bold))
+                    .font(.system(size: 12, weight: .regular))
+                    .foregroundColor(Color(red: 0.514, green: 0.514, blue: 0.514))
+                    .tracking(-0.4)
+
+                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                    Text("سنام")
+                        .font(.system(size: 12))
+                        .foregroundColor(Color(red: 0.514, green: 0.514, blue: 0.514))
+                    Text(arabicNumber(vm.remaining))
+                        .font(.system(size: 18, weight: .medium))
                         .foregroundColor(
                             vm.remaining == 0
                                 ? Color(red: 1, green: 0.35, blue: 0.35)
-                                : Color(red: 0.35, green: 0.6, blue: 1.0)
+                                : Color(red: 0.427, green: 0.565, blue: 0.898)
                         )
-                    Text("سنام")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color(red: 0.35, green: 0.6, blue: 1.0).opacity(0.8))
                 }
             }
             .frame(maxWidth: .infinity)
 
             // Divider
             Rectangle()
-                .fill(Color.white)
+                .fill(Color.white.opacity(0.15))
                 .frame(width: 1, height: 66)
 
-            // المبلغ الكلي
-            VStack(alignment: .center, spacing: 6) {
+            // المبلغ الكلي — صار ثاني
+            VStack(alignment: .center, spacing: 15) {
                 Text("المبلغ الكلي")
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(Color.white.opacity(0.55))
-                HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text("\(vm.remaining)")
-                        .font(.system(size: 26, weight: .bold))
-                        .foregroundColor(.white)
+                    .font(.system(size: 12, weight: .regular))
+                    .foregroundColor(Color(red: 0.514, green: 0.514, blue: 0.514))
+                    .tracking(-0.4)
+
+                HStack(alignment: .firstTextBaseline, spacing: 6) {
                     Text("سنام")
                         .font(.system(size: 12))
-                        .foregroundColor(Color.white.opacity(0.5))
+                        .foregroundColor(Color(red: 0.514, green: 0.514, blue: 0.514))
+                    Text(arabicNumber(vm.totalBalance))                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(.white)
                 }
             }
+            .frame(maxWidth: .infinity)
             .frame(maxWidth: .infinity)
         }
         .frame(width: 355, height: 126)
         .background(
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(.ultraThinMaterial)
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.black.opacity(0.25))
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(
-                        LinearGradient(
-                            colors: [
-                                Color.white.opacity(0.45),
-                                Color.white.opacity(0.05)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 1
-                    )
-            }
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.black.opacity(0.2))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(
+                            LinearGradient(
+                                colors: [
+                                    Color.white.opacity(0.45),
+                                    Color.white.opacity(0.05)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 1
+                        )
+                )
         )
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .environment(\.layoutDirection, .leftToRight)
+     // ترتيب المحتويات
     }
 
     // MARK: Tabs Row
@@ -906,14 +915,18 @@ struct PortfolioMainView: View {
                                 .font(.system(size: 13, weight: .semibold))
                        
                         }
-                        .foregroundColor(isActive ? .white : Color.white.opacity(0.5))
+                        .foregroundColor(isActive ? .white : Color(red: 0.275, green: 0.275, blue: 0.286))
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
                         .background(
-                            Capsule()
+                            RoundedRectangle(cornerRadius: 14.26)
                                 .fill(isActive
-                                      ? Color(red: 0.22, green: 0.35, blue: 0.75)
-                                      : Color.white.opacity(0.07))
+                                      ? Color(red: 0.345, green: 0.494, blue: 0.859).opacity(0.2)
+                                      : Color(red: 0.125, green: 0.122, blue: 0.122).opacity(0.2))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 14.26)
+                                        .stroke(Color.white.opacity(isActive ? 0.2 : 0.08), lineWidth: 1)
+                                )
                         )
                     }
                 }
@@ -953,7 +966,7 @@ struct PortfolioMainView: View {
         let hasAny = vm.selectedTabIDs.count >= 2
         return PrimaryButton(title: "تأكيد التوزيع") {
             if hasAny { vm.confirm() }
-        }
+        }    .padding(.bottom, 32)
         .disabled(!hasAny)
         .opacity(hasAny ? 1.0 : 0.4)
         .animation(.easeInOut(duration: 0.2), value: hasAny)
@@ -961,6 +974,7 @@ struct PortfolioMainView: View {
 }
 
 // MARK: - Sector Row Card
+
 
 struct SectorRowCard: View {
     @Binding var sector: PortfolioSector
@@ -976,123 +990,188 @@ struct SectorRowCard: View {
         Double(vm.remaining + sector.allocation)
     }
 
+    let accentBlue = Color(red: 0.427, green: 0.565, blue: 0.898)
+
+
+
     var body: some View {
         VStack(spacing: 0) {
-            Button(action: {
-                withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
-                    vm.toggleExpand(sector.id)
-                }
-            }) {
-                HStack {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("\(sector.allocation) سنام")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(Color.white.opacity(0.45))
-                        Text("\(percentage)%")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color.white.opacity(0.35))
-                    }
 
-                    Spacer()
-
-                    HStack(spacing: 8) {
-                        Text(sector.name)
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(.white)
-                        Image(systemName: sector.icon)
-                            .font(.system(size: 18))
-                            .foregroundColor(isExpanded
-                                             ? Color(red: 0.4, green: 0.6, blue: 1.0)
-                                             : Color.white.opacity(0.7))
+            // ── Collapsed Row ──
+            if !isExpanded {
+                Button(action: {
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
+                        vm.toggleExpand(sector.id)
                     }
+                }) {
+                    HStack(alignment: .center, spacing: 0) {
+                        Text("\(arabicNumber(sector.allocation)) سنام . \(arabicNumber(percentage))%")
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundColor(Color(red: 0.514, green: 0.514, blue: 0.514))
+                        Spacer()
+                        HStack(spacing: 6) {
+                            Text(sector.name)
+                                .font(.system(size: 24, weight: .medium))
+                                .foregroundColor(.white)
+                            Image(systemName: sector.icon)
+                                .font(.system(size: 21))
+                                .foregroundColor(accentBlue)
+                        }
+                    }
+                    .contentShape(Rectangle())
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 26)
                 }
-                .contentShape(Rectangle())
-                .padding(.horizontal, 18)
-                .padding(.vertical, 18)
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
 
+            // ── Expanded Section ──
             if isExpanded {
-                Divider()
-                    .background(Color.white.opacity(0.08))
-                    .padding(.horizontal, 18)
+                VStack(spacing: 0) {
 
-                VStack(spacing: 14) {
-                    VStack(spacing: 4) {
-                        Image(systemName: sector.icon)
-                            .font(.system(size: 22))
-                            .foregroundColor(Color(red: 0.4, green: 0.6, blue: 1.0))
-                        Text(sector.name)
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(.white)
-                        Text("(\(sector.allocation) سنام · \(percentage)%)")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color.white.opacity(0.45))
-                    }
-                    .padding(.top, 8)
-
-                    Slider(
-                        value: Binding(
-                            get: { Double(sector.allocation) },
-                            set: { v in
-                                let s = Int(round(v / 25.0)) * 25
-                                vm.updateAllocation(id: sector.id, value: s)
-                            }
-                        ),
-                        in: 0...max(sliderMax, 25),
-                        step: 25
-                    )
-                    .tint(Color(red: 0.4, green: 0.6, blue: 1.0))
-                    .padding(.horizontal, 4)
-
+                    // minus | icon + name | plus
                     HStack {
                         Button(action: { vm.decrement(id: sector.id) }) {
                             ZStack {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color.white.opacity(0.08))
-                                    .frame(width: 32, height: 32)
-                                Image(systemName: "minus")
-                                    .font(.system(size: 14, weight: .bold))
+                                Circle()
+                                    .fill(Color.black.opacity(0.55))
+                                    .frame(width: 21, height: 21)
+                                Text("−")
+                                    .font(.system(size: 11, weight: .bold))
                                     .foregroundColor(.white)
                             }
                         }
-
-                        Text("٠")
-                            .font(.system(size: 13))
-                            .foregroundColor(Color.white.opacity(0.35))
-
                         Spacer()
-
-                        Text("\(Int(sliderMax))")
-                            .font(.system(size: 13))
-                            .foregroundColor(Color.white.opacity(0.35))
-
+                        VStack(spacing: 2) {
+                            Image(systemName: sector.icon)
+                                .font(.system(size: 21))
+                                .foregroundColor(accentBlue)
+                            Text(sector.name)
+                                .font(.system(size: 24, weight: .medium))
+                                .foregroundColor(.white)
+                        }
+                        Spacer()
                         Button(action: { vm.increment(id: sector.id) }) {
                             ZStack {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color(red: 0.22, green: 0.35, blue: 0.75))
-                                    .frame(width: 32, height: 32)
-                                Image(systemName: "plus")
-                                    .font(.system(size: 14, weight: .bold))
+                                Circle()
+                                    .fill(Color.black.opacity(0.55))
+                                    .frame(width: 21, height: 21)
+                                Text("+")
+                                    .font(.system(size: 11, weight: .bold))
                                     .foregroundColor(.white)
                             }
                         }
                     }
-                    .padding(.bottom, 12)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 16)
+
+                    // ── Tooltip + Slider في GeometryReader واحد ──
+                    GeometryReader { geo in
+                        let trackWidth = geo.size.width
+                        let ratio = sliderMax > 0 ? CGFloat(sector.allocation) / CGFloat(sliderMax) : 0
+                        let thumbX = (1 - ratio) * trackWidth // RTL
+
+                        ZStack(alignment: .topLeading) {
+
+                            // Slider track + fill + thumb
+                            ZStack(alignment: .leading) {
+                                // Track
+                                RoundedRectangle(cornerRadius: 22)
+                                    .fill(Color(red: 0.043, green: 0.071, blue: 0.137))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 22)
+                                            .stroke(Color(red: 0.388, green: 0.388, blue: 0.388), lineWidth: 0.5)
+                                    )
+                                    .frame(height: 9)
+
+                                // Fill — من اليمين
+                                HStack(spacing: 0) {
+                                    Spacer(minLength: thumbX)
+                                    RoundedRectangle(cornerRadius: 22)
+                                        .fill(accentBlue)
+                                        .frame(height: 6.8)
+                                }
+                                .padding(.vertical, 1.1)
+
+                                // Thumb
+                                Circle()
+                                    .fill(Color(red: 0.686, green: 0.706, blue: 0.757))
+                                    .overlay(Circle().stroke(Color(red: 0.741, green: 0.741, blue: 0.741), lineWidth: 1))
+                                    .frame(width: 22, height: 22)
+                                    .offset(x: thumbX - 11, y: -6.5)
+                            }
+                            .frame(height: 9)
+                            .offset(y: 38) // تحت الـ tooltip
+
+                            // Tooltip مع سهم
+                            VStack(spacing: 0) {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 8.45)
+                                        .fill(Color(red: 0.11, green: 0.11, blue: 0.12).opacity(0.84))
+                                        .shadow(color: .black.opacity(0.3), radius: 6.5, x: 0, y: 6.5)
+                                        .frame(width: 100, height: 22)
+                                    Text("\(arabicNumber(sector.allocation)) سنام (\(arabicNumber(percentage))%)")
+                                        .font(.system(size: 10, weight: .semibold))
+                                        .foregroundColor(.white)
+                                }
+                                // سهم لتحت
+                                Triangle()
+                                    .fill(Color(red: 0.11, green: 0.11, blue: 0.12).opacity(0.84))
+                                    .frame(width: 12, height: 7)
+                            }
+                            .offset(x: max(0, min(thumbX - 50, trackWidth - 100)), y: 0)
+                        }
+                        .frame(width: trackWidth, height: 60)
+                        .contentShape(Rectangle())
+                        .gesture(
+                            DragGesture(minimumDistance: 0)
+                                .onChanged { drag in
+                                    let ratio = max(0, min(1, drag.location.x / trackWidth));                                    let raw = Double(ratio) * sliderMax
+                                    let snapped = Int(round(raw / 25.0)) * 25
+                                    vm.updateAllocation(id: sector.id, value: snapped)
+                                }
+                        )
+                    }
+                    .frame(height: 60)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 10)
+
+                    // أرقام تحت السلايدر
+                    HStack {
+                       // Text(arabicNumber(0))          // ← صار يسار
+                        Text(arabicNumber(Int(sliderMax)))  // يمين
+
+                            .font(.system(size: 16))
+                            .foregroundColor(.white)
+                        Spacer()
+                        Text(arabicNumber(Int(sliderMax) / 2))
+                            .font(.system(size: 16))
+                            .foregroundColor(.white)
+                        Spacer()
+                       // Text(arabicNumber(Int(sliderMax)))  // ← صار يمين
+                        Text(arabicNumber(0))        // يمين
+                            .font(.system(size: 16))
+                            .foregroundColor(.white)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 4)
+                    .padding(.bottom, 16)
                 }
-                .padding(.horizontal, 18)
+                .onTapGesture {
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
+                        vm.toggleExpand(sector.id)
+                    }
+                }
                 .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
         .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white.opacity(isExpanded ? 0.09 : 0.05))
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color(red: 0.078, green: 0.114, blue: 0.224).opacity(0.2))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 16)
+                    RoundedRectangle(cornerRadius: 20)
                         .stroke(
-                            isExpanded
-                                ? Color(red: 0.4, green: 0.6, blue: 1.0).opacity(0.35)
-                                : Color.clear,
+                            isExpanded ? accentBlue.opacity(0.3) : Color.clear,
                             lineWidth: 1
                         )
                 )
@@ -1101,6 +1180,16 @@ struct SectorRowCard: View {
     }
 }
 
+struct Triangle: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+        path.closeSubpath()
+        return path
+    }
+}
 // MARK: - Congrats View
 
 struct PortfolioCongratsView: View {
