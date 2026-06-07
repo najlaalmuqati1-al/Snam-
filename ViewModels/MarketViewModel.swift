@@ -1,9 +1,5 @@
-//
-//  MarketViewModel.swift
-//  Snam
-//
-//  Created by Jojo on 20/05/2026.
-//
+
+ 
 import Combine
 import Foundation
 
@@ -49,3 +45,4 @@ class MarketViewModel: ObservableObject {
     }
     
 }
+
