@@ -54,7 +54,7 @@ struct LevelsView: View {
                     VStack(alignment: .trailing, spacing: 0) {
 
                         // Header
-                        VStack(alignment: .trailing, spacing: 6) {
+                        VStack(alignment: .trailing, spacing: 21) {
                             Text("المراحل")
                                 .font(.system(size: 34, weight: .heavy))
                                 .foregroundColor(.white)
@@ -63,9 +63,9 @@ struct LevelsView: View {
                             Text("تقدم في رحلتك وتعلم لتنتهي من جميع المراحل")
                                 .font(.system(size: 16, weight: .regular))
                                 .foregroundColor(Color(hex: "#9B978D"))
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                        .padding(.trailing, 0)
+                        .padding(.leading, 0)
                         .padding(.horizontal, 24)
                         .padding(.top, 42)
                         .padding(.bottom, 20)
@@ -205,7 +205,9 @@ struct LevelCardView: View {
         HStack(spacing: 8) {
 
             // Shield على اليسار
-            ShieldWithDiamond(badge: level.badge);            Spacer()
+            ShieldWithDiamond(badge: level.badge);
+            
+            Spacer()
 
             // Text على اليمين
             VStack(alignment: .leading, spacing: 6) {
@@ -285,7 +287,7 @@ struct ShieldWithDiamond: View {
 
                 // الداياموند
                 DiamondView()
-                    .offset(x: 0, y: -8)
+                    .offset(x: 0, y: -1)
             }
             .frame(width: 63, height: 74)
 
@@ -301,35 +303,222 @@ struct ShieldWithDiamond: View {
                     .frame(width: 42, height: 12)
             }
             .frame(width: 42, height: 12)
-            .offset(y: -4)
+            .offset(y: -12)
         }
         .frame(width: 63)
     }
 }
-    
-
-// MARK: - Diamond
-
+// حطيتها كصورة جاهزة
+// جيد بس الجوودة منخفضة pdf جودتها افضل
 struct DiamondView: View {
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 3.88)
-                .fill(LinearGradient(colors: [Color(hex: "#0E1D55"), Color(hex: "#202C46"), Color(hex: "#FCFBE7"), Color(hex: "#0C2646"), Color(hex: "#0B152B")], startPoint: .topLeading, endPoint: .bottomTrailing))
-                .frame(width: 17.37, height: 17.37)
-
-            RoundedRectangle(cornerRadius: 2.58)
-                .fill(Color.black.opacity(0.2))
-                .frame(width: 14.74, height: 14.74)
-
-            RoundedRectangle(cornerRadius: 1.94)
-                .fill(LinearGradient(colors: [Color(hex: "#8C421D"), Color(hex: "#122F72"), Color(hex: "#FCFBE7"), Color(hex: "#0E1741"), Color(hex: "#101858")], startPoint: .topLeading, endPoint: .bottomTrailing))
-                .frame(width: 10.65, height: 10.65)
-        }
-        .frame(width: 30.29, height: 30.29)
-        .rotationEffect(.degrees(-45))
+        // الصورة الأساسية للبادج القادمة من الـ Assets
+        Image("Badgepdf")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 45.83, height: 45.83) // نفس الحجم الدقيق للتصميم المعتمد
+        
+        /* ملاحظة: إذا كانت الصورة المصدرة من فيقما مائلة أساساً بـ 45 درجة،
+         فالكود أعلاه يكفي. أما إذا كانت الصورة معتدلة وتريدين تدويرها داخل التطبيق،
+         احذفي التعليق عن السطر التالي:
+         */
+        // .rotationEffect(.degrees(45))
     }
 }
+/**
+ 
+ import SwiftUI
 
+ struct DiamondView: View {
+     var body: some View {
+         ZStack {
+
+             // MARK: - Rectangle 3 (17.37 x 17.37) - 5 fills
+             ZStack {
+                 // 1. Linear أزرق داكن
+                 LinearGradient(
+                     stops: [
+                         .init(color: Color(hex: "#0E1D55"), location: 0.1398),
+                         .init(color: Color(hex: "#202C46"), location: 0.3766),
+                         .init(color: Color(hex: "#FCFBE7"), location: 0.5296),
+                         .init(color: Color(hex: "#0C2646"), location: 0.7002),
+                         .init(color: Color(hex: "#0B152B"), location: 0.8677),
+                     ],
+                     startPoint: .topLeading,
+                     endPoint: .bottomTrailing
+                 )
+
+                 // 2. Linear ذهبي/بنفسجي
+                 LinearGradient(
+                     stops: [
+                         .init(color: Color(hex: "#9E8976"), location: 0.1543),
+                         .init(color: Color(hex: "#1C2D57"), location: 0.3062),
+                         .init(color: Color(hex: "#ABB2F6"), location: 0.4737),
+                         .init(color: Color(hex: "#4E5A9D"), location: 0.6296),
+                         .init(color: Color(hex: "#7670C9"), location: 0.8205),
+                         .init(color: Color(hex: "#172B85"), location: 0.9335),
+                     ],
+                     startPoint: .topLeading,
+                     endPoint: .bottomTrailing
+                 )
+
+                 // 3. Linear فضي/أبيض
+                 LinearGradient(
+                     stops: [
+                         .init(color: Color(hex: "#7A96AC"), location: 0.0228),
+                         .init(color: Color(hex: "#EAEFF3"), location: 0.198),
+                         .init(color: Color(hex: "#C2D4E1"), location: 0.3294),
+                         .init(color: Color(hex: "#FFFFFF"), location: 0.5016),
+                         .init(color: Color(hex: "#D4DEE5"), location: 0.6215),
+                         .init(color: Color(hex: "#ABBDC8"), location: 0.7869),
+                         .init(color: Color(hex: "#BCCAD7"), location: 0.9524),
+                     ],
+                     startPoint: .top,
+                     endPoint: .bottom
+                 )
+
+                 // 4. Diamond - وردي شفاف
+                 RadialGradient(
+                     stops: [
+                         .init(color: Color(hex: "#FF9FEA"), location: 0.0),
+                         .init(color: Color.white.opacity(0), location: 1.0),
+                     ],
+                     center: .init(x: 0.3094, y: 0.2313),
+                     startRadius: 0,
+                     endRadius: 12
+                 )
+
+                 // 5. Diamond - بنفسجي
+                 RadialGradient(
+                     stops: [
+                         .init(color: Color(hex: "#A349EF"), location: 0.4219),
+                         .init(color: Color(hex: "#FF65E6"), location: 1.0),
+                     ],
+                     center: .init(x: -0.1625, y: 0.7333),
+                     startRadius: 0,
+                     endRadius: 20
+                 )
+             }
+             .frame(width: 17.37, height: 17.37)
+             .clipShape(RoundedRectangle(cornerRadius: 3.88))
+             .overlay(
+                 RoundedRectangle(cornerRadius: 3.88)
+                     .strokeBorder(
+                         LinearGradient(
+                             colors: [Color.white.opacity(0.3), Color.white.opacity(0.05)],
+                             startPoint: .topLeading,
+                             endPoint: .bottomTrailing
+                         ),
+                         lineWidth: 0.65
+                     )
+             )
+             .rotationEffect(.degrees(-45))
+             .shadow(color: Color(hex: "#CDB8AD").opacity(0.25), radius: 10)
+             .shadow(color: Color(hex: "#806F67").opacity(0.34), radius: 9)
+
+             // MARK: - Rectangle 5 (14.74 x 14.74) - dark overlay
+             RoundedRectangle(cornerRadius: 2.58)
+                 .fill(Color.black.opacity(0.2))
+                 .frame(width: 14.74, height: 14.74)
+                 .rotationEffect(.degrees(-45))
+
+             // MARK: - Rectangle 4 (10.65 x 10.65) - 2 fills
+             ZStack {
+                 // 1. Linear بني/أزرق/ذهبي
+                 LinearGradient(
+                     stops: [
+                         .init(color: Color(hex: "#8C421D"), location: 0.0675),
+                         .init(color: Color(hex: "#122F72"), location: 0.3489),
+                         .init(color: Color(hex: "#FCFBE7"), location: 0.5307),
+                         .init(color: Color(hex: "#0E1741"), location: 0.7335),
+                         .init(color: Color(hex: "#101858"), location: 0.9325),
+                     ],
+                     startPoint: .topLeading,
+                     endPoint: .bottomTrailing
+                 )
+
+                 // 2. Diamond - بنفسجي
+                 RadialGradient(
+                     stops: [
+                         .init(color: Color(hex: "#A349EF"), location: 0.4219),
+                         .init(color: Color(hex: "#FF65E6"), location: 1.0),
+                     ],
+                     center: .init(x: -0.1625, y: 0.7333),
+                     startRadius: 0,
+                     endRadius: 12
+                 )
+             }
+             .frame(width: 10.65, height: 10.65)
+             .clipShape(RoundedRectangle(cornerRadius: 1.94))
+             .overlay(
+                 RoundedRectangle(cornerRadius: 1.94)
+                     .strokeBorder(
+                         LinearGradient(
+                             colors: [Color.white.opacity(0.3), Color.white.opacity(0.05)],
+                             startPoint: .topLeading,
+                             endPoint: .bottomTrailing
+                         ),
+                         lineWidth: 0.65
+                     )
+             )
+             .rotationEffect(.degrees(-45))
+             .shadow(color: .white.opacity(0.25), radius: 10)
+             .shadow(color: Color(hex: "#806F67"), radius: 9)
+         }
+         // MARK: - Diamond الخارجي (30.29 x 30.29)
+         .padding(6.46)
+         .frame(width: 30.29, height: 30.29)
+         .background(
+             LinearGradient(
+                 stops: [
+                     .init(color: Color.white.opacity(0), location: 0.6958),
+                     .init(color: Color.white.opacity(0.15), location: 1.0),
+                 ],
+                 startPoint: .top,
+                 endPoint: .bottom
+             )
+             .clipShape(RoundedRectangle(cornerRadius: 7.11))
+         )
+         .overlay(
+             RoundedRectangle(cornerRadius: 7.11)
+                 .strokeBorder(
+                     LinearGradient(
+                         stops: [
+                             .init(color: Color.white.opacity(0.28), location: 0.0),
+                             .init(color: Color.white.opacity(0.05), location: 0.5),
+                             .init(color: Color.white.opacity(0.28), location: 1.0),
+                         ],
+                         startPoint: .topLeading,
+                         endPoint: .bottomTrailing
+                     ),
+                     lineWidth: 0.65
+                 )
+         )
+         .shadow(color: Color.white.opacity(0.1), radius: 4, x: 0, y: 0)
+         .rotationEffect(.degrees(45))
+     }
+ }
+
+ extension Color {
+     init(hex: String) {
+         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+         var int: UInt64 = 0
+         Scanner(string: hex).scanHexInt64(&int)
+         let r = Double((int >> 16) & 0xFF) / 255
+         let g = Double((int >> 8)  & 0xFF) / 255
+         let b = Double(int         & 0xFF) / 255
+         self.init(red: r, green: g, blue: b)
+     }
+ }
+
+ #Preview {
+     ZStack {
+         Color.black
+         DiamondView()
+     }
+ }
+ 
+ */
 // MARK: - Badge
 
 struct BadgeView: View {
@@ -341,7 +530,8 @@ struct BadgeView: View {
             .foregroundColor(.white)
             .padding(.horizontal, 6)
             .padding(.vertical, 1)
-            .background(Color(hex: "#0D2357"))
+        RoundedRectangle(cornerRadius: 2)
+            .fill(Color.black)
             .cornerRadius(2)
     }
 }
