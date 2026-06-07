@@ -28,6 +28,34 @@ struct TradeSheetView: View {
 
             Color.black
                 .ignoresSafeArea()
+            if showSuccessToast {
+
+                VStack {
+
+                    HStack {
+
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(.green)
+
+                        Text(toastMessage)
+                            .foregroundColor(.white)
+
+                        Spacer()
+                    }
+                    .padding()
+                    .background(Color.black.opacity(0.95))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.white.opacity(0.08))
+                    )
+                    .cornerRadius(16)
+                    .padding(.horizontal, 20)
+
+                    Spacer()
+                }
+                .padding(.top, -40)
+                .zIndex(999)
+            }
 
             VStack(spacing: 24) {
 
@@ -48,53 +76,74 @@ struct TradeSheetView: View {
                 Text("سعر السهم")
                     .foregroundColor(.gray)
 
-                Text("\(vm.ownedShares[company.id, default: 0]) سهم")
-                    .foregroundColor(.white.opacity(0.7))
+                HStack(alignment: .top) {
 
-                HStack(spacing: 12) {
+                    VStack(alignment: .trailing, spacing: 40) {
 
-                    Button("بيع") {
-                        isBuy = false
+                        Text("الكمية التي تم تداولها مسبقاً")
+
+                        Text("نوع العملية")
+
+                        Text("الكمية المرادة")
                     }
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 40)
-                    .background(isBuy ? .clear : Color.white.opacity(0.15))
-                    .cornerRadius(20)
+                    .foregroundColor(.white)
+                    .font(.title3)
 
-                    Button("شراء") {
-                        isBuy = true
-                    }
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 40)
-                    .background(isBuy ? Color.white.opacity(0.15) : .clear)
-                    .cornerRadius(20)
+                    Spacer()
 
-                }
-                .foregroundColor(.white)
-                .padding(.horizontal)
+                    VStack(spacing: 28) {
 
-                HStack(spacing: 30) {
+                        Text("\(vm.ownedShares[company.id, default: 0]) من أسهم")
+                            .foregroundColor(.white)
 
-                    Button {
-                        if quantity > 1 {
-                            quantity -= 1
+                        HStack(spacing: 0) {
+
+                            Button("بيع") {
+                                isBuy = false
+                            }
+                            .frame(width: 90,height: 44)
+                            .background(isBuy ? .clear : Color.white.opacity(0.15))
+
+                            Button("شراء") {
+                                isBuy = true
+                            }
+                            .frame(width: 90,height: 44)
+                            .background(isBuy ? Color.white.opacity(0.15) : .clear)
                         }
-                    } label: {
-                        Image(systemName: "minus")
-                    }
+                        .foregroundColor(.white)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 22)
+                                .stroke(Color.white.opacity(0.15))
+                        )
+                        .clipShape(Capsule())
 
-                    Text("\(quantity)")
-                        .font(.title2.bold())
+                        HStack(spacing: 30) {
 
-                    Button {
-                        quantity += 1
-                    } label: {
-                        Image(systemName: "plus")
+                            Button {
+                                if quantity > 1 {
+                                    quantity -= 1
+                                }
+                            } label: {
+                                Image(systemName: "minus")
+                            }
+
+                            Text("\(quantity)")
+                                .font(.title2.bold())
+
+                            Button {
+                                quantity += 1
+                            } label: {
+                                Image(systemName: "plus")
+                            }
+                        }
+                        .foregroundColor(.white)
                     }
                 }
+                .padding(.horizontal,24)
+                .environment(\.layoutDirection, .rightToLeft)
                 .foregroundColor(.white)
 
-                Button {
+                PrimaryButton(title: isBuy ? "اشتر" : "بع") {
 
                     if isBuy {
 
@@ -130,74 +179,85 @@ struct TradeSheetView: View {
                             showErrorPopup = true
                         }
                     }
-
-                } label: {
-
-                    Text(isBuy ? "اشتر" : "بع")
-                        .font(.headline.bold())
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 56)
-                        .background(Color.blue)
-                        .cornerRadius(28)
-
                 }
                 .padding(.horizontal)
 
                 Spacer()
                             }
+            if showSuccessToast {
 
-                            if showSuccessToast {
-                                VStack {
-                                    HStack {
-                                        Image(systemName: "checkmark.circle.fill")
-                                            .foregroundColor(.green)
+                VStack {
 
-                                        Text(toastMessage)
-                                            .foregroundColor(.white)
+                    HStack {
 
-                                        Spacer()
-                                    }
-                                    .padding()
-                                    .background(Color.black.opacity(0.9))
-                                    .cornerRadius(12)
-                                    .padding()
+                        Button {
+                            showSuccessToast = false
+                        } label: {
+                            Image(systemName: "xmark")
+                                .foregroundColor(.white)
+                                .font(.title3)
+                        }
 
-                                    Spacer()
-                                }
-                            }
+                        Spacer()
 
-                            if showErrorPopup {
+                        Text(toastMessage)
+                            .foregroundColor(.white)
+                            .font(.headline)
 
-                                Color.black.opacity(0.4)
-                                    .ignoresSafeArea()
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(.green)
+                            .font(.title2)
 
-                                VStack(spacing: 16) {
+                    }
+                    .padding()
+                    .background(Color(red: 0.12, green: 0.12, blue: 0.12))
+                    .cornerRadius(16)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 8)
 
-                                    Text("عملية خاطئة")
-                                        .font(.headline)
-                                        .bold()
-                                        .foregroundColor(.white)
+                    Spacer()
+                }
+            }
 
-                                    Text(errorMessage)
-                                        .foregroundColor(.white.opacity(0.7))
-                                        .multilineTextAlignment(.center)
+            
 
-                                    Button("حسنًا") {
-                                        showErrorPopup = false
-                                    }
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 40)
-                                    .background(Color.blue)
-                                    .cornerRadius(8)
+            if showErrorPopup {
 
-                                }
-                                .padding()
-                                .frame(width: 280)
-                                .background(Color.black)
-                                .cornerRadius(16)
-                            }
+                Color.black.opacity(0.5)
+                    .ignoresSafeArea()
+
+                VStack(spacing: 20) {
+
+                    Text("عملية خاطئة")
+                        .font(.title2.bold())
+                        .foregroundColor(.white)
+
+                    Text(errorMessage)
+                        .foregroundColor(.white.opacity(0.8))
+                        .multilineTextAlignment(.center)
+
+                    HStack(spacing: 12) {
+
+                        Button("إلغاء") {
+                            showErrorPopup = false
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .background(Color.white.opacity(0.1))
+                        .foregroundColor(.white)
+                        .cornerRadius(25)
+
+                        PrimaryButton(title: "حسنًا") {
+                            showErrorPopup = false
+                        }
+                    }
+
+                }
+                .padding(24)
+                .frame(width: 320)
+                .background(Color.black)
+                .cornerRadius(28)
+            }
                         }
                     }
                 }
