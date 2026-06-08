@@ -3,7 +3,7 @@
 //  Snam
 //
 //  Created by Jojo on 07/06/2026.
-
+// اللوجك بسيط بس بنتظر تكتمل اللفلز اسوي مره وحده
 
 import SwiftUI
 
