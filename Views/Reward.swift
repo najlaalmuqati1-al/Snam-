@@ -176,65 +176,54 @@ struct PortfolioCongratsView: View {
 }
 
 // MARK: - Floating Coin
+// MARK: - Floating Coin
 
 struct CoinData {
+    let imageName: String
     let width: CGFloat
     let height: CGFloat
     let xOffset: CGFloat
     let yOffset: CGFloat
     let rotation: Double
+    let delay: Double
 }
 
 struct CongratsFloatingCoin: View {
     let index: Int
     @State private var fly = false
 
-    // بيانات كل عملة من الـ Figma
     private let coins: [CoinData] = [
-        // يمين — كبيرة مع rotation
-        CoinData(width: 172, height: 178, xOffset: 0,    yOffset: -260, rotation: 7.39),
-        // يمين فوق — صغيرة
-        CoinData(width: 114, height: 93,  xOffset: 110,  yOffset: -320, rotation: -25),
-        // يمين وسط
-        CoinData(width: 113, height: 92,  xOffset: 130,  yOffset: -240, rotation: -15),
-        // يمين تحت
-        CoinData(width: 114, height: 80,  xOffset: 100,  yOffset: -180, rotation: 10),
-        // يسار فوق — صغيرة
-        CoinData(width: 86,  height: 93,  xOffset: -120, yOffset: -300, rotation: 30),
-        // يسار وسط
-        CoinData(width: 85,  height: 92,  xOffset: -140, yOffset: -220, rotation: 20),
-        // يسار تحت
-        CoinData(width: 86,  height: 80,  xOffset: -110, yOffset: -160, rotation: -10),
-        // وسط فوق
-        CoinData(width: 60,  height: 60,  xOffset: -30,  yOffset: -340, rotation: 5),
-        // وسط يمين
-        CoinData(width: 50,  height: 50,  xOffset: 60,   yOffset: -350, rotation: -20),
-        // وسط يسار
-        CoinData(width: 50,  height: 50,  xOffset: -60,  yOffset: -350, rotation: 15),
-        // تحت يمين
-        CoinData(width: 45,  height: 45,  xOffset: 150,  yOffset: -150, rotation: -5),
-        // تحت يسار
-        CoinData(width: 45,  height: 45,  xOffset: -150, yOffset: -150, rotation: 8),
+        // يمين
+        CoinData(imageName: "1", width: 75, height: 75, xOffset:  60,  yOffset: -80,  rotation: -5,  delay: 0.0),
+        CoinData(imageName: "2", width: 70, height: 70, xOffset:  120, yOffset: -150, rotation: 15,  delay: 0.25),
+        CoinData(imageName: "3", width: 72, height: 72, xOffset:  90,  yOffset: -20,  rotation: -20, delay: 0.5),
+        CoinData(imageName: "4", width: 68, height: 68, xOffset:  150, yOffset: -100, rotation: 10,  delay: 0.75),
+        CoinData(imageName: "5", width: 38, height: 65, xOffset:  40,  yOffset: 50,   rotation: -35, delay: 1.0), // ← الأدنى
+
+        // يسار
+        CoinData(imageName: "1", width: 75, height: 75, xOffset: -60,  yOffset: -80,  rotation: 5,   delay: 0.0),
+        CoinData(imageName: "2", width: 70, height: 70, xOffset: -120, yOffset: -150, rotation: -15, delay: 0.25),
+        CoinData(imageName: "3", width: 72, height: 72, xOffset: -90,  yOffset: -20,  rotation: 20,  delay: 0.5),
+        CoinData(imageName: "4", width: 68, height: 68, xOffset: -150, yOffset: -100, rotation: -10, delay: 0.75),
+        CoinData(imageName: "5", width: 38, height: 65, xOffset: -40,  yOffset: 50,   rotation: 35,  delay: 1.0), // ← الأدنى
     ]
 
     var body: some View {
         let coin = coins[index % coins.count]
 
-        Image("currency")
+        Image(coin.imageName)
             .resizable()
             .scaledToFit()
-            .frame(width: coin.width * 1.5, height: coin.height * 1.5)
+            .frame(width: coin.width, height: coin.height)
             .rotationEffect(.degrees(coin.rotation))
-            .opacity(fly ? 0 : 1.0)
-            .blur(radius: fly ? 8 : 0)
+            .opacity(fly ? 1 : 0)
             .offset(
                 x: fly ? coin.xOffset : 0,
-                y: fly ? coin.yOffset : 0
+                y: fly ? coin.yOffset : -UIScreen.main.bounds.height * 0.6  // تبدأ من فوق
             )
-            .scaleEffect(fly ? 1 : 1.5)
             .animation(
-                .spring(response: 1.4, dampingFraction: 0.75)
-                .delay(Double(index) * 0.08),
+                .spring(response: 2.5, dampingFraction: 0.85)
+                .delay(coin.delay),
                 value: fly
             )
             .onAppear {
@@ -245,5 +234,8 @@ struct CongratsFloatingCoin: View {
     }
 }
 #Preview {
-    PortfolioRootView()
+    PortfolioCongratsView(vm: {
+        let vm = PortfolioViewModel()
+        return vm
+    }())
 }

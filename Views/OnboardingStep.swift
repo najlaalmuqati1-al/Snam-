@@ -382,6 +382,7 @@
 //#Preview {
 //    SanamOnboardingView()
 //}
+
 import SwiftUI
 
 // 1. هيكل البيانات للشاشات
