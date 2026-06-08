@@ -4,6 +4,7 @@
 //
 //  Created by Jojo on 03/06/2026.
 //الخلفيه وحجم المكعب
+
 import SwiftUI
 import SceneKit
 
@@ -16,18 +17,18 @@ struct ContentView: View {
         ZStack {
             // Background
             // هذه الوان الخلفيه من الappcolor
-            RadialGradient.appBackground
-                .ignoresSafeArea()
-           /* Image("background")
+            /*   RadialGradient.appBackground
+                .ignoresSafeArea()*/
+            Image("background")
                 .resizable()
                 .scaledToFill()
-                .ignoresSafeArea()*/
+               // .ignoresSafeArea()
             // زر "انتهيت" في الأسفل
             VStack {
                 Spacer()
                 if vm.showDoneButton {
                     PrimaryButton(title: "انتهيت", action: vm.didTapDone)
-                        .padding(.bottom, 32)
+                        .padding(.bottom, 82)
                         .transition(.opacity)
                 }
             }
@@ -37,42 +38,54 @@ struct ContentView: View {
 
                 // Header
                 ZStack {
-                    Text("عنوان")
+                    Text("المستثمر الطموح")
                         .foregroundColor(.white)
                         .font(.system(size: 18, weight: .semibold))
                         .frame(maxWidth: .infinity, alignment: .center)
                     HStack {
-                        Spacer()
                         Button(action: {}) {
                             Image(systemName: "chevron.right")
                                 .foregroundColor(.white)
-                                .padding(10)
-                                .background(Color.white.opacity(0.15))
-                                .clipShape(Circle())
+                                .font(.system(size: 22, weight: .medium))
+                                .frame(width: 17, height: 14)
                         }
+                        .frame(width: 44, height: 44)
+                        .background(Color.black.opacity(0.2))
+                        .clipShape(Circle())
+                        Spacer()
                     }
                 }
                 .padding(.horizontal, 24)
-                .padding(.top, 16)
-
-                Spacer()
+                .padding(.top, 32)// المسافج بين الستاتس والهيدر
 
                 // المكعب
-                CubeView(faces: vm.faces, onFaceChanged: vm.faceChanged)
-                    .frame(width: 325, height: 325)
+                
+                    .padding(.top, 64)// المسافة بين الستاتس والهيدر
 
+                    Spacer() // ← يدفع المكعب للمنتصف
+                    .frame(maxHeight: 150) // نوعا ما بالنص
+
+                    // المكعب
+                    CubeView(faces: vm.faces, onFaceChanged: vm.faceChanged)
+                        .frame(width: 325, height: 325)
+
+                  //  Spacer() // ← يدفع المكعب للمنتصف
                 // Hint
+                
                 ZStack {
+                    
                     if vm.showHint {
                         HStack(spacing: 6) {
-                            Text("👆")
+                            Image(systemName: "hand.tap") // مب نفسها بس اقرب وحده لقيتها
                             Text("حرك المكعب يمين و يسار")
                                 .foregroundColor(.white.opacity(0.5))
                                 .font(.system(size: 14))
                         }
                         .transition(.opacity)
                     }
+                    
                 }
+                Spacer()
                 .frame(height: 28)
                 .padding(.top, 12)
 
@@ -112,7 +125,9 @@ struct CubeView: UIViewRepresentable {
         camera.zNear = 0.1
         camera.zFar = 100
         cameraNode.camera = camera
-        cameraNode.position = SCNVector3(0, 0, 3)
+        cameraNode.position = SCNVector3(0, 0.6, 3)
+        cameraNode.look(at: SCNVector3(0, 0, 0))
+
         scene.rootNode.addChildNode(cameraNode)
 
         // Light
@@ -136,8 +151,9 @@ struct CubeView: UIViewRepresentable {
         let cube = SCNBox(width: 2.2, height: 2.2, length: 2.2, chamferRadius: 0.12)
         let sideMaterials = faces.map { faceMaterial(face: $0) }
         let empty = emptyFaceMaterial()
-        cube.materials = sideMaterials + [empty, empty]
-
+        let topFace = emptyFaceMaterial()
+        let bottomFace = faceMaterial(face: CubeFace(title: "عنوان", subtitle: "نص", icon: .empty))
+        cube.materials = sideMaterials + [topFace, bottomFace]
         let cubeNode = SCNNode(geometry: cube)
         cubeNode.name = "cube"
         scene.rootNode.addChildNode(cubeNode)
@@ -220,19 +236,23 @@ struct CubeView: UIViewRepresentable {
             let titleStyle = NSMutableParagraphStyle()
             titleStyle.alignment = .center
             titleStyle.lineBreakMode = .byWordWrapping
-            face.title.draw(in: CGRect(x:20,y:35,width:460,height:120), withAttributes: [
-                .font: UIFont.boldSystemFont(ofSize: 42),
+            face.title.draw(in: CGRect(x: 40, y: 60, width: 420, height: 100), withAttributes: [
+                .font: UIFont.boldSystemFont(ofSize: 30), // تم تصغير الخط من 42 إلى 34
                 .foregroundColor: UIColor.white,
                 .paragraphStyle: titleStyle
             ])
 
+            // الجديد بعد تصغير الـ Rect الخاص بكل أيقونة:
             switch face.icon {
             case .pieChart:
-                drawPieChart(ctx: cgCtx, rect: CGRect(x:100,y:160,width:300,height:200))
+//بحكم اختلاف الايكونز صار في اختلاف باحجامها
+                drawPieChart(ctx: cgCtx, rect: CGRect(x: 140, y: 175, width: 240, height: 180))
             case .trendingUp:
-                drawTrendingUp(ctx: cgCtx, rect: CGRect(x:60,y:155,width:380,height:210))
+                // صغرنا الأبعاد من (380, 210) إلى (280, 160)
+                drawTrendingUp(ctx: cgCtx, rect: CGRect(x: 110, y: 170, width: 220, height: 150))
             case .trendingDown:
-                drawTrendingDown(ctx: cgCtx, rect: CGRect(x:60,y:155,width:380,height:210))
+                // صغرنا الأبعاد من (380, 210) إلى (280, 160)
+                drawTrendingDown(ctx: cgCtx, rect: CGRect(x: 110, y: 170, width: 220, height: 150))
             case .empty:
                 break
             }

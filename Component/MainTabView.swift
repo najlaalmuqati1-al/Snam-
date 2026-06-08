@@ -3,7 +3,7 @@
 //  Snam
 //
 //  Created by Najla Almuqati on 28/11/1447 AH.
-//
+
 import SwiftUI
 
 // MARK: - Tab Items
@@ -72,7 +72,7 @@ struct CustomTabBar: View {
                 )
             }
         }
-        .frame(width: 286, height: 54)
+        .fixedSize()
         .background(
             ZStack {
                 // Blur background
@@ -108,13 +108,11 @@ struct CustomTabBar: View {
         )
         .shadow(color: .black.opacity(0.3), radius: 10, x: 0, y: 4)
         .padding(.bottom, 32)
-        .frame(maxWidth: .infinity)
-        .background(Color(hex: "#0A0401").opacity(0.85))
     }
 }
 
 // MARK: - Tab Item View
-
+// MARK: - Tab Item View
 struct TabItemView: View {
     let tab: TabItem
     let isActive: Bool
@@ -125,37 +123,72 @@ struct TabItemView: View {
     }
 
     var body: some View {
-        Button(action: action) {
-            VStack(spacing: 1) {
-                Image(systemName: tab.icon)
-                    .font(.system(size: 17, weight: isActive ? .semibold : .regular))
-                    .frame(width: 86, height: 28)
-                    .blendMode(isActive ? .normal : .plusLighter)
+        VStack(spacing: 1) {
+            Image(systemName: tab.icon)
+                .font(.system(size: 17, weight: isActive ? .semibold : .regular))
+                .frame(width: 86, height: 28)
+                .blendMode(isActive ? .normal : .plusLighter)
 
-                Text(tab.title)
-                    .font(.system(size: 10, weight: isActive ? .bold : .medium))
-                    .frame(width: 86, height: 12)
-                    .blendMode(isActive ? .normal : .plusLighter)
-            }
-            .foregroundColor(color)
-            .frame(width: 102, height: 54)
-            .background(
-                isActive
-                ? Capsule()
-                    .fill(Color(hex: "#121212"))
-                    .blendMode(.plusLighter)
-                : nil
+            Text(tab.title)
+                .font(.custom("SF Arabic", size: 10))
+                .fontWeight(isActive ? .bold : .medium)
+                .frame(width: 86, height: 12)
+                .blendMode(isActive ? .normal : .plusLighter)
+        }
+        .foregroundColor(color)
+        .frame(width: 102, height: 54)
+        .background(
+            isActive
+            ? AnyView(
+                ZStack {
+                    Capsule()
+                        .fill(Color(hex: "#121212"))
+                        .blendMode(.plusLighter)
+
+                    Capsule()
+                        .fill(.ultraThinMaterial)
+                        .blendMode(.plusLighter)
+                        .opacity(0.3)
+
+                    Capsule()
+                        .fill(
+                            LinearGradient(
+                                gradient: Gradient(stops: [
+                                    .init(color: Color.white.opacity(0.12), location: 0),
+                                    .init(color: Color.white.opacity(0.04), location: 1)
+                                ]),
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .blendMode(.hardLight)
+
+                    Capsule()
+                        .strokeBorder(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color.white.opacity(0.15),
+                                    Color.white.opacity(0.05)
+                                ]),
+                                startPoint: .top,
+                                endPoint: .bottom
+                            ),
+                            lineWidth: 0.5
+                        )
+                }
+                .frame(width: 90, height: 46)
             )
+            : AnyView(EmptyView())
+        )
+        .contentShape(Capsule())
+        .onTapGesture {
+            action()
         }
     }
 }
-
 
 // MARK: - Preview
 
 #Preview {
     MainTabView()
 }
-//#Preview {
-//    ContentView()
-//}

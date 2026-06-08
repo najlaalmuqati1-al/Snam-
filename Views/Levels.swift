@@ -48,8 +48,9 @@ struct LevelsView: View {
     @State private var currentLevel: Int = 2
 
     var body: some View {
-        Color(hex: "#0A0401").ignoresSafeArea()
-            .overlay(
+        Image("background")
+            .resizable()
+            .scaledToFill()            .overlay(
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .trailing, spacing: 0) {
 
@@ -65,9 +66,9 @@ struct LevelsView: View {
                                 .foregroundColor(Color(hex: "#9B978D"))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        .padding(.leading, 0)
+                        .padding(.leading, 24)
                         .padding(.horizontal, 24)
-                        .padding(.top, 42)
+                        .padding(.top, 90)
                         .padding(.bottom, 20)
 
                         LevelsListView(levels: levels, currentLevel: currentLevel)
@@ -317,17 +318,13 @@ struct DiamondView: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 45.83, height: 45.83) // نفس الحجم الدقيق للتصميم المعتمد
-        
-        /* ملاحظة: إذا كانت الصورة المصدرة من فيقما مائلة أساساً بـ 45 درجة،
-         فالكود أعلاه يكفي. أما إذا كانت الصورة معتدلة وتريدين تدويرها داخل التطبيق،
-         احذفي التعليق عن السطر التالي:
-         */
+   
         // .rotationEffect(.degrees(45))
     }
 }
 /**
  
- import SwiftUI
+
 
  struct DiamondView: View {
      var body: some View {
