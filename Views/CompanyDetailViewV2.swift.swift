@@ -1,137 +1,3 @@
-//
-//  CompanyDetailViewV2.swift.swift
-//  Snam
-//
-//  Created by Najla Almuqati on 20/12/1447 AH.
-//
-
-//import SwiftUI
-//
-//struct CompanyDetailViewV2: View {
-//
-//    let company: Company
-//    @ObservedObject var vm: MarketViewModelNew
-//
-//    @Environment(\.dismiss) var dismiss
-//
-//    @State private var showTradeSheet = false
-//
-//    var body: some View {
-//
-//        ZStack {
-//
-//            Image("background")
-//                .resizable()
-//                .scaledToFill()
-//                .ignoresSafeArea()
-//
-//            VStack(spacing: 0) {
-//
-//                // Header
-//                HStack {
-//
-//                    Button {
-//                        dismiss()
-//                    } label: {
-//                        Image(systemName: "chevron.left")
-//                            .foregroundColor(.white)
-//                            .frame(width: 50,height: 50)
-//                            .background(Color.white.opacity(0.06))
-//                            .clipShape(Circle())
-//                    }
-//
-//                    Spacer()
-//
-//                    Text(company.fakeName)
-//                        .font(.headline)
-//                        .foregroundColor(.white)
-//                }
-//                .padding()
-//
-//                Spacer()
-//
-//                // Company Info
-//                HStack {
-//
-//                    VStack(alignment: .trailing) {
-//
-//                        Text(company.fakeName)
-//                            .font(.title2.bold())
-//                            .foregroundColor(.white)
-//
-//                        Text(sectorArabicNew(company.sector))
-//                            .foregroundColor(.gray)
-//                    }
-//
-//                    Spacer()
-//
-//                    Circle()
-//                        .fill(Color.white.opacity(0.08))
-//                        .frame(width: 60,height: 60)
-//                        .overlay(
-//                            Text(company.icon)
-//                        )
-//                }
-//                .padding(.horizontal)
-//
-//                HStack {
-//
-//                    Spacer()
-//
-//                    Text(
-//                        company.stock.changePercent >= 0
-//                        ? "+\(String(format: "%.2f", company.stock.changePercent))%"
-//                        : "\(String(format: "%.2f", company.stock.changePercent))%"
-//                    )
-//                    .foregroundColor(.green)
-//                    .font(.title3.bold())
-//                }
-//                .padding(.horizontal)
-//
-//                // الفترات
-//                HStack(spacing: 24) {
-//
-//                    Text("1ي")
-//                    Text("1س")
-//                    Text("1ش")
-//                    Text("3ش")
-//                    Text("6ش")
-//                    Text("1س")
-//
-//                }
-//                .foregroundColor(.white.opacity(0.8))
-//                .padding(.top, 20)
-//
-//                MarketBigChartView(
-//                    prices: company.chartData.timeframes.oneDay.map { $0.price }
-//                )
-//                .frame(height: 260)
-//                .padding()
-//
-//                Spacer()
-//
-//                Button {
-//
-//                    showTradeSheet = true
-//
-//                } label: {
-//
-//                    Text("تداول")
-//                        .font(.system(size: 22, weight: .bold))
-//                        .foregroundColor(.white)
-//                        .frame(maxWidth: .infinity)
-//                        .frame(height: 60)
-//                        .background(Color.blue.opacity(0.8))
-//                        .cornerRadius(30)
-//
-//                }
-//                .padding(.horizontal,24)
-//                .padding(.bottom,30)
-//
-//            }
-//        }
-//    }
-//}
 import SwiftUI
 
 struct CompanyDetailViewV2: View {
@@ -142,6 +8,28 @@ struct CompanyDetailViewV2: View {
     @State private var showInfo = false
     @State private var showSuccessBanner = false
     @State private var bannerMessage = ""
+    @State private var hasSeenDetailTutorial = false
+    @State private var detailTutorialStep = 0
+    @Environment(\.dismiss) var dismiss
+    func tutorialBubble(_ text: String) -> some View {
+
+        VStack(spacing: 0) {
+
+            Text(text)
+                .font(.headline)
+                .foregroundColor(.black)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 14)
+                .background(Color.white)
+                .cornerRadius(16)
+
+            Image(systemName: "triangle.fill")
+                .font(.system(size: 12))
+                .foregroundColor(.white)
+                .rotationEffect(.degrees(180))
+                .offset(x: 70,y: -3)
+        }
+    }
     var body: some View {
         
         
@@ -151,18 +39,89 @@ struct CompanyDetailViewV2: View {
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
-            if showSuccessBanner {
-
+            
+            if !hasSeenDetailTutorial {
+                
+                Color.black.opacity(0.65)
+                    .ignoresSafeArea()
+                
                 VStack {
+                    
+                    switch detailTutorialStep {
+                        
+                    case 0:
+                        tutorialBubble("هذا سعر السهم الحالي")
+                            .offset(x: 95, y: 105)
+                        
+                    case 1:
+                        tutorialBubble("هنا يمكنك متابعة حركة السهم")
+                            .offset(x: 0, y: 310)
+                        
+                    case 2:
+                        tutorialBubble("اضغط هنا لمعرفة المؤشرات")
+                            .offset(x: 80, y: 500)
+                        
+                    case 3:
+                        tutorialBubble("من هنا تستطيع شراء وبيع الأسهم")
+                            .offset(x: 0, y: 680)
+                        
+                    case 4:
 
+                        ZStack {
+
+                            Color.black.opacity(0.35)
+                                .ignoresSafeArea()
+
+                            VStack(spacing: 28) {
+
+
+                                Text("الآن يمكنك التداول، جرّب بنفسك")
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+
+                                PrimaryButton(title: "ابدأ") {
+                                    hasSeenDetailTutorial = true
+
+                                        dismiss()
+
+                                    hasSeenDetailTutorial = true
+
+                                }
+                                .frame(width: 220)
+                            }
+                            .padding(.vertical, 40)
+                            .padding(.horizontal, 35)
+                            .background(
+                                RoundedRectangle(cornerRadius: 35)
+                                    .fill(Color.black.opacity(0.9))
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 35)
+                                    .stroke(Color.white.opacity(0.2))
+                            )
+                        }
+                        
+                    default:
+                        EmptyView()
+                    }
+                    
+                    Spacer()
+                }
+                .zIndex(999)
+            }
+            if showSuccessBanner {
+                
+                VStack {
+                    
                     HStack {
-
+                        
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundColor(.green)
-
+                        
                         Text(bannerMessage)
                             .foregroundColor(.white)
-
+                        
                         Spacer()
                     }
                     .padding()
@@ -170,7 +129,7 @@ struct CompanyDetailViewV2: View {
                     .cornerRadius(16)
                     .padding(.horizontal,20)
                     .padding(.top,10)
-
+                    
                     Spacer()
                 }
                 .zIndex(999)
@@ -180,7 +139,7 @@ struct CompanyDetailViewV2: View {
                 
                 
                 HStack(spacing: 12) {
-
+                    
                     Circle()
                         .fill(Color.white.opacity(0.08))
                         .frame(width: 60, height: 60)
@@ -188,18 +147,18 @@ struct CompanyDetailViewV2: View {
                             Text(company.icon)
                                 .font(.title2)
                         )
-
+                    
                     VStack(alignment: .trailing, spacing: 4) {
-
+                        
                         Text(company.fakeName)
                             .font(.title2)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
-
+                        
                         Text(sectorArabicNew(company.sector))
                             .foregroundColor(.gray)
                     }
-
+                    
                     Spacer()
                 }
                 .padding(.horizontal,24)
@@ -372,14 +331,39 @@ struct CompanyDetailViewV2: View {
                         .padding()
                         
                         Spacer()
+                        
                     }
                     .presentationDetents([.medium])
                     .presentationBackground(.black)
-                }
                 
-            }
-        }
+            
+        
+            
+            
+    
     }
     
-    
+  }
 }
+.onAppear {
+
+guard !hasSeenDetailTutorial else { return }
+
+    Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
+
+        if detailTutorialStep < 4 {
+
+            detailTutorialStep += 1
+
+        } else {
+
+            timer.invalidate()
+        }
+    }
+}
+}
+}
+    
+
+    
+
