@@ -35,15 +35,12 @@ struct WalletView: View {
                 
                 
                 VStack(spacing: 24) {
-                }
-                .padding(.top, 20)
                     
                     ZStack {
 
                         Text("المال الحلال")
-                            .font(.system(size: 24, weight: .semibold))
+                            .font(.system(size: 22, weight: .semibold))
                             .foregroundColor(.white)
-                            .padding(.top, 12)
 
                         HStack {
 
@@ -54,22 +51,26 @@ struct WalletView: View {
                             } label: {
 
                                 Circle()
-                                    .fill(Color.white.opacity(0.08))
+                                    .fill(Color.black.opacity(0.2))
                                     .frame(width: 44, height: 44)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                                    )
                                     .overlay(
                                         Image(systemName: "chevron.right")
                                             .foregroundColor(.white)
-                                            .font(.system(size: 22, weight: .medium))
+                                            .font(.system(size: 22, weight: .regular))
                                     )
                             }
                         }
                     }
                     .padding(.horizontal, 24)
                     .padding(.top, 52)
-                
-                Color.clear
-                    .frame(height: 50)
-                
+                    
+                    Color.clear
+                        .frame(height: 50)
+                    
                     RoundedRectangle(cornerRadius: 20)
                         .fill(Color.black.opacity(0.2))
                         .frame(height: 85)
@@ -91,18 +92,18 @@ struct WalletView: View {
                                 Spacer()
                                 
                                 HStack(alignment: .top, spacing: 8) {
-
+                                    
                                     VStack(spacing: 0) {
-
+                                        
                                         Text("100")
                                             .font(.system(size: 22, weight: .medium))
                                             .foregroundColor(.white)
-
+                                        
                                         Text("سنام")
                                             .font(.system(size: 9))
                                             .foregroundColor(.gray)
                                     }
-
+                                    
                                     Text("شارك سهم مع ربعك وتبرع\nفي محفظتك")
                                         .font(.system(size: 18, weight: .semibold))
                                         .multilineTextAlignment(.trailing)
@@ -116,7 +117,7 @@ struct WalletView: View {
                                 .stroke(Color.white.opacity(0.15))
                         )
                         .padding(.horizontal)
-                Color.clear
+                    Color.clear
                         .frame(height: 12)
                     
                     
@@ -162,7 +163,7 @@ struct WalletView: View {
                         )
                     }
                 }
-    
+                
                 .padding(.horizontal)
             }
             .padding(.top, 20)
@@ -172,6 +173,7 @@ struct WalletView: View {
         
     }
     
-
     
-
+    
+    
+}

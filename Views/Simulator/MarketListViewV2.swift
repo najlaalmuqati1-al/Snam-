@@ -9,8 +9,8 @@ struct MarketListViewV2: View {
     @State private var selectedSector = "الكل"
 //    @AppStorage("hasSeenTutorial") var hasSeenTutorial = false
     @State private var tutorialStep = 0
-    @State private var hasSeenTutorial = false
-   
+    @AppStorage("hasCompletedTutorial")
+    private var hasCompletedTutorial = false
 
     var displayedCompanies: [Company] {
 
@@ -47,6 +47,7 @@ struct MarketListViewV2: View {
             }
             .padding(.horizontal, 24)
         }
+        
     }
     func tutorialBubble(_ text: String) -> some View {
 
@@ -71,14 +72,14 @@ struct MarketListViewV2: View {
         NavigationStack {
             
             ZStack {
-                
                 Image("background")
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
-                if !hasSeenTutorial {
+                
+                if !hasCompletedTutorial {
 
-                    Color.black.opacity(0.55)
+                    Color.black.opacity(0.100)
                         .ignoresSafeArea()
 
                     VStack {
@@ -115,7 +116,7 @@ struct MarketListViewV2: View {
 
                         HStack {
 
-                            VStack(spacing: 18) {
+                            VStack(spacing: 8) {
 
                                 filterButton("الكل")
                                 filterButton("قطاع الطاقة")
@@ -123,18 +124,24 @@ struct MarketListViewV2: View {
                                 filterButton("قطاع الاتصالات")
                                 filterButton("قطاع التقنية")
                             }
-                            .padding(.vertical, 20)
-                            .frame(width: 260)
-                            .background(Color.black.opacity(0.95))
-                            .cornerRadius(28)
+                            .padding(.vertical, 10)
+                            .frame(width: 238)
+                            .background(
+                                RoundedRectangle(cornerRadius: 34)
+                                    .fill(Color.black.opacity(0.93))
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 34)
+                                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                            )
 
                             Spacer()
                         }
+                        .padding(.leading, 20)   // ← زيدي أو نقصي هنا فقط
 
                         Spacer()
                     }
                     .padding(.top, 140)
-                    .padding(.leading, 20)
                     .zIndex(999)
                 }
                 VStack {
@@ -153,11 +160,18 @@ struct MarketListViewV2: View {
                             }
                                 
                             } label: {
-                                Image(systemName: "line.3.horizontal")
+                                Image(systemName: "line.3.horizontal.decrease")
                                     .foregroundColor(.white)
-                                    .frame(width: 50, height: 50)
-                                    .background(Color.white.opacity(0.08))
-                                    .clipShape(Circle())
+                                    .font(.system(size: 22, weight: .regular))
+                                    .frame(width: 44, height: 44)
+                                    .background(
+                                        Circle()
+                                            .fill(Color.black.opacity(0.2))
+                                    )
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                                    )
                             }
                     
                         }
@@ -196,7 +210,7 @@ struct MarketListViewV2: View {
                     .environment(\.layoutDirection, .rightToLeft)
                     .onAppear {
                 
-                guard !hasSeenTutorial else { return }
+                        guard !hasCompletedTutorial else { return }
 
                 Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
 

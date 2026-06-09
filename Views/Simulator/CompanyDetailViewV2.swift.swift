@@ -8,13 +8,14 @@ struct CompanyDetailViewV2: View {
     @State private var showInfo = false
     @State private var showSuccessBanner = false
     @State private var bannerMessage = ""
-    @State private var hasSeenDetailTutorial = false
+    @AppStorage("hasCompletedTutorial")
+    private var hasCompletedTutorial = false
     @State private var detailTutorialStep = 0
     @Environment(\.dismiss) var dismiss
     func tutorialBubble(_ text: String) -> some View {
-
+        
         VStack(spacing: 0) {
-
+            
             Text(text)
                 .font(.headline)
                 .foregroundColor(.black)
@@ -22,7 +23,7 @@ struct CompanyDetailViewV2: View {
                 .padding(.vertical, 14)
                 .background(Color.white)
                 .cornerRadius(16)
-
+            
             Image(systemName: "triangle.fill")
                 .font(.system(size: 12))
                 .foregroundColor(.white)
@@ -41,7 +42,7 @@ struct CompanyDetailViewV2: View {
                 .ignoresSafeArea()
                 .navigationBarBackButtonHidden(true)
             
-            if !hasSeenDetailTutorial {
+            if !hasCompletedTutorial {
                 
                 Color.black.opacity(0.65)
                     .ignoresSafeArea()
@@ -67,27 +68,25 @@ struct CompanyDetailViewV2: View {
                             .offset(x: 0, y: 680)
                         
                     case 4:
-
+                        
                         ZStack {
-
+                            
                             Color.black.opacity(0.35)
                                 .ignoresSafeArea()
-
+                            
                             VStack(spacing: 28) {
-
-
+                                
+                                
                                 Text("الآن يمكنك التداول، جرّب بنفسك")
                                     .font(.title3)
                                     .fontWeight(.bold)
                                     .foregroundColor(.white)
-
+                                
                                 PrimaryButton(title: "ابدأ") {
-                                    hasSeenDetailTutorial = true
-
-                                        dismiss()
-
-                                    hasSeenDetailTutorial = true
-
+                                    
+                                    hasCompletedTutorial = true
+                                    
+                                    dismiss()
                                 }
                                 .frame(width: 220)
                             }
@@ -138,30 +137,51 @@ struct CompanyDetailViewV2: View {
             
             VStack(spacing: 0) {
                 HStack {
-
+                    
                     NavigationLink {
                         WalletView()
                     } label: {
-
-                        Image("wallet")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 120, height: 44)
+                        
+                        ZStack {
+                            
+                            RoundedRectangle(cornerRadius: 900)
+                                .fill(Color.black.opacity(0.55))
+                                .frame(width: 94, height: 44)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 900)
+                                        .stroke(Color.white.opacity(0.06), lineWidth: 1)
+                                )
+                            HStack(spacing: 8) {
+                                
+                                Image("wallet")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                                
+                                Text("٠٠.٠٠")
+                                    .font(.system(size: 17, weight: .semibold))
+                                    .foregroundColor(.white)
+                            }
+                        }
                     }
-
+                    
                     Spacer()
-
+                    
                     Button {
                         dismiss()
                     } label: {
-
+                        
                         Circle()
-                            .fill(Color.white.opacity(0.08))
-                            .frame(width: 60, height: 60)
+                            .fill(Color.black.opacity(0.2))
+                            .frame(width: 44, height: 44)
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                            )
                             .overlay(
                                 Image(systemName: "chevron.right")
-                                    .font(.title2)
                                     .foregroundColor(.white)
+                                    .font(.system(size: 22, weight: .regular))
                             )
                     }
                 }
@@ -262,50 +282,48 @@ struct CompanyDetailViewV2: View {
                     .padding(.bottom, 10)
                     
                     //                    Spacer()
-                    HStack {
-                        
-                        Spacer()
-                        
-                        Button {
-                            showInfo = true
-                        } label: {
-                            Image(systemName: "exclamationmark.circle.fill")
-                                .font(.title2)
-                                .foregroundColor(.white.opacity(0.8))
+                    Button {
+                        showInfo = true
+                    } label: {
+
+                        ZStack {
+
+                            Circle()
+                                .fill(Color.black.opacity(0.2))
+                                .frame(width: 22, height: 22)
+
+                            Text("!")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.white)
                         }
                     }
-                    .padding(.horizontal,24)
-                    HStack(alignment: .top) {
+                    .offset(x: 180) // إذا تبينها يمين شوي
+                    HStack(alignment: .top, spacing: 24)
+                    
+                    {
                         
-                        VStack(alignment: .trailing, spacing: 16) {
-                            
-                            Text("إفتتاح")
-                            Text("الأعلى")
-                            Text("الأدنى")
-                            
-                        }
+                        statisticsColumn(
+                            values: ["٠٠،٠٠", "٠٠،٠٠", "٠٠،٠٠"],
+                            titles: ["إفتتاح", "الأعلى", "الأدنى"]
+                        )
                         
-                        Spacer()
+                        Divider()
+                            .frame(height: 80)
                         
-                        VStack(alignment: .center, spacing: 16) {
-                            
-                            Text("إغلاق سابق")
-                            Text("عدد الصفقات")
-                            Text("متوسط كمية الصفقة")
-                            
-                        }
+                        statisticsColumn(
+                            values: ["٠٠،٠٠", "٠٠،٠٠", "٠٠،٠٠"],
+                            titles: ["إغلاق سابق", "عدد الصفقات", "متوسط كمية\nالصفقة"]
+                        )
                         
-                        Spacer()
+                        Divider()
+                            .frame(height: 80)
                         
-                        VStack(alignment: .leading, spacing: 16) {
-                            
-                            Text("الكمية المتداولة")
-                            Text("القيمة المتداولة")
-                            Text("القيمة السوقية")
-                            
-                        }
+                        statisticsColumn(
+                            values: ["٠٠،٠٠", "٠٠،٠٠"],
+                            titles: ["الكمية المتداولة", "القيمة المتداولة"]
+                        )
                     }
-                    .padding(.horizontal, 28)
+                    .padding(.horizontal, 24)
                     .padding(.top, 8)
                     Divider()
                         .background(Color.white.opacity(0.08))
@@ -334,66 +352,189 @@ struct CompanyDetailViewV2: View {
                 
                 .sheet(isPresented: $showInfo) {
                     
-                    VStack(spacing: 20) {
+                    
+                    VStack(spacing: 24) {
                         
                         Capsule()
-                            .fill(Color.gray.opacity(0.5))
-                            .frame(width: 50, height: 5)
-                            .padding(.top)
+                            .fill(Color(hex: "929292"))
+                            .frame(width: 36, height: 4)
+                            .padding(.top, 12)
+                            .presentationBackground(.black)
                         
-                        Text("معلومات المؤشرات")
-                            .font(.headline)
+                        Text("معلومات")
+                            .font(.system(size: 18, weight: .regular))
                             .foregroundColor(.white)
                         
-                        VStack(alignment: .trailing, spacing: 14) {
+                        ScrollView {
                             
-                            Text("إفتتاح: أول سعر تداول في الجلسة")
-                            Text("الأعلى: أعلى سعر وصل له السهم")
-                            Text("الأدنى: أقل سعر وصل له السهم")
-                            Text("إغلاق سابق: سعر إغلاق الجلسة السابقة")
-                            Text("عدد الصفقات: إجمالي الصفقات المنفذة")
-                            Text("متوسط كمية الصفقة: متوسط الأسهم بكل صفقة")
-                            Text("الكمية المتداولة: إجمالي الأسهم المتداولة")
-                            Text("القيمة المتداولة: إجمالي قيمة التداول")
-                            
+                            VStack(alignment: .trailing, spacing: 22) {
+                                
+                                (
+                                    Text("• إغلاق سابق: ")
+                                        .foregroundColor(Color(red: 0.60, green: 0.69, blue: 0.94))
+                                        .fontWeight(.semibold)
+                                    +
+                                    Text("آخر سعر بيع به السهم بنهاية يوم التداول الأمس.")
+                                        .foregroundColor(.white)
+                                )
+                                .font(.system(size: 18))
+                                .multilineTextAlignment(.trailing)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                
+                                (
+                                    Text("• إفتتاح: ")
+                                        .foregroundColor(Color(red: 0.60, green: 0.69, blue: 0.94))
+                                        .fontWeight(.semibold)
+                                    +
+                                    Text("أول سعر بدأ به السهم قيمته مع بداية تداول اليوم.")
+                                        .foregroundColor(.white)
+                                )
+                                .font(.system(size: 18))
+                                .multilineTextAlignment(.trailing)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+
+                                (
+                                    Text("• الأعلى: ")
+                                        .foregroundColor(Color(red: 0.60, green: 0.69, blue: 0.94))
+                                        .fontWeight(.semibold)
+                                    +
+                                    Text("أعلى قيمة سعرية وصل إليها السهم خلال جلسة اليوم.")
+                                        .foregroundColor(.white)
+                                )
+                                .font(.system(size: 18))
+                                .multilineTextAlignment(.trailing)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+
+                                (
+                                    Text("• الأدنى: ")
+                                        .foregroundColor(Color(red: 0.60, green: 0.69, blue: 0.94))
+                                        .fontWeight(.semibold)
+                                    +
+                                    Text("أقل قيمة سعرية هبط إليها السهم خلال جلسة اليوم.")
+                                        .foregroundColor(.white)
+                                )
+                                .font(.system(size: 18))
+                                .multilineTextAlignment(.trailing)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+
+                                (
+                                    Text("• عدد الصفقات: ")
+                                        .foregroundColor(Color(red: 0.60, green: 0.69, blue: 0.94))
+                                        .fontWeight(.semibold)
+                                    +
+                                    Text("مجموع عمليات البيع والشراء الناجحة التي تمت اليوم.")
+                                        .foregroundColor(.white)
+                                )
+                                .font(.system(size: 18))
+                                .multilineTextAlignment(.trailing)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+
+                                (
+                                    Text("• متوسط كمية الصفقة: ")
+                                        .foregroundColor(Color(red: 0.60, green: 0.69, blue: 0.94))
+                                        .fontWeight(.semibold)
+                                    +
+                                    Text("معدل عدد الأسهم المتبادلة في العملية الواحدة.")
+                                        .foregroundColor(.white)
+                                )
+                                .font(.system(size: 18))
+                                .multilineTextAlignment(.trailing)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+
+                                (
+                                    Text("• الكمية المتداولة: ")
+                                        .foregroundColor(Color(red: 0.60, green: 0.69, blue: 0.94))
+                                        .fontWeight(.semibold)
+                                    +
+                                    Text("إجمالي عدد الأسهم التي تم تداولها بين البائعين والمشترين اليوم.")
+                                        .foregroundColor(.white)
+                                )
+                                .font(.system(size: 18))
+                                .multilineTextAlignment(.trailing)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+
+                                (
+                                    Text("• القيمة المتداولة: ")
+                                        .foregroundColor(Color(red: 0.60, green: 0.69, blue: 0.94))
+                                        .fontWeight(.semibold)
+                                    +
+                                    Text("مجموع المبالغ المالية والكاش التي دفعت في كل صفقات اليوم.")
+                                        .foregroundColor(.white)
+                                )
+                                .font(.system(size: 18))
+                                .multilineTextAlignment(.trailing)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                            }
+                            .font(.system(size: 18))
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.trailing)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .padding(.horizontal, 28)
+                            .padding(.bottom, 30)
                         }
-                        .foregroundColor(.white.opacity(0.8))
-                        .padding()
-                        
-                        Spacer()
-                        
                     }
-                    .presentationDetents([.medium])
-                    .presentationBackground(.black)
+                    .presentationDetents([.height(585)])
+                    .presentationCornerRadius(40)
+                    .presentationBackground(
+                        Color.black.opacity(0.2)
+                    )
+                }
                 
+                
+                
+                
+                
+            }
             
+        }
         
+        .onAppear {
             
             
-    
-    }
-    
-  }
-}
-.onAppear {
-
-guard !hasSeenDetailTutorial else { return }
-
-    Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
-
-        if detailTutorialStep < 4 {
-
-            detailTutorialStep += 1
-
-        } else {
-
-            timer.invalidate()
+            detailTutorialStep = 0
+            
+            guard !hasCompletedTutorial else { return }
+            
+            Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
+                
+                if detailTutorialStep < 4 {
+                    
+                    detailTutorialStep += 1
+                    
+                } else {
+                    
+                    timer.invalidate()
+                }
+            }
         }
     }
-}
-}
-}
+    @ViewBuilder
+    func statisticsColumn(
+        values: [String],
+        titles: [String]
+    ) -> some View {
+        
+        VStack(alignment: .trailing, spacing: 16) {
+            
+            ForEach(0..<titles.count, id: \.self) { index in
+                
+                HStack(spacing: 8) {
+                    
+                    Text(values[index])
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundColor(.white)
+                    
+                    Text(titles[index])
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.trailing)
+                }
+            }
+        }
+    }
     
-
     
-
+    
+    
+    
+}
