@@ -74,6 +74,7 @@ struct LevelsView: View {
                 Spacer().frame(height: 40)
             }
         }
+        .background(Color.clear)
         .environment(\.layoutDirection, .rightToLeft)
     }
 }

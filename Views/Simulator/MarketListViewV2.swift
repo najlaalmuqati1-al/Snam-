@@ -72,10 +72,7 @@ struct MarketListViewV2: View {
         NavigationStack {
             
             ZStack {
-                Image("background")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
+              
                 
                 if !hasCompletedTutorial {
 
@@ -225,6 +222,7 @@ struct MarketListViewV2: View {
                 }
             }
         }
+    
 }
     struct CompanyCardV2: View {
         

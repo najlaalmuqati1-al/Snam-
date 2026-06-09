@@ -31,29 +31,42 @@ enum TabItem: Int, CaseIterable {
 }
 
 // MARK: - Main Tab View
-
 struct MainTabView: View {
     @State private var selectedTab: TabItem = .journey
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            // الصفحات
-            Group {
-                switch selectedTab {
-                case .simulator:
-                    MarketListViewV2()
-                case .journey:
-                    LevelsView()
-                case .portfolio:
-                    // PortfolioView()
-                    Color(hex: "#0A0401").ignoresSafeArea() // مؤقت لين تجهز المحفظة
+        NavigationStack { // ← جديد
+            ZStack(alignment: .bottom) {
+                
+                // الخلفية
+                Color(.systemBackground)
+                    .ignoresSafeArea()
+                    .overlay(
+                        Image("Frame")
+                            .resizable()
+                            .scaledToFill()
+                            .ignoresSafeArea()
+                    )
+                
+                // الصفحات
+                Group {
+                    switch selectedTab {
+                    case .simulator:
+                        MarketListViewV2()
+                    case .journey:
+                        LevelsView()
+                    case .portfolio:
+                        MainView()
+                            .environmentObject(WalletState())
+                    }
                 }
-            }
 
-            // التاب بار
-            CustomTabBar(selectedTab: $selectedTab)
+                CustomTabBar(selectedTab: $selectedTab)
+            }
+            .ignoresSafeArea(edges: .bottom)
+            .toolbarBackground(.hidden, for: .navigationBar) // ← جديد
+            .navigationBarHidden(true) // ← جديد
         }
-        .ignoresSafeArea(edges: .bottom)
     }
 }
 
@@ -111,7 +124,6 @@ struct CustomTabBar: View {
     }
 }
 
-// MARK: - Tab Item View
 // MARK: - Tab Item View
 struct TabItemView: View {
     let tab: TabItem
