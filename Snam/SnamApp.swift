@@ -11,7 +11,8 @@ import SwiftUI
 struct SnamApp: App {
     var body: some Scene {
         WindowGroup {
-//            OnboardingContainerView()
+            SanamOnboardingView()
+                .preferredColorScheme(.dark)
         }
     }
     

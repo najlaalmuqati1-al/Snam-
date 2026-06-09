@@ -400,77 +400,88 @@ struct SanamStep: Identifiable {
 
 struct SanamOnboardingView: View {
     @State private var currentStep = 0
-    
+    @State private var showMainTab = false // <--- للتبديل للصفحة الرئيسية
+
     let steps = [
         SanamStep(title: "أهلاً بك في سنام", description: "تطبيق يساعدك على تعلّم الاستثمار في الأسهم...", type: .cards),
         SanamStep(title: "بطريقة تفاعلية", description: "أكمل مستوياتك لتحصل على أكبر قدر ممكن من المكافآت...", type: .coins)
     ]
     
     var body: some View {
-        ZStack {
-            // الخلفية الثابتة مع الهالات النيلية خلف العناصر بالظبط
-            ZStack {
-                Color(red: 4/255, green: 7/255, blue: 15/255).ignoresSafeArea()
-                Circle()
-                    .fill(Color(red: 15/255, green: 37/255, blue: 90/255))
-                    .frame(width: 400, height: 400)
-                    .blur(radius: 100)
-                    .opacity(0.5)
-            }
-            
-            VStack {
-                // زر تخطي متموضع في جهة اليسار فوق بالملي
-                HStack {
-                    Spacer()
-                    if currentStep == 0 {
-                        Button("تخطي") {
-                            withAnimation { currentStep = 1 }
+        Group {
+            if showMainTab {
+                MainTabView() // الصفحة الرئيسية بدون back
+            } else {
+                ZStack {
+                    // الخلفية
+                    Color(red: 4/255, green: 7/255, blue: 15/255).ignoresSafeArea()
+                    Circle()
+                        .fill(Color(red: 15/255, green: 37/255, blue: 90/255))
+                        .frame(width: 400, height: 400)
+                        .blur(radius: 100)
+                        .opacity(0.5)
+                    
+                    VStack {
+                        // زر تخطي
+                        HStack {
+                            Spacer()
+                            if currentStep == 0 {
+                                Button("تخطي") {
+                                    withAnimation {
+                                        showMainTab = true
+                                    }
+                                }
+                                .foregroundColor(.white.opacity(0.6))
+                                .padding(.horizontal, 24)
+                            }
                         }
-                        .foregroundColor(.white.opacity(0.6))
-                        .padding(.horizontal, 24)
+                        .padding(.top, 10)
+                        
+                        // محتوى الصفحات
+                        TabView(selection: $currentStep) {
+                            ForEach(0..<steps.count, id: \.self) { index in
+                                SanamContentView(step: steps[index], isCurrent: currentStep == index)
+                                    .tag(index)
+                            }
+                        }
+                        .tabViewStyle(.page(indexDisplayMode: .never))
+                        
+                        // Indicators
+                        HStack(spacing: 8) {
+                            ForEach(0..<steps.count, id: \.self) { index in
+                                Circle()
+                                    .fill(currentStep == index ? Color.blue : Color.white.opacity(0.3))
+                                    .frame(width: 8, height: 8)
+                            }
+                        }
+                        .padding(.bottom, 20)
+                        
+                        // زر "ابدأ الآن" للشاشة الأخيرة
+                        if currentStep == 1 {
+                            Button(action: {
+                                withAnimation {
+                                    showMainTab = true
+                                }
+                            }) {
+                                Text("ابدأ الآن")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Capsule().stroke(Color.blue.opacity(0.5), lineWidth: 1))
+                                    .padding(.horizontal, 40)
+                            }
+                        }
+                        Spacer().frame(height: 30)
                     }
                 }
-                .padding(.top, 10)
-                
-                // محتوى الصفحات الثابتة
-                TabView(selection: $currentStep) {
-                    ForEach(0..<steps.count, id: \.self) { index in
-                        SanamContentView(step: steps[index], isCurrent: currentStep == index)
-                            .tag(index)
-                    }
-                }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                
-                // نقاط التنقل (Indicators)
-                HStack(spacing: 8) {
-                    ForEach(0..<steps.count, id: \.self) { index in
-                        Circle()
-                            .fill(currentStep == index ? Color.blue : Color.white.opacity(0.3))
-                            .frame(width: 8, height: 8)
-                    }
-                }
-                .padding(.bottom, 20)
-                
-                // زر "ابدأ الآن" في الشاشة الأخيرة
-                if currentStep == 1 {
-                    Button(action: {}) {
-                        Text("ابدأ الآن")
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Capsule().stroke(Color.blue.opacity(0.5), lineWidth: 1))
-                            .padding(.horizontal, 40)
-                    }
-                }
-                Spacer().frame(height: 30)
+                .environment(\.layoutDirection, .rightToLeft)
             }
         }
-        .environment(\.layoutDirection, .rightToLeft)
     }
 }
 
-// عرض محتوى كل شاشة بتثبيت دقيق مطابق للتصميم مع أنيميشن ناعم وموزون
+// المحتوى لكل شاشة
 struct SanamContentView: View {
     let step: SanamStep
     let isCurrent: Bool
@@ -478,24 +489,22 @@ struct SanamContentView: View {
     @State private var startAnimation = false
     
     var body: some View {
-        VStack(alignment: .trailing) { // يضمن محاذاة محتوى الحاوية لليمين
+        VStack(alignment: .trailing) {
             Spacer()
             
-            // منطقة العرض الرسومي (البطاقات أو الهللات)
+            // منطقة العرض الرسومي
             ZStack {
                 if step.type == .cards {
-                    // الشاشة 1: الكروت تلتقي بنعومة وهدوء تام (تم إبطاء النزول ليكون راقي)
                     ZStack {
-                        Image("right") // البطاقة الخلفية
+                        Image("right")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 230)
                             .rotationEffect(.degrees(-22))
                             .offset(x: startAnimation ? 25 : 500, y: -30)
-                            // response: 1.2 يعطي حركة أبطأ وأكثر فخامة
                             .animation(.spring(response: 1.2, dampingFraction: 0.85), value: startAnimation)
                         
-                        Image("left") //  البطاقة الأمامية
+                        Image("left")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 230)
@@ -504,40 +513,28 @@ struct SanamContentView: View {
                             .animation(.spring(response: 1.2, dampingFraction: 0.85), value: startAnimation)
                     }
                 } else {
-                    // الشاشة 2: انهمار المطر للـ 5 هللات (ورا بعض ببطء وتتابع متناسق)
                     ZStack {
-                        // هللة 1 (تبدأ الهبوط فوراً)
-                        Image("1")
-                            .resizable().scaledToFit().frame(width: 75, height: 75)
+                        Image("1").resizable().scaledToFit().frame(width: 75, height: 75)
                             .rotationEffect(.degrees(-5))
                             .offset(x: -5, y: startAnimation ? -100 : -600)
-                            // زوّدنا الـ response إلى 1.4 لتنزل على مهلها
                             .animation(.spring(response: 1.4, dampingFraction: 0.75).delay(0.0), value: startAnimation)
                         
-                        // هللة 2 (تنزل بعدها بفارق بسيط)
-                        Image("2")
-                            .resizable().scaledToFit().frame(width: 70, height: 70)
+                        Image("2").resizable().scaledToFit().frame(width: 70, height: 70)
                             .rotationEffect(.degrees(15))
                             .offset(x: -55, y: startAnimation ? -30 : -600)
                             .animation(.spring(response: 1.4, dampingFraction: 0.75).delay(0.25), value: startAnimation)
                         
-                        // هللة 3
-                        Image("3")
-                            .resizable().scaledToFit().frame(width: 72, height: 72)
+                        Image("3").resizable().scaledToFit().frame(width: 72, height: 72)
                             .rotationEffect(.degrees(-20))
                             .offset(x: 45, y: startAnimation ? 20 : -600)
                             .animation(.spring(response: 1.4, dampingFraction: 0.75).delay(0.5), value: startAnimation)
                         
-                        // هللة 4
-                        Image("4")
-                            .resizable().scaledToFit().frame(width: 68, height: 68)
+                        Image("4").resizable().scaledToFit().frame(width: 68, height: 68)
                             .rotationEffect(.degrees(10))
                             .offset(x: -35, y: startAnimation ? 85 : -600)
                             .animation(.spring(response: 1.4, dampingFraction: 0.75).delay(0.75), value: startAnimation)
                         
-                        // هللة 5 (آخر وحدة تلحق بالمطر)
-                        Image("5")
-                            .resizable().scaledToFit().frame(width: 38, height: 65)
+                        Image("5").resizable().scaledToFit().frame(width: 38, height: 65)
                             .rotationEffect(.degrees(-35))
                             .offset(x: 40, y: startAnimation ? 145 : -600)
                             .animation(.spring(response: 1.4, dampingFraction: 0.75).delay(1.0), value: startAnimation)
@@ -549,7 +546,6 @@ struct SanamContentView: View {
             
             Spacer()
             
-            // منطقة النصوص: تبدأ من اليمين بالملي
             VStack(alignment: .leading, spacing: 15) {
                 Text(step.title)
                     .font(.system(size: 28, weight: .bold))
@@ -567,11 +563,7 @@ struct SanamContentView: View {
             .padding(.bottom, 70)
         }
         .onChange(of: isCurrent) { active in
-            if active {
-                startAnimation = true
-            } else {
-                startAnimation = false
-            }
+            startAnimation = active
         }
         .onAppear {
             if isCurrent { startAnimation = true }
