@@ -1,120 +1,6 @@
 import SwiftUI
 import Combine
 
-// MARK: - ViewModel
-class MarketViewModelNew: ObservableObject {
-    @Published var marketData: MarketData?
-    @Published var selectedSector: String = "الكل"
-    @Published var userBalance: Double = 50000.0
-    @Published var ownedShares: [Int: Int] = [:]
-
-    var sectors: [String] {
-        var list = ["الكل"]
-        if let companies = marketData?.companies {
-            let uniqueSectors = Set(companies.map { $0.sector })
-            list.append(contentsOf: uniqueSectors.sorted())
-        }
-        return list
-    }
-
-    var filteredCompanies: [Company] {
-        guard let companies = marketData?.companies else { return [] }
-        if selectedSector == "الكل" {
-            return companies
-        } else {
-            return companies.filter { $0.sector == selectedSector }
-        }
-    }
-
-    init() {
-        loadLocalJSON()
-    }
-
-    private func loadLocalJSON() {
-        if let url = Bundle.main.url(forResource: "MarketData", withExtension: "json") {
-            do {
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                self.marketData = try decoder.decode(MarketData.self, from: data)
-            } catch {
-                print("Error parsing MarketData.json: \(error)")
-                setupFallbackMockData()
-            }
-        } else {
-            setupFallbackMockData()
-        }
-    }
-
-    private func setupFallbackMockData() {
-        let dummyStats = Statistics(
-            previousClose: 121.45,
-            openPrice: 121.00,
-            dayHigh: 126.00,
-            dayLow: 119.00,
-            volumeTraded: 2300000,
-            tradingValue: 285200000,
-            numberOfTrades: 23302,
-            averageTradeSize: 12240,
-            averagePrice: 123.10,
-            bestBid: 123.90,
-            bestAsk: 124.10
-        )
-        let dummyStock = Stock(
-            symbol: "NJD",
-            currentPrice: 124.00,
-            trend: "up",
-            changePercent: 2.1,
-            changeAmount: 2.55,
-            riskLevel: "Medium",
-            marketCap: "1.2T",
-            statistics: dummyStats
-        )
-        let dummyNews = News(headline: "توسع استراتيجي جديد لشركة نجد للطاقة", impact: "Positive")
-        let dummyChart = ChartData(
-            timeframes: Timeframes(
-                oneDay: [120, 122, 121, 125, 123, 124].map { PricePoint(timestamp: "", price: $0) },
-                oneWeek: [],
-                oneMonth: [],
-                oneYear: []
-            )
-        )
-
-        let fallbackCompanies = [
-            Company(id: 1, fakeName: "Najd Energy", imageName: "najd_logo", inspiredBy: "Aramco", sector: "Energy", description: "شركة طاقة افتراضية", icon: "🛢️", stock: dummyStock, news: dummyNews, chartData: dummyChart, candlestickData: []),
-            Company(id: 2, fakeName: "Desert Bank", imageName: "desert_logo", inspiredBy: "Desert", sector: "Banking", description: "مصرف افتراضي", icon: "🏦", stock: dummyStock, news: dummyNews, chartData: dummyChart, candlestickData: []),
-            Company(id: 3, fakeName: "Najd Telecom", imageName: "telecom_logo", inspiredBy: "STC", sector: "Telecom", description: "شركة اتصالات افتراضية", icon: "📱", stock: dummyStock, news: dummyNews, chartData: dummyChart, candlestickData: [])
-        ]
-        self.marketData = MarketData(
-            marketName: "Saudi Simulated Market",
-            marketStatus: "Open",
-            currency: "SAR",
-            lastUpdated: "2026-05-12T14:30:00Z",
-            companies: fallbackCompanies
-        )
-    }
-
-    func buyStock(company: Company, count: Int) -> Bool {
-        let cost = company.stock.currentPrice * Double(count)
-        if userBalance >= cost {
-            userBalance -= cost
-            ownedShares[company.id, default: 0] += count
-            return true
-        }
-        return false
-    }
-
-    func sellStock(company: Company, count: Int) -> Bool {
-        let currentOwned = ownedShares[company.id, default: 0]
-        if currentOwned >= count {
-            let revenue = company.stock.currentPrice * Double(count)
-            userBalance += revenue
-            ownedShares[company.id] = currentOwned - count
-            return true
-        }
-        return false
-    }
-}
-
 // MARK: - MarketListViewNew
 struct MarketListViewNew: View {
     @StateObject private var vm = MarketViewModelNew()
@@ -227,7 +113,7 @@ struct CompanyRowNew: View {
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.white)
 
-                    Text(sectorArabicNew(company.sector))
+                    Text(sectorArabicMLN(company.sector))
                         .font(.system(size: 11))
                         .foregroundColor(.gray)
                 }
@@ -247,13 +133,13 @@ struct CompanyRowNew: View {
 
 //            // الشارت بالنص
 //
-//            MiniSparklineNew(
+//            MLNSparkline(
 //                points: company.chartData.timeframes.oneDay.map { $0.price },
 //                trend: company.stock.trend
 //
 //            )
 //            .frame(width: 120, height: 34)
-            MiniSparklineNew(
+            MLNSparkline(
                 points: company.chartData.timeframes.oneDay.map { $0.price },
                 trend: company.stock.trend
             )
@@ -311,7 +197,7 @@ struct CompanyRowNew: View {
 //
 //            Spacer()
 //
-//            MiniSparklineNew(points: company.chartData.timeframes.oneDay.map { $0.price }, trend: company.stock.trend)
+//            MLNSparkline(points: company.chartData.timeframes.oneDay.map { $0.price }, trend: company.stock.trend)
 //                .frame(width: 95, height: 34)
 //
 //            Spacer()
@@ -322,7 +208,7 @@ struct CompanyRowNew: View {
 //                        .font(.system(size: 15, weight: .bold))
 //                        .foregroundColor(.white)
 //
-//                    Text(sectorArabicNew(company.sector))
+//                    Text(sectorArabicMLN(company.sector))
 //                        .font(.system(size: 11))
 //                        .foregroundColor(.gray)
 //                }
@@ -345,41 +231,8 @@ struct CompanyRowNew: View {
 //    }
 //}
 
-// MARK: - MiniSparklineNew
-//struct MiniSparklineNew: View {
-//    let points: [Double]
-//    let trend: String
-//
-//    var body: some View {
-//        GeometryReader { geo in
-//            let w = geo.size.width
-//            let h = geo.size.height
-//            let mn = points.min() ?? 0
-//            let mx = points.max() ?? 1
-//            let range = mx - mn == 0 ? 1 : mx - mn
-//            let lineColor = trend.lowercased() == "up" ? Color("#22C55E") : Color("#EF4444")
-//
-//            ZStack {
-//                Path { p in
-//                    p.move(to: CGPoint(x: 0, y: h/2))
-//                    p.addLine(to: CGPoint(x: w, y: h/2))
-//                }
-//                .stroke(Color.white.opacity(0.03), style: StrokeStyle(lineWidth: 1, dash: [2]))
-//
-//                Path { path in
-//                    for (i, p) in points.enumerated() {
-//                        let x = CGFloat(i) / CGFloat(max(points.count - 1, 1)) * w
-//                        let y = h - CGFloat((p - mn) / range) * h
-//                        if i == 0 { path.move(to: CGPoint(x: x, y: y)) }
-//                        else       { path.addLine(to: CGPoint(x: x, y: y)) }
-//                    }
-//                }
-//                .stroke(lineColor, style: StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round))
-//            }
-//        }
-//    }
-//}
-struct MiniSparklineNew: View {
+// MARK: - MLNSparkline
+struct MLNSparkline: View {
 
     let points: [Double]
     let trend: String
@@ -444,7 +297,7 @@ struct SectorPickerMenuNew: View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(sectors, id: \.self) { sector in
                 SectorRowNew(
-                    title: sectorArabicNew(sector),
+                    title: sectorArabicMLN(sector),
                     isSelected: selectedSector == sector
                 ) {
                     selectedSector = sector
@@ -611,7 +464,7 @@ struct CompanyDetailViewNew: View {
 //                    .font(.system(size: 13))
 //                    .foregroundColor(.white.opacity(0.5))
 //                    .padding(.bottom, 40)
-                MarketBigChartView(
+                MLNBigChartView(
                     prices: company.chartData.timeframes.oneDay.map { $0.price }
                 )
                 
@@ -755,7 +608,7 @@ struct CompanyDetailViewNew: View {
         }
         .environment(\.layoutDirection, .rightToLeft)
         .sheet(isPresented: $showStatsSheet) {
-            StatisticsSheetViewNew(company: company, currency: vm.marketData?.currency ?? "SAR")
+            MLNStatisticsSheetView(company: company, currency: vm.marketData?.currency ?? "SAR")
         }
     }
     
@@ -787,8 +640,8 @@ struct CompanyDetailViewNew: View {
     }
 }
     
-    // MARK: - StatisticsSheetViewNew
-    struct StatisticsSheetViewNew: View {
+    // MARK: - MLNStatisticsSheetView
+    struct MLNStatisticsSheetView: View {
         let company: Company
         let currency: String
         @Environment(\.dismiss) var dismiss
@@ -806,12 +659,12 @@ struct CompanyDetailViewNew: View {
                     
                     ScrollView {
                         VStack(spacing: 12) {
-                            StatDetailRowNew(title: "الإغلاق السابق:", value: String(format: "%.2f %@", company.stock.statistics.previousClose, currency))
-                            StatDetailRowNew(title: "سعر الافتتاح:", value: String(format: "%.2f %@", company.stock.statistics.openPrice, currency))
-                            StatDetailRowNew(title: "أعلى سعر اليوم:", value: String(format: "%.2f %@", company.stock.statistics.dayHigh, currency))
-                            StatDetailRowNew(title: "أقل سعر اليوم:", value: String(format: "%.2f %@", company.stock.statistics.dayLow, currency))
-                            StatDetailRowNew(title: "عدد الصفقات المنفذة:", value: "\(company.stock.statistics.numberOfTrades)")
-                            StatDetailRowNew(title: "القيمة السوقية الكلية:", value: company.stock.marketCap)
+                            MLNStatDetailRow(title: "الإغلاق السابق:", value: String(format: "%.2f %@", company.stock.statistics.previousClose, currency))
+                            MLNStatDetailRow(title: "سعر الافتتاح:", value: String(format: "%.2f %@", company.stock.statistics.openPrice, currency))
+                            MLNStatDetailRow(title: "أعلى سعر اليوم:", value: String(format: "%.2f %@", company.stock.statistics.dayHigh, currency))
+                            MLNStatDetailRow(title: "أقل سعر اليوم:", value: String(format: "%.2f %@", company.stock.statistics.dayLow, currency))
+                            MLNStatDetailRow(title: "عدد الصفقات المنفذة:", value: "\(company.stock.statistics.numberOfTrades)")
+                            MLNStatDetailRow(title: "القيمة السوقية الكلية:", value: company.stock.marketCap)
                         }
                         .padding(.top, 10)
                     }
@@ -822,7 +675,7 @@ struct CompanyDetailViewNew: View {
         }
 
     
-    struct StatDetailRowNew: View {
+    struct MLNStatDetailRow: View {
         let title: String
         let value: String
         var body: some View {
@@ -838,7 +691,7 @@ struct CompanyDetailViewNew: View {
     }
     
     // MARK: - Helpers (Arabic sectors)
-    func sectorArabicNew(_ sector: String) -> String {
+    func sectorArabicMLN(_ sector: String) -> String {
         switch sector {
         case "الكل":         return "الكل"
         case "Energy":       return "قطاع الطاقة"
@@ -849,7 +702,7 @@ struct CompanyDetailViewNew: View {
         default:              return sector
         }
     }
-    struct MarketBigChartView: View {
+    struct MLNBigChartView: View {
         let prices: [Double]
         
         var body: some View {
@@ -888,3 +741,4 @@ struct CompanyDetailViewNew: View {
         MarketListViewNew()
         
     }
+
