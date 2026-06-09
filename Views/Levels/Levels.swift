@@ -43,42 +43,38 @@ func dotY(for index: Int) -> CGFloat {
 }
 
 // MARK: - Main View
+// MARK: - Main View
 
 struct LevelsView: View {
     @State private var currentLevel: Int = 2
 
     var body: some View {
-        Image("background")
-            .resizable()
-            .scaledToFill()            .overlay(
-                ScrollView(showsIndicators: false) {
-                    VStack(alignment: .trailing, spacing: 0) {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .trailing, spacing: 0) {
 
-                        // Header
-                        VStack(alignment: .trailing, spacing: 21) {
-                            Text("المراحل")
-                                .font(.system(size: 34, weight: .heavy))
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                // Header
+                VStack(alignment: .trailing, spacing: 21) {
+                    Text("المراحل")
+                        .font(.system(size: 34, weight: .heavy))
+                        .foregroundColor(.primary) // يقلب تلقائي لايت ودارك
 
-                            Text("تقدم في رحلتك وتعلم لتنتهي من جميع المراحل")
-                                .font(.system(size: 16, weight: .regular))
-                                .foregroundColor(Color(hex: "#9B978D"))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                        .padding(.leading, 24)
-                        .padding(.horizontal, 24)
-                        .padding(.top, 90)
-                        .padding(.bottom, 20)
-
-                        LevelsListView(levels: levels, currentLevel: currentLevel)
-                            .padding(.horizontal, 24)
-
-                        Spacer().frame(height: 40)
-                    }
+                    Text("تقدم في رحلتك وتعلم لتنتهي من جميع المراحل")
+                        .font(.system(size: 16, weight: .regular))
+                        .foregroundColor(Color(hex: "#9B978D"))
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
-            )
-            .environment(\.layoutDirection, .rightToLeft)
+                .padding(.leading, 24)
+                .padding(.horizontal, 24)
+                .padding(.top, 90)
+                .padding(.bottom, 20)
+
+                LevelsListView(levels: levels, currentLevel: currentLevel)
+                    .padding(.horizontal, 24)
+
+                Spacer().frame(height: 40)
+            }
+        }
+        .environment(\.layoutDirection, .rightToLeft)
     }
 }
 
@@ -550,5 +546,7 @@ extension Color {
 // MARK: - Preview
 
 #Preview {
-    LevelsView()
+    AppContainerView {
+        LevelsView()
+    }
 }

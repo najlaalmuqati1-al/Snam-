@@ -8,12 +8,12 @@
 import SwiftUI
 
 @main
-struct SnamApp: App {
+struct YourAppName: App { // هنا اسم تطبيقك
     var body: some Scene {
         WindowGroup {
-            SanamOnboardingView()
-                .preferredColorScheme(.dark)
+            AppContainerView {
+                LevelsView() // شاشة المراحل الحين صارت محصنة بداخل الخلفية الموحدة
+            }
         }
     }
-    
 }
