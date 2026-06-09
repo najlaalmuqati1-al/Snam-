@@ -20,7 +20,7 @@ struct PrimaryButton: View {
                 .background(
                     ZStack {
                         RoundedRectangle(cornerRadius: 100)
-                            .fill(Color(red: 0.137, green: 0.235, blue: 0.455))
+                            .fill(Color("brandPrimary"))
                         RoundedRectangle(cornerRadius: 100)
                             .fill(Color(red: 0.902, green: 0.902, blue: 0.902))
                             .blendMode(.plusDarker)

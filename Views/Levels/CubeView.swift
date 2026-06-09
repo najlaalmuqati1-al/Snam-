@@ -12,17 +12,17 @@ import SceneKit
 
 struct ContentView: View {
     @StateObject private var vm = CubeViewModel()
-
     var body: some View {
         ZStack {
-            // Background
-            // هذه الوان الخلفيه من الappcolor
-            /*   RadialGradient.appBackground
-                .ignoresSafeArea()*/
-            Image("background")
-                .resizable()
-                .scaledToFill()
-               // .ignoresSafeArea()
+            Color(.systemBackground)
+                .ignoresSafeArea()
+                .overlay(
+                    Image("Frame")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
+                ) // ← هنا تقفل الـ overlay
+
             // زر "انتهيت" في الأسفل
             VStack {
                 Spacer()
@@ -32,7 +32,6 @@ struct ContentView: View {
                         .transition(.opacity)
                 }
             }
-
             // المحتوى الرئيسي
             VStack(spacing: 0) {
 

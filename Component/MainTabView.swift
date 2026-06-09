@@ -35,7 +35,7 @@ struct MainTabView: View {
     @State private var selectedTab: TabItem = .journey
 
     var body: some View {
-        NavigationStack { // ← جديد
+        NavigationStack { // 
             ZStack(alignment: .bottom) {
                 
                 // الخلفية
@@ -204,3 +204,19 @@ struct TabItemView: View {
 #Preview {
     MainTabView()
 }
+/**
+ NavigationStack { //
+     ZStack(alignment: .bottom) {
+         
+         // الخلفية
+         Color(.systemBackground)
+             .ignoresSafeArea()
+             .overlay(
+                 Image("Frame")
+                     .resizable()
+                     .scaledToFill()
+                     .ignoresSafeArea()
+             )
+ 
+ 
+ */
