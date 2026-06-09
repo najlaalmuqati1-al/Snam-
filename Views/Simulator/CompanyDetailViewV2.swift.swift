@@ -39,6 +39,7 @@ struct CompanyDetailViewV2: View {
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
+                .navigationBarBackButtonHidden(true)
             
             if !hasSeenDetailTutorial {
                 
@@ -136,7 +137,36 @@ struct CompanyDetailViewV2: View {
             }
             
             VStack(spacing: 0) {
-                
+                HStack {
+
+                    NavigationLink {
+                        WalletView()
+                    } label: {
+
+                        Image("wallet")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 120, height: 44)
+                    }
+
+                    Spacer()
+
+                    Button {
+                        dismiss()
+                    } label: {
+
+                        Circle()
+                            .fill(Color.white.opacity(0.08))
+                            .frame(width: 60, height: 60)
+                            .overlay(
+                                Image(systemName: "chevron.right")
+                                    .font(.title2)
+                                    .foregroundColor(.white)
+                            )
+                    }
+                }
+                .padding(.horizontal, 24)
+                .padding(.top, 10)
                 
                 HStack(spacing: 12) {
                     
