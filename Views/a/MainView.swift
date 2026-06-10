@@ -4,6 +4,7 @@
 //
 //  Created by Faitmh ibrahim on 21/12/1447 AH.
 //
+
 import SwiftUI
 
 // MARK: - FKStock Model (inlined in this file)
@@ -12,9 +13,9 @@ struct FKStock: Identifiable {
     let name: String
     let sector: String
     let price: Double
-    let changePercent: Double
-    let chartPoints: [Double]
-    let logoImageName: String
+    let changePercent: Double   // e.g. +1.23 or -0.87
+    let chartPoints: [Double]   // mini sparkline values
+    let logoImageName: String   // Asset name
 }
 
 // MARK: - Sample / Placeholder Data
@@ -62,41 +63,76 @@ struct MainView: View {
     @State private var showSettings = false
     @State private var stocks: [FKStock] = FKStock.sampleStocks
 
+    // Convenience
     private func svArabic(_ weight: String, size: CGFloat) -> Font {
         .custom("SVArabic-\(weight)", size: size, relativeTo: .body)
     }
 
     var body: some View {
-        // ← حذفنا NavigationStack من هنا
-        ZStack(alignment: .top) {
+        NavigationStack {
+            ZStack(alignment: .top) {
+                // ── Background ──────────────────────────────────────────
+                Color(.systemBackground)
+                    .ignoresSafeArea()
+                    .overlay(
+                        Image("Frame")
+                            .resizable()
+                            .scaledToFill()
+                            .ignoresSafeArea()
+                    )
 
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 0) {
-                    headerBar
-                    walletCardSection
-                        .padding(.top, 20)
-                    stocksSection
-                        .padding(.top, 28)
-                    Spacer().frame(height: 100)
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 0) {
+
+                        // ── Top Header ──────────────────────────────────
+                        headerBar
+
+                        // ── Wallet Card ─────────────────────────────────
+                        walletCardSection
+                            .padding(.top, 20)
+
+                        // ── Stocks Section ──────────────────────────────
+                        stocksSection
+                            .padding(.top, 28)
+
+                        // Space for tab bar
+                        Spacer().frame(height: 100)
+                    }
+                }
+
+                // ── Toast overlay (top) ────────────────────────────────
+                if walletState.showWalletSavedToast {
+                    walletSavedToast
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                        .padding(.top, 8)
                 }
             }
-
-            if walletState.showWalletSavedToast {
-                walletSavedToast
-                    .transition(.move(edge: .top).combined(with: .opacity))
-                    .padding(.top, 8)
+            .navigationBarHidden(true)
+            .environment(\.layoutDirection, .leftToRight)
+            // Navigate to Settings when gear tapped
+            .navigationDestination(isPresented: $showSettings) {
+                SettingsView()
+                    .environmentObject(walletState)
             }
-        }
-        .environment(\.layoutDirection, .leftToRight)
-        .navigationDestination(isPresented: $showSettings) { // يحتاج تعديل الخلفيه نفس اللي هنا
-               SettingsView()
-                   .environmentObject(walletState)
-           }
-        .onChange(of: walletState.showWalletSavedToast) { _, isShown in
-            if isShown {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                    withAnimation(.spring(response: 0.4, dampingFraction: 0.9)) {
-                        walletState.showWalletSavedToast = false
+            // Auto-hide toast after 5 seconds when it appears
+            .onChange(of: walletState.showWalletSavedToast) { _, isShown in
+                if isShown {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        withAnimation(.spring(response: 0.4, dampingFraction: 0.9)) {
+                            walletState.showWalletSavedToast = false
+                        }
+                    }
+                }
+            }
+            // Listen for requests to dismiss back to MainView from nested screens
+            .onChange(of: walletState.requestDismissToMain) { _, shouldDismiss in
+                if shouldDismiss {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        showSettings = false
+                    }
+                    // reset the flag
+                    DispatchQueue.main.async {
+                        walletState.requestDismissToMain = false
                     }
                 }
             }
@@ -106,6 +142,7 @@ struct MainView: View {
     // MARK: - Header Bar
     private var headerBar: some View {
         HStack(alignment: .center) {
+            // Settings gear
             Button(action: { showSettings = true }) {
                 Image(systemName: "gearshape.fill")
                     .font(.system(size: 20, weight: .medium))
@@ -114,7 +151,9 @@ struct MainView: View {
                     .background(Color.white.opacity(0.07))
                     .clipShape(Circle())
             }
+
             Spacer()
+
             Text("محفظتك")
                 .font(svArabic("Bold", size: 26))
                 .fontWeight(.bold)
@@ -154,6 +193,7 @@ struct MainView: View {
             VStack(spacing: 0) {
                 ForEach(stocks) { stock in
                     StockRowView(stock: stock)
+
                     if stock.id != stocks.last?.id {
                         Rectangle()
                             .fill(Color.white.opacity(0.06))
@@ -168,6 +208,7 @@ struct MainView: View {
     // MARK: - Toast View
     private var walletSavedToast: some View {
         HStack(spacing: 10) {
+            // Close X (optional dismiss)
             Button(action: {
                 withAnimation(.spring(response: 0.35, dampingFraction: 0.9)) {
                     walletState.showWalletSavedToast = false
@@ -180,10 +221,13 @@ struct MainView: View {
                     .background(Color.white.opacity(0.12))
                     .clipShape(Circle())
             }
+
             Spacer(minLength: 10)
+
             Text("اعتمدنا الشكل الجديد!!!")
                 .font(svArabic("Bold", size: 16))
                 .foregroundColor(.white)
+
             Image(systemName: "checkmark.circle.fill")
                 .foregroundColor(.green)
                 .font(.system(size: 20, weight: .bold))
@@ -203,7 +247,7 @@ struct MainView: View {
     }
 }
 
-// MARK: - Stock Row
+// MARK: - Stock Row (simple single trend line)
 struct StockRowView: View {
     let stock: FKStock
 
@@ -215,35 +259,38 @@ struct StockRowView: View {
     private var changeColor: Color { isPositive ? Color(hex: "22C55E") : Color(hex: "EF4444") }
 
     var body: some View {
-        HStack(spacing: 14) {
+        HStack(spacing: 10) {
+            // السعر + النسبة
             VStack(alignment: .leading, spacing: 3) {
                 Text("\(Int(stock.price))")
                     .font(svArabic("Bold", size: 17))
                     .foregroundColor(.white)
+
                 Text("\(isPositive ? "+" : "")\(String(format: "%.2f", stock.changePercent))%")
                     .font(svArabic("Medium", size: 13))
                     .foregroundColor(changeColor)
             }
-            .frame(width: 70, alignment: .leading)
+            .frame(width: 60, alignment: .leading) // كان 70 → صغّرناه
+            .padding(.trailing, 4) // مسافة ثابتة صغيرة بدل Spacer
 
-            SimpleTrendLineView(isUp: isPositive, color: changeColor)
-                .frame(width: 80, height: 36)
-
-            Spacer()
+            // أزلنا الـ Spacer الكبير لتقريب العمودين
 
             HStack(spacing: 10) {
                 VStack(alignment: .trailing, spacing: 3) {
                     Text(stock.name)
                         .font(svArabic("Bold", size: 16))
                         .foregroundColor(.white)
+
                     Text(stock.sector)
                         .font(svArabic("Regular", size: 12))
                         .foregroundColor(.white.opacity(0.5))
                 }
+
                 ZStack {
                     Circle()
                         .fill(Color.white.opacity(0.08))
                         .frame(width: 44, height: 44)
+
                     Image(stock.logoImageName)
                         .resizable()
                         .scaledToFit()
@@ -251,55 +298,14 @@ struct StockRowView: View {
                         .clipShape(Circle())
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 14)
     }
 }
 
-// MARK: - Simple single up/down line
-struct SimpleTrendLineView: View {
-    let isUp: Bool
-    let color: Color
 
-    var body: some View {
-        GeometryReader { geo in
-            let w = geo.size.width
-            let h = geo.size.height
-            let start = CGPoint(x: 0, y: isUp ? h * 0.80 : h * 0.20)
-            let end   = CGPoint(x: w, y: isUp ? h * 0.20 : h * 0.80)
-
-            let linePath: Path = {
-                var p = Path()
-                p.move(to: start)
-                p.addLine(to: end)
-                return p
-            }()
-
-            let fillPath: Path = {
-                var p = linePath
-                p.addLine(to: CGPoint(x: end.x, y: h))
-                p.addLine(to: CGPoint(x: start.x, y: h))
-                p.closeSubpath()
-                return p
-            }()
-
-            ZStack {
-                fillPath
-                    .fill(
-                        LinearGradient(
-                            colors: [color.opacity(0.20), color.opacity(0.02)],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-                    .opacity(0.7)
-                linePath
-                    .stroke(color.opacity(0.9), style: StrokeStyle(lineWidth: 2.0, lineCap: .round))
-            }
-        }
-    }
-}
 
 #Preview {
     MainView()
