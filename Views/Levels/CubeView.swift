@@ -28,7 +28,7 @@ struct ContentView: View {
                 Spacer()
                 if vm.showDoneButton {
                     PrimaryButton(title: "انتهيت", action: vm.didTapDone)
-                        .padding(.bottom, 82)
+                        .padding(.bottom, 20)
                         .transition(.opacity)
                 }
             }
@@ -36,30 +36,15 @@ struct ContentView: View {
             VStack(spacing: 0) {
 
                 // Header
-                ZStack {
-                    Text("المستثمر الطموح")
-                        .foregroundColor(.white)
-                        .font(.system(size: 18, weight: .semibold))
-                        .frame(maxWidth: .infinity, alignment: .center)
-                    HStack {
-                        Button(action: {}) {
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(.white)
-                                .font(.system(size: 22, weight: .medium))
-                                .frame(width: 17, height: 14)
-                        }
-                        .frame(width: 44, height: 44)
-                        .background(Color.black.opacity(0.2))
-                        .clipShape(Circle())
-                        Spacer()
-                    }
-                }
+                NavigationHeader(title: "المستثمر الطموح", onBack: {
+                    // dismiss() لو عندك navigation
+                })
                 .padding(.horizontal, 24)
-                .padding(.top, 32)// المسافج بين الستاتس والهيدر
+                .padding(.top, 16)// المسافج بين الستاتس والهيدر
 
                 // المكعب
                 
-                    .padding(.top, 64)// المسافة بين الستاتس والهيدر
+                    .padding(.top, 16)// المسافة بين الستاتس والهيدر
 
                     Spacer() // ← يدفع المكعب للمنتصف
                     .frame(maxHeight: 150) // نوعا ما بالنص

@@ -56,7 +56,7 @@ struct PortfolioCongratsView: View {
                     Image("currency")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 110, height: 110)
+                        .frame(width: 170, height: 170)
                         .scaleEffect(bouncing ? 1.04 : 1.0)
                         .animation(
                             .easeInOut(duration: 0.9).repeatForever(autoreverses: true),
