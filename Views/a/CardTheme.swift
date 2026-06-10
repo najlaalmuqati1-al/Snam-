@@ -23,29 +23,29 @@ extension CardTheme {
             id: 0,
             name: "الكلاسيكي الداكن",
             backgroundImage: "card_dark_classic",
-            textColor: .white,
-            accentColor: .white
+            textColor: .primary,
+            accentColor: .primary
         ),
         CardTheme(
             id: 1,
             name: "الوطني الأخضر",
             backgroundImage: "card_green_national",
-            textColor: .white,
-            accentColor: Color(hex: "D4AF37")
+            textColor: .primary,
+            accentColor: .primary
         ),
         CardTheme(
             id: 2,
             name: "الوردي اللامع",
             backgroundImage: "card_pink_glitter",
-            textColor: .white,
-            accentColor: .white
+            textColor: .primary,
+            accentColor: .primary
         ),
         CardTheme(
             id: 3,
             name: "الربيعي الفاتح",
             backgroundImage: "card_spring_light",
-            textColor: Color(hex: "3A5A40"),
-            accentColor: Color(hex: "3A5A40")
+            textColor: .primary,
+            accentColor: .primary
         ),
     ]
 }
@@ -69,13 +69,13 @@ struct WalletCardView: View {
 
             VStack(spacing: isPreview ? 4 : 6) {
                 Text("فلوسك الافتراضية")
-                    .font(svArabic("Bold", size: isPreview ? 12 : 14)) // العنوان فوق الفلوس بولد
-                    .foregroundColor(theme.textColor.opacity(0.95))
+                    .font(svArabic("Bold", size: isPreview ? 12 : 14))
+                    .foregroundColor(.primary.opacity(0.95))
                     .frame(maxWidth: .infinity, alignment: .center)
 
                 Text("00.00")
-                    .font(svArabic("Black", size: isPreview ? 42 : 54)) // الفلوس بولد جداً جداً
-                    .foregroundColor(theme.accentColor)
+                    .font(svArabic("Black", size: isPreview ? 42 : 54))
+                    .foregroundColor(.primary)
                     .frame(maxWidth: .infinity, alignment: .center)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
@@ -86,14 +86,14 @@ struct WalletCardView: View {
                     Spacer()
                     Text(holderName)
                         .font(svArabic("Medium", size: isPreview ? 12 : 14))
-                        .foregroundColor(theme.textColor.opacity(0.9))
+                        .foregroundColor(.primary.opacity(0.9))
                         .padding(.trailing, isPreview ? -7 : -7)
 
                     Image("camel_icon")
                         .resizable()
                         .scaledToFit()
                         .frame(width: isPreview ? 24 : 32, height: isPreview ? 24 : 32)
-                        .foregroundColor(theme.textColor)
+                        .foregroundColor(.primary)
                 }
                 .padding(.trailing, isPreview ? 12 : 16)
                 .padding(.bottom, isPreview ? 12 : 16)
@@ -131,7 +131,7 @@ struct ThemeOptionRow: View {
                 if isSelected {
                     ZStack {
                         Circle()
-                            .fill(Color.blue) // خلفية الصح للعنصر المختار باللون الأزرق
+                            .fill(Color.blue)
                             .frame(width: 32, height: 32)
                             .overlay(Circle().stroke(Color.white.opacity(0.25), lineWidth: 1))
                             .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
@@ -150,9 +150,6 @@ struct ThemeOptionRow: View {
         .padding(.vertical, 6)
     }
 }
-
-// MARK: - Color HEX Extension (simple)
-
 
 // MARK: - Preview for card only
 #Preview {

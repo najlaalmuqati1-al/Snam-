@@ -12,12 +12,25 @@ import Charts
 struct InvestmentLevelView: View {
 
     @StateObject private var vm = InvestmentViewModel()
+    @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         ZStack {
-            Color.black
-                .overlay(Color(red: 0.14, green: 0.24, blue: 0.45).opacity(0.12))
-                .ignoresSafeArea()
+            // خلفية تتبع النظام: في الفاتح لمسة زرقاء خفيفة، في الداكن صورة Frame
+            if colorScheme == .dark {
+                Color(.systemBackground)
+                    .ignoresSafeArea()
+                    .overlay(
+                        Image("Frame")
+                            .resizable()
+                            .scaledToFill()
+                            .ignoresSafeArea()
+                    )
+            } else {
+                Color(.systemBackground)
+                    .overlay(Color.blue.opacity(0.06))
+                    .ignoresSafeArea()
+            }
 
             VStack(spacing: 0) {
                 chartCard
@@ -36,9 +49,9 @@ struct InvestmentLevelView: View {
                 Spacer().frame(height: 6)
 
                 HStack {
-                    Text("بيع").foregroundStyle(.white.opacity(0.8))
+                    Text("بيع").foregroundStyle(.secondary)
                     Spacer()
-                    Text("شراء").foregroundStyle(.white.opacity(0.8))
+                    Text("شراء").foregroundStyle(.secondary)
                 }
                 .font(.callout)
                 .frame(width: 316)
@@ -50,7 +63,7 @@ struct InvestmentLevelView: View {
 
                 Spacer().frame(height: 32)
 
-                // ← استخدام الزر الموجود في المشروع
+                // زر المشروع كما هو
                 PrimaryButton(title: "اكمل") {}
                     .frame(width: 358)
 
@@ -59,7 +72,7 @@ struct InvestmentLevelView: View {
             .padding(.horizontal, 16)
             .padding(.top, 16)
         }
-        .preferredColorScheme(.dark)
+        // أزلنا فرض الداكن ليَتبع النظام
         .environment(\.layoutDirection, .leftToRight)
     }
 
@@ -81,15 +94,15 @@ struct InvestmentLevelView: View {
             Spacer()
             VStack(alignment: .trailing, spacing: 2) {
                 Text("بيرن اكس")
-                    .font(.headline).foregroundStyle(.white)
+                    .font(.headline).foregroundStyle(.primary)
                 Text("قطاع الأعمال")
-                    .font(.caption).foregroundStyle(.gray)
+                    .font(.caption).foregroundStyle(.secondary)
             }
             Image("bx")
                 .resizable().scaledToFill()
                 .frame(width: 44, height: 44)
                 .clipShape(Circle())
-                .overlay(Circle().stroke(Color.white.opacity(0.15), lineWidth: 1))
+                .overlay(Circle().stroke(Color.primary.opacity(0.15), lineWidth: 1))
         }
     }
 
@@ -99,7 +112,7 @@ struct InvestmentLevelView: View {
             VStack(alignment: .trailing, spacing: 2) {
                 Text(String(format: "%.2f", vm.displayedPrice))
                     .font(.system(size: 40, weight: .bold))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                     .contentTransition(.numericText())
                 Text(String(format: "%+.1f%%", vm.percentage))
                     .font(.subheadline)
@@ -126,18 +139,18 @@ struct InvestmentLevelView: View {
             if let sel = vm.selectedDay,
                let point = vm.dynamicChartPoints.first(where: { $0.day == sel }) {
                 RuleMark(x: .value("Selected", point.day))
-                    .foregroundStyle(Color.white.opacity(0.35))
+                    .foregroundStyle(Color.primary.opacity(0.35))
                     .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 4]))
 
                 PointMark(x: .value("Day", point.day), y: .value("Value", point.value))
                     .symbolSize(80)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                     .annotation(position: .top, alignment: .center) {
                         Text(String(format: "%.2f", point.value))
                             .font(.system(size: 13, weight: .semibold))
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.primary)
                             .padding(.horizontal, 8).padding(.vertical, 6)
-                            .background(Color.black.opacity(0.6))
+                            .background(Color.secondary.opacity(0.2))
                             .clipShape(Capsule())
                     }
             }
@@ -147,7 +160,7 @@ struct InvestmentLevelView: View {
                 if let day = value.as(Int.self), day % 7 == 1 || day == 1 {
                     AxisValueLabel {
                         Text("\(day)").font(.system(size: 9))
-                            .foregroundStyle(Color.white.opacity(0.4))
+                            .foregroundStyle(Color.primary.opacity(0.4))
                     }
                 }
             }
@@ -177,11 +190,11 @@ struct InvestmentLevelView: View {
     private var hintRow: some View {
         HStack(spacing: 6) {
             Image(systemName: "hand.point.up.left.fill")
-                .foregroundStyle(.white.opacity(0.85))
+                .foregroundStyle(.primary.opacity(0.85))
             Text(vm.isDragging
                  ? "اسحب على الرسم لعرض السعر حسب اليوم"
                  : "حرك المؤشر وشوف وش بيصير بالسعر")
-                .font(.subheadline).foregroundStyle(.white)
+                .font(.subheadline).foregroundStyle(.primary)
         }
     }
 
@@ -191,7 +204,7 @@ struct InvestmentLevelView: View {
         glassCard(cornerRadius: 16) {
             HStack {
                 sideInfo(count: vm.sellers, label: "عدد البائعين", sublabel: "عرض اعلى", color: .red)
-                Rectangle().fill(Color.white.opacity(0.18)).frame(width: 1).padding(.vertical, 6)
+                Rectangle().fill(Color.primary.opacity(0.18)).frame(width: 1).padding(.vertical, 6)
                 sideInfo(count: vm.buyers, label: "عدد المشترين", sublabel: "طلب اعلى", color: .green)
             }
         }
@@ -201,9 +214,9 @@ struct InvestmentLevelView: View {
         VStack(spacing: 2) {
             HStack(spacing: 4) {
                 Image(systemName: "person.2.fill").font(.system(size: 13)).foregroundStyle(color)
-                Text("\(count)").font(.system(size: 15, weight: .semibold)).foregroundStyle(.white)
+                Text("\(count)").font(.system(size: 15, weight: .semibold)).foregroundStyle(.primary)
             }
-            Text(label).font(.system(size: 11)).foregroundStyle(.white.opacity(0.7))
+            Text(label).font(.system(size: 11)).foregroundStyle(.secondary)
             Text(sublabel).font(.system(size: 10, weight: .medium)).foregroundStyle(color)
         }
         .frame(maxWidth: .infinity)
@@ -220,10 +233,10 @@ struct InvestmentLevelView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(LinearGradient(
-                            colors: [Color.white.opacity(0.30), Color.white.opacity(0.12)],
+                            colors: [Color.primary.opacity(0.30), Color.primary.opacity(0.12)],
                             startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1.3)
                     RoundedRectangle(cornerRadius: cornerRadius)
-                        .stroke(Color.black.opacity(0.35), lineWidth: 0.7)
+                        .stroke(Color.black.opacity(0.15), lineWidth: 0.7)
                         .blur(radius: 0.7).offset(x: 0.6, y: 0.8)
                         .mask(RoundedRectangle(cornerRadius: cornerRadius))
                 }
@@ -257,13 +270,13 @@ struct CustomGradientSlider: View {
                     ], startPoint: .leading, endPoint: .trailing))
                     .frame(height: height)
                     .overlay(RoundedRectangle(cornerRadius: height / 2)
-                        .stroke(Color.white.opacity(0.22), lineWidth: 1))
+                        .stroke(Color.primary.opacity(0.22), lineWidth: 1))
 
                 Circle()
-                    .fill(Color.white)
+                    .fill(Color.primary)
                     .frame(width: thumbSize, height: thumbSize)
-                    .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 2)
-                    .overlay(Circle().stroke(Color.black.opacity(0.15), lineWidth: 0.5))
+                    .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
+                    .overlay(Circle().stroke(Color.primary.opacity(0.2), lineWidth: 0.5))
                     .position(x: max(padding, min(xPos, geo.size.width - padding)), y: height / 2)
                     .gesture(DragGesture(minimumDistance: 0).onChanged { gesture in
                         let localX   = max(padding, min(gesture.location.x, geo.size.width - padding))
