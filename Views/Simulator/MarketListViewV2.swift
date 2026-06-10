@@ -200,7 +200,7 @@ struct MarketListViewV2: View {
                                     .buttonStyle(.plain)
 
                                 }
-                                .padding(.horizontal)
+//                                .padding(.horizontal)
                             }
                         }
                     }
@@ -256,12 +256,13 @@ struct MarketListViewV2: View {
                 }
                 
                 Spacer()
-                
+//                هذا الشارت حق الاسهم
                 MiniSparklineNew(
                     points: company.chartData.timeframes.oneDay.map { $0.price },
                     trend: company.stock.trend
                 )
                 .frame(width: 65, height: 25)
+                
                 
                 Spacer()
                 
