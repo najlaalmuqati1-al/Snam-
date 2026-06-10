@@ -95,9 +95,9 @@ struct SettingsView: View {
             Button(action: { dismiss() }) {
                 Image(systemName: "chevron.right")
                     .font(.system(size: 19, weight: .semibold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .frame(width: 44, height: 44)
-                    .background(Color.white.opacity(0.08))
+                    .background(Color.secondary.opacity(0.12))
                     .clipShape(Circle())
             }
 
@@ -105,7 +105,7 @@ struct SettingsView: View {
 
             Text("الإعدادات")
                 .font(svArabic("Bold", size: 22))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
 
             Spacer()
 
@@ -124,7 +124,7 @@ struct SettingsView: View {
             // Section Title
             Text(title)
                 .font(svArabic("Bold", size: 24))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.bottom, 8)
 
@@ -138,7 +138,7 @@ struct SettingsView: View {
 
                     if index < items.count - 1 {
                         Rectangle()
-                            .fill(Color.white.opacity(0.08))
+                            .fill(Color.primary.opacity(0.1))
                             .frame(height: 1)
                             .padding(.leading, 18)
                     }
@@ -147,10 +147,10 @@ struct SettingsView: View {
             .padding(.vertical, 4)
             .background(
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
-                    .fill(Color.white.opacity(0.03))
+                    .fill(Color.secondary.opacity(0.06))
                     .overlay(
                         RoundedRectangle(cornerRadius: 22, style: .continuous)
-                            .stroke(Color.gray.opacity(0.4), lineWidth: 1.1)
+                            .stroke(Color.primary.opacity(0.25), lineWidth: 1.0)
                     )
             )
         }
@@ -162,17 +162,17 @@ struct SettingsView: View {
         HStack(spacing: 16) {
             Image(systemName: "chevron.left")
                 .font(.system(size: 15, weight: .semibold))
-                .foregroundColor(.white.opacity(0.35))
+                .foregroundColor(.secondary)
 
             Spacer()
 
             Text(item.title)
                 .font(svArabic("Medium", size: 18))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
 
             Image(systemName: item.icon)
                 .font(.system(size: 22, weight: .medium))
-                .foregroundColor(.gray)
+                .foregroundColor(.secondary)
         }
         .padding(.horizontal, 18)
         .padding(.vertical, 18)
@@ -210,7 +210,7 @@ struct LanguageSettingsHelperView: View {
                 header(title: "اللغة")
                 Text("لتغيير لغة التطبيق، افتح إعدادات النظام، ثم ابحث عن تطبيق سنام واختر اللغة المفضّلة.")
                     .font(svArabic("Regular", size: 18))
-                    .foregroundColor(.white.opacity(0.9))
+                    .foregroundColor(.primary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
 
@@ -237,15 +237,15 @@ struct LanguageSettingsHelperView: View {
             Button(action: { dismiss() }) {
                 Image(systemName: "chevron.right")
                     .font(.system(size: 19, weight: .semibold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .frame(width: 44, height: 44)
-                    .background(Color.white.opacity(0.08))
+                    .background(Color.secondary.opacity(0.12))
                     .clipShape(Circle())
             }
             Spacer()
             Text(title)
                 .font(svArabic("Bold", size: 22))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
             Spacer()
             Color.clear.frame(width: 44, height: 44)
         }
@@ -282,7 +282,7 @@ struct AppearanceSettingsHelperView: View {
                 header(title: "شكل التطبيق")
                 Text("لتغيير المظهر (فاتح/داكن) أو الاعتماد على مظهر النظام، افتح إعدادات التطبيق من إعدادات النظام.")
                     .font(svArabic("Regular", size: 18))
-                    .foregroundColor(.white.opacity(0.9))
+                    .foregroundColor(.primary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
 
@@ -309,15 +309,15 @@ struct AppearanceSettingsHelperView: View {
             Button(action: { dismiss() }) {
                 Image(systemName: "chevron.right")
                     .font(.system(size: 19, weight: .semibold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .frame(width: 44, height: 44)
-                    .background(Color.white.opacity(0.08))
+                    .background(Color.secondary.opacity(0.12))
                     .clipShape(Circle())
             }
             Spacer()
             Text(title)
                 .font(svArabic("Bold", size: 22))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
             Spacer()
             Color.clear.frame(width: 44, height: 44)
         }
@@ -357,9 +357,9 @@ struct PrivacySecurityView: View {
                     Button(action: { dismiss() }) {
                         Image(systemName: "chevron.right")
                             .font(.system(size: 19, weight: .semibold))
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .frame(width: 44, height: 44)
-                            .background(Color.white.opacity(0.08))
+                            .background(Color.secondary.opacity(0.12))
                             .clipShape(Circle())
                     }
 
@@ -367,7 +367,7 @@ struct PrivacySecurityView: View {
 
                     Text("الخصوصية والأمان")
                         .font(svArabic("Bold", size: 24))
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
 
                     Spacer()
 
@@ -383,12 +383,12 @@ struct PrivacySecurityView: View {
                         VStack(alignment: .trailing, spacing: 16) {
                             Text("سياسة الخصوصية والأمان")
                                 .font(svArabic("Bold", size: 36))
-                                .foregroundColor(.white)
+                                .foregroundColor(.primary)
                                 .multilineTextAlignment(.trailing)
 
                             Text("نحن نهتم بأن خصوصيتك هي داخل اهتمامنا. لقد صممنا هذه التجربة التصميمة لكي تكون مساحة خالية من التتبع، حيث نحترم بياناتك ونحافظ على أمانها. توضح هذه السياسة كيف نتعامل مع بياناتك داخل التطبيق بشكل مبسط.")
                                 .font(svArabic("Regular", size: 18))
-                                .foregroundColor(.white.opacity(0.88))
+                                .foregroundColor(.secondary)
                                 .multilineTextAlignment(.trailing)
                                 .lineSpacing(6)
                         }
@@ -429,7 +429,8 @@ struct PrivacySecurityView: View {
         }
         .navigationBarHidden(true)
         .environment(\.layoutDirection, .leftToRight)
-        .preferredColorScheme(.dark)
+        // يمكنك إزالة هذا السطر إذا أردت أن تتبع هذه الشاشة مظهر النظام تلقائياً
+        //.preferredColorScheme(.dark)
     }
 
     // فقرة بتعداد رقمي والرقم في الجهة اليسار
@@ -440,19 +441,19 @@ struct PrivacySecurityView: View {
                 HStack(spacing: 8) {
                     Text(title)
                         .font(svArabic("Bold", size: 22))
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                         .multilineTextAlignment(.trailing)
                         .frame(maxWidth: .infinity, alignment: .trailing)
 
                     Text("")
                         .font(svArabic("Bold", size: 22))
-                        .foregroundColor(.white.opacity(0.95))
+                        .foregroundColor(.primary.opacity(0.95))
                         .padding(.top, 0)
                 }
 
                 Text(subtitle)
                     .font(svArabic("Regular", size: 18))
-                    .foregroundColor(.white.opacity(0.85))
+                    .foregroundColor(.secondary)
                     .lineSpacing(6)
                     .multilineTextAlignment(.trailing)
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -463,7 +464,7 @@ struct PrivacySecurityView: View {
 
             Text("\(number)")
                 .font(svArabic("Bold", size: 24))
-                .foregroundColor(.white.opacity(0.95))
+                .foregroundColor(.primary.opacity(0.95))
                 .padding(.top, 4)
                 .frame(minWidth: 28, alignment: .leading)
         }

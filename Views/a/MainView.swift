@@ -146,9 +146,9 @@ struct MainView: View {
             Button(action: { showSettings = true }) {
                 Image(systemName: "gearshape.fill")
                     .font(.system(size: 20, weight: .medium))
-                    .foregroundColor(.white.opacity(0.75))
+                    .foregroundColor(.primary.opacity(0.75))
                     .padding(10)
-                    .background(Color.white.opacity(0.07))
+                    .background(Color.secondary.opacity(0.12))
                     .clipShape(Circle())
             }
 
@@ -157,7 +157,7 @@ struct MainView: View {
             Text("محفظتك")
                 .font(svArabic("Bold", size: 26))
                 .fontWeight(.bold)
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
         }
         .padding(.horizontal, 24)
         .padding(.top, 16)
@@ -180,13 +180,13 @@ struct MainView: View {
         VStack(alignment: .trailing, spacing: 0) {
             Text("أسهمك")
                 .font(svArabic("Bold", size: 22))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.horizontal, 24)
                 .padding(.bottom, 16)
 
             Rectangle()
-                .fill(Color.white.opacity(0.07))
+                .fill(Color.primary.opacity(0.12))
                 .frame(height: 1)
                 .padding(.horizontal, 24)
 
@@ -196,7 +196,7 @@ struct MainView: View {
 
                     if stock.id != stocks.last?.id {
                         Rectangle()
-                            .fill(Color.white.opacity(0.06))
+                            .fill(Color.primary.opacity(0.1))
                             .frame(height: 1)
                             .padding(.horizontal, 24)
                     }
@@ -215,10 +215,10 @@ struct MainView: View {
                 }
             }) {
                 Image(systemName: "xmark")
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .font(.system(size: 16, weight: .bold))
                     .frame(width: 28, height: 28)
-                    .background(Color.white.opacity(0.12))
+                    .background(Color.secondary.opacity(0.15))
                     .clipShape(Circle())
             }
 
@@ -226,7 +226,7 @@ struct MainView: View {
 
             Text("اعتمدنا الشكل الجديد!!!")
                 .font(svArabic("Bold", size: 16))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
 
             Image(systemName: "checkmark.circle.fill")
                 .foregroundColor(.green)
@@ -236,14 +236,14 @@ struct MainView: View {
         .padding(.vertical, 12)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.black.opacity(0.85))
+                .fill(Color(.secondarySystemBackground))
                 .overlay(
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .stroke(Color.white.opacity(0.12), lineWidth: 1)
+                        .stroke(Color.primary.opacity(0.12), lineWidth: 1)
                 )
         )
         .padding(.horizontal, 16)
-        .shadow(color: .black.opacity(0.35), radius: 10, x: 0, y: 6)
+        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 6)
     }
 }
 
@@ -264,31 +264,29 @@ struct StockRowView: View {
             VStack(alignment: .leading, spacing: 3) {
                 Text("\(Int(stock.price))")
                     .font(svArabic("Bold", size: 17))
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
 
                 Text("\(isPositive ? "+" : "")\(String(format: "%.2f", stock.changePercent))%")
                     .font(svArabic("Medium", size: 13))
                     .foregroundColor(changeColor)
             }
-            .frame(width: 60, alignment: .leading) // كان 70 → صغّرناه
-            .padding(.trailing, 4) // مسافة ثابتة صغيرة بدل Spacer
-
-            // أزلنا الـ Spacer الكبير لتقريب العمودين
+            .frame(width: 60, alignment: .leading)
+            .padding(.trailing, 4)
 
             HStack(spacing: 10) {
                 VStack(alignment: .trailing, spacing: 3) {
                     Text(stock.name)
                         .font(svArabic("Bold", size: 16))
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
 
                     Text(stock.sector)
                         .font(svArabic("Regular", size: 12))
-                        .foregroundColor(.white.opacity(0.5))
+                        .foregroundColor(.secondary)
                 }
 
                 ZStack {
                     Circle()
-                        .fill(Color.white.opacity(0.08))
+                        .fill(Color.secondary.opacity(0.12))
                         .frame(width: 44, height: 44)
 
                     Image(stock.logoImageName)
@@ -304,8 +302,6 @@ struct StockRowView: View {
         .padding(.vertical, 14)
     }
 }
-
-
 
 #Preview {
     MainView()
