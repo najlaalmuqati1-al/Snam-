@@ -11,14 +11,12 @@ struct TradeSheetView: View {
 
     let company: Company
     @ObservedObject var vm: MarketViewModelNew
+    let onSuccess: (String) -> Void
 
     @Environment(\.dismiss) var dismiss
 
     @State private var quantity = 1
     @State private var isBuy = true
-    @State private var showSuccessToast = false
-    @State private var toastMessage = ""
-
     @State private var showErrorPopup = false
     @State private var errorMessage = ""
 
@@ -28,34 +26,34 @@ struct TradeSheetView: View {
 
             Color.black
                 .ignoresSafeArea()
-            if showSuccessToast {
-
-                VStack {
-
-                    HStack {
-
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(.green)
-
-                        Text(toastMessage)
-                            .foregroundColor(.white)
-
-                        Spacer()
-                    }
-                    .padding()
-                    .background(Color.black.opacity(0.95))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color.white.opacity(0.08))
-                    )
-                    .cornerRadius(16)
-                    .padding(.horizontal, 20)
-
-                    Spacer()
-                }
-                .padding(.top, -40)
-                .zIndex(999)
-            }
+//            if showSuccessToast {
+//
+//                VStack {
+//
+//                    HStack {
+//
+//                        Image(systemName: "checkmark.circle.fill")
+//                            .foregroundColor(.green)
+//
+//                        Text(toastMessage)
+//                            .foregroundColor(.white)
+//
+//                        Spacer()
+//                    }
+//                    .padding()
+//                    .background(Color.black.opacity(0.95))
+//                    .overlay(
+//                        RoundedRectangle(cornerRadius: 16)
+//                            .stroke(Color.white.opacity(0.08))
+//                    )
+//                    .cornerRadius(16)
+//                    .padding(.horizontal, 20)
+//
+//                    Spacer()
+//                }
+//                .padding(.top, -40)
+//                .zIndex(999)
+//            }
 
             VStack(spacing: 24) {
 
@@ -66,19 +64,24 @@ struct TradeSheetView: View {
                     .padding(.top)
 
                 Text("صفحة تداول")
-                    .font(.headline)
+                    .font(.system(size: 20, weight: .bold))
                     .foregroundColor(.white)
+                    .padding(.top, 20)
 
                 Text(String(format: "%.2f", company.stock.currentPrice))
-                    .font(.system(size: 52, weight: .black))
+                    .font(.system(size: 64, weight: .black))
                     .foregroundColor(.white)
+                    .padding(.top, 35)
 
-                Text("سعر السهم")
+                Text("سنام")
+                    .font(.system(size: 18))
                     .foregroundColor(.gray)
+
+                
 
                 HStack(alignment: .top) {
 
-                    VStack(alignment: .trailing, spacing: 40) {
+                    VStack(alignment: .trailing, spacing: 50) {
 
                         Text("الكمية التي تم تداولها مسبقاً")
 
@@ -91,7 +94,7 @@ struct TradeSheetView: View {
 
                     Spacer()
 
-                    VStack(spacing: 28) {
+                    VStack(spacing: 40) {
 
                         Text("\(vm.ownedShares[company.id, default: 0]) من أسهم")
                             .foregroundColor(.white)
@@ -101,7 +104,7 @@ struct TradeSheetView: View {
                             Button("بيع") {
                                 isBuy = false
                             }
-                            .frame(width: 90,height: 44)
+                            .frame(width: 95, height: 48)
                             .background(isBuy ? .clear : Color.white.opacity(0.15))
 
                             Button("شراء") {
@@ -139,6 +142,7 @@ struct TradeSheetView: View {
                         .foregroundColor(.white)
                     }
                 }
+                .padding(.top, 50)
                 .padding(.horizontal,24)
                 .environment(\.layoutDirection, .rightToLeft)
                 .foregroundColor(.white)
@@ -149,8 +153,8 @@ struct TradeSheetView: View {
 
                         if vm.buyStock(company: company, count: quantity) {
 
-                            toastMessage = "تم شراء السهم بنجاح"
-                            showSuccessToast = true
+                            onSuccess("كفو! السهم صار بمحفظتك")
+                            dismiss()
 
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 dismiss()
@@ -166,9 +170,8 @@ struct TradeSheetView: View {
 
                         if vm.sellStock(company: company, count: quantity) {
 
-                            toastMessage = "تم بيع السهم بنجاح"
-                            showSuccessToast = true
-
+                            onSuccess("تم بيع السهم بنجاح")
+                            dismiss()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 dismiss()
                             }
@@ -181,44 +184,11 @@ struct TradeSheetView: View {
                     }
                 }
                 .padding(.horizontal)
+                .padding(.top, 40)
 
                 Spacer()
                             }
-            if showSuccessToast {
-
-                VStack {
-
-                    HStack {
-
-                        Button {
-                            showSuccessToast = false
-                        } label: {
-                            Image(systemName: "xmark")
-                                .foregroundColor(.white)
-                                .font(.title3)
-                        }
-
-                        Spacer()
-
-                        Text(toastMessage)
-                            .foregroundColor(.white)
-                            .font(.headline)
-
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(.green)
-                            .font(.title2)
-
-                    }
-                    .padding()
-                    .background(Color(red: 0.12, green: 0.12, blue: 0.12))
-                    .cornerRadius(16)
-                    .padding(.horizontal, 20)
-                    .padding(.top, 8)
-
-                    Spacer()
-                }
-            }
-
+            
             
 
             if showErrorPopup {

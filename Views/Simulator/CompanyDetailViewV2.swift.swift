@@ -8,6 +8,8 @@ struct CompanyDetailViewV2: View {
     @State private var showInfo = false
     @State private var showSuccessBanner = false
     @State private var bannerMessage = ""
+    @State private var showSuccessToast = false
+    @State private var toastMessage = ""
     @AppStorage("hasCompletedTutorial")
     private var hasCompletedTutorial = false
     @State private var detailTutorialStep = 0
@@ -135,6 +137,51 @@ struct CompanyDetailViewV2: View {
                 .zIndex(999)
             }
             
+            if showSuccessToast {
+
+                VStack {
+
+                    HStack(spacing: 14) {
+
+                        Button {
+                            showSuccessToast = false
+                        } label: {
+
+                            Image(systemName: "xmark")
+                                .foregroundColor(.white)
+                                .font(.system(size: 15, weight: .semibold))
+                        }
+
+                        Spacer()
+
+                        Text(toastMessage)
+                            .foregroundColor(.white)
+                            .font(.system(size: 13))
+
+                        ZStack {
+
+                            Circle()
+                                .fill(Color.green.opacity(0.19))
+                                .frame(width: 26, height: 26)
+
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(Color(red: 65/255,
+                                                       green: 233/255,
+                                                       blue: 112/255))
+                                .font(.system(size: 18))
+                        }
+                    }
+                    .padding(.horizontal, 18)
+                    .frame(height: 59)
+                    .background(Color.black.opacity(0.95))
+                    .cornerRadius(12)
+                    .padding(.horizontal, 17)
+                    .padding(.top, 50)
+
+                    Spacer()
+                }
+                .zIndex(999)
+            }
             VStack(spacing: 0) {
                 HStack {
                     
@@ -337,12 +384,21 @@ struct CompanyDetailViewV2: View {
                     .offset(y: -25)
                     .cornerRadius(60)
                     .sheet(isPresented: $showTradeSheet) {
-                        
+
                         TradeSheetView(
                             company: company,
-                            vm: vm
+                            vm: vm,
+                            onSuccess: { message in
+
+                                toastMessage = message
+                                showSuccessToast = true
+
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    showSuccessToast = false
+                                }
+                            }
                         )
-                        .presentationDetents([.height(670)])
+                        .presentationDetents([.height(730)])
                         .presentationBackground(.black)
                     }
                     
