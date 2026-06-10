@@ -122,7 +122,7 @@ struct MarketListViewV2: View {
                                 filterButton("قطاع التقنية")
                             }
                             .padding(.vertical, 10)
-                            .frame(width: 238)
+                            .frame(width: 260)
                             .background(
                                 RoundedRectangle(cornerRadius: 34)
                                     .fill(Color.black.opacity(0.93))
@@ -138,7 +138,7 @@ struct MarketListViewV2: View {
 
                         Spacer()
                     }
-                    .padding(.top, 140)
+                    .padding(.top, 110)
                     .zIndex(999)
                 }
                 VStack {
@@ -146,7 +146,7 @@ struct MarketListViewV2: View {
                     HStack {
                         
                         Text("المحاكي")
-                            .font(.system(size: 30, weight: .black))
+                            .font(.system(size: 36, weight: .black))
                             .foregroundColor(.white)
                         
                         Spacer()
@@ -173,8 +173,8 @@ struct MarketListViewV2: View {
                     
                         }
                         .padding(.horizontal, 20)
-                        .padding(.top, 70)
-                        .padding(.bottom, 30)
+                        .padding(.top, 55)
+                        .padding(.bottom, 20)
                         .environment(\.layoutDirection, .rightToLeft)
                         ScrollView {
                             
@@ -238,7 +238,7 @@ struct MarketListViewV2: View {
                     
                     Circle()
                         .fill(Color.white.opacity(0.08))
-                        .frame(width: 54, height: 54)
+                        .frame(width: 40, height: 44)
                     
                     Text(company.icon)
                         .font(.title3)
@@ -247,7 +247,7 @@ struct MarketListViewV2: View {
                 VStack(alignment: .trailing, spacing: 4) {
                     
                     Text(company.fakeName)
-                        .font(.system(size: 17, weight: .bold))
+                        .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.white)
                     
                     Text(sectorArabicNew(company.sector))
@@ -261,7 +261,7 @@ struct MarketListViewV2: View {
                     points: company.chartData.timeframes.oneDay.map { $0.price },
                     trend: company.stock.trend
                 )
-                .frame(width: 65, height: 25)
+                .frame(width: 75, height: 22)
                 
                 
                 Spacer()
@@ -285,13 +285,13 @@ struct MarketListViewV2: View {
             }
             .environment(\.layoutDirection, .rightToLeft)
             .padding(.horizontal, 18)
-            .padding(.vertical, 18)
+            .padding(.vertical, 10)
             .overlay(
                 Rectangle()
                     .fill(Color(red: 89/255,
                                 green: 89/255,
                                 blue: 89/255))
-                    .frame(height: 0.5),
+                    .frame(height: 0.6),
                 alignment: .bottom
             )
         }

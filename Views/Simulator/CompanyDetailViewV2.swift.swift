@@ -9,6 +9,7 @@ struct CompanyDetailViewV2: View {
     @State private var showSuccessBanner = false
     @State private var bannerMessage = ""
     @State private var showSuccessToast = false
+    @State private var selectedPeriod = "يوم"
     @State private var toastMessage = ""
     @AppStorage("hasCompletedTutorial")
     private var hasCompletedTutorial = false
@@ -193,7 +194,7 @@ struct CompanyDetailViewV2: View {
                             
                             RoundedRectangle(cornerRadius: 900)
                                 .fill(Color.black.opacity(0.55))
-                                .frame(width: 94, height: 44)
+                                .frame(width: 112, height: 52)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 900)
                                         .stroke(Color.white.opacity(0.06), lineWidth: 1)
@@ -220,7 +221,7 @@ struct CompanyDetailViewV2: View {
                         
                         Circle()
                             .fill(Color.black.opacity(0.2))
-                            .frame(width: 44, height: 44)
+                            .frame(width: 52, height: 52)
                             .overlay(
                                 Circle()
                                     .stroke(Color.white.opacity(0.08), lineWidth: 1)
@@ -258,6 +259,7 @@ struct CompanyDetailViewV2: View {
                     
                     Spacer()
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.horizontal,24)
                 .padding(.top,20)
                 .environment(\.layoutDirection, .rightToLeft)
@@ -291,21 +293,33 @@ struct CompanyDetailViewV2: View {
                 
                 VStack(spacing: 16) {
                     
-                    HStack(spacing: 20) {
-                        
-                        Text("١ي")
-                        Text("١ش")
-                        Text("٣ش")
-                        Text("٦ش")
-                        Text("١س")
-                        Text("٣س")
-                        
-                        Text("اي")
-                            .padding(.horizontal,12)
-                            .padding(.vertical,6)
-                            .background(Color.white.opacity(0.15))
-                            .clipShape(Capsule())
-                        
+                    HStack(spacing: 16) {
+
+                        ForEach(["سنه", "شهر","اسبوع", "يوم"], id: \.self) { period in
+
+                            Button {
+
+                                selectedPeriod = period
+
+                            } label: {
+
+                                Text(period)
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(
+                                        selectedPeriod == period
+                                        ? .white
+                                        : .gray
+                                    )
+                                    .padding(.horizontal, 14)
+                                    .padding(.vertical, 8)
+                                    .background(
+                                        selectedPeriod == period
+                                        ? Color.white.opacity(0.15)
+                                        : Color.clear
+                                    )
+                                    .clipShape(Capsule())
+                            }
+                        }
                     }
                     .font(.caption)
                     .foregroundColor(.white)
@@ -320,7 +334,7 @@ struct CompanyDetailViewV2: View {
                             )
                         
                         MarketBigChartView(
-                            prices: company.chartData.timeframes.oneDay.map { $0.price }
+                            prices: selectedPrices
                         )
                         .padding()
                         
@@ -563,6 +577,24 @@ struct CompanyDetailViewV2: View {
                     timer.invalidate()
                 }
             }
+        }
+    }
+    
+    var selectedPrices: [Double] {
+
+        switch selectedPeriod {
+
+        case "أسبوع":
+            return company.chartData.timeframes.oneWeek.map { $0.price }
+
+        case "شهر":
+            return company.chartData.timeframes.oneMonth.map { $0.price }
+
+        case "سنة":
+            return company.chartData.timeframes.oneYear.map { $0.price }
+
+        default:
+            return company.chartData.timeframes.oneDay.map { $0.price }
         }
     }
     @ViewBuilder
