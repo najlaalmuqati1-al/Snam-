@@ -56,6 +56,7 @@ struct LevelsView: View {
                     Text("المراحل")
                         .font(.system(size: 34, weight: .heavy))
                         .foregroundColor(.primary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
 
                     Text("تقدم في رحلتك وتعلم لتنتهي من جميع المراحل")
                         .font(.system(size: 16, weight: .regular))
