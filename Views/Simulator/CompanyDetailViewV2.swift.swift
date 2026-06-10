@@ -350,8 +350,8 @@ struct CompanyDetailViewV2: View {
                     {
                         
                         statisticsColumn(
-                            values: ["٠٠،٠٠", "٠٠،٠٠", "٠٠،٠٠"],
-                            titles: ["إفتتاح", "الأعلى", "الأدنى"]
+                            values: ["٠٠،٠٠", "٠٠،٠٠"],
+                            titles: ["الكمية المتداولة", "القيمة المتداولة"]
                         )
                         
                         Divider()
@@ -364,11 +364,12 @@ struct CompanyDetailViewV2: View {
                         
                         Divider()
                             .frame(height: 80)
-                        
                         statisticsColumn(
-                            values: ["٠٠،٠٠", "٠٠،٠٠"],
-                            titles: ["الكمية المتداولة", "القيمة المتداولة"]
+                            values: ["٠٠،٠٠", "٠٠،٠٠", "٠٠،٠٠"],
+                            titles: ["إفتتاح", "الأعلى", "الأدنى"]
                         )
+                        
+                    
                     }
                     .padding(.horizontal, 24)
                     .padding(.top, 8)

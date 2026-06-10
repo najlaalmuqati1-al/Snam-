@@ -287,8 +287,11 @@ struct MarketListViewV2: View {
             .padding(.horizontal, 18)
             .padding(.vertical, 18)
             .overlay(
-                Divider()
-                    .background(Color.white.opacity(0.15)),
+                Rectangle()
+                    .fill(Color(red: 89/255,
+                                green: 89/255,
+                                blue: 89/255))
+                    .frame(height: 0.5),
                 alignment: .bottom
             )
         }
