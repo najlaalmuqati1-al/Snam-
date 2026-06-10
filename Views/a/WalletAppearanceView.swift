@@ -35,7 +35,8 @@ struct WalletAppearanceView: View {
 
     var body: some View {
         ZStack {
-            Color(hex: "0D0D1A").ignoresSafeArea()
+            // اجعل الخلفية تتبع النظام لضمان تباين صحيح مع .primary/.secondary
+            Color(.systemBackground).ignoresSafeArea()
 
             VStack(spacing: 0) {
                 navigationHeader
@@ -83,17 +84,19 @@ struct WalletAppearanceView: View {
             }) {
                 Image(systemName: "chevron.right")
                     .font(.system(size: 17, weight: .semibold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .padding(10)
-                    .background(Color.white.opacity(0.08))
-                    .clipShape(Circle())
+                    .background(
+                        RoundedRectangle(cornerRadius: 22)
+                            .fill(Color.secondary.opacity(0.12))
+                    )
             }
 
             Spacer(minLength: 12)
 
             Text("شكل محفظتك")
                 .font(svArabic("Bold", size: 18))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .frame(maxWidth: .infinity, alignment: .center)
 
             Spacer(minLength: 12)
@@ -104,7 +107,7 @@ struct WalletAppearanceView: View {
                         Circle()
                             .fill(Color.blue)
                             .frame(width: 36, height: 36)
-                            .overlay(Circle().stroke(Color.white.opacity(0.25), lineWidth: 1))
+                            .overlay(Circle().stroke(Color.primary.opacity(0.25), lineWidth: 1))
                             .shadow(color: .black.opacity(0.25), radius: 6, x: 0, y: 2)
                         Image(systemName: "checkmark")
                             .font(.system(size: 15, weight: .bold))
@@ -146,7 +149,7 @@ struct WalletAppearanceView: View {
         VStack(alignment: .trailing, spacing: 16) {
             Text("محفظتك الحاليه")
                 .font(svArabic("Bold", size: 22))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.horizontal, 24)
                 .padding(.top, 24)
@@ -166,33 +169,33 @@ struct WalletAppearanceView: View {
         VStack(alignment: .trailing, spacing: 10) {
             Text("اسمك")
                 .font(svArabic("Medium", size: 15))
-                .foregroundColor(.white.opacity(0.85))
+                .foregroundColor(.secondary)
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.trailing, 12)
 
             TextField("", text: $draftName)
                 .font(svArabic("Regular", size: 16))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .multilineTextAlignment(.trailing)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 10)
                 .background(
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.clear)
+                        .fill(Color.secondary.opacity(0.08))
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
                                 .stroke(
                                     isNameFocused
                                     ? LinearGradient(
-                                        colors: [Color.white.opacity(0.45), Color.white.opacity(0.20)],
+                                        colors: [Color.primary.opacity(0.35), Color.primary.opacity(0.15)],
                                         startPoint: .topLeading, endPoint: .bottomTrailing)
                                     : LinearGradient(
-                                        colors: [Color.white.opacity(0.25), Color.white.opacity(0.10)],
+                                        colors: [Color.primary.opacity(0.20), Color.primary.opacity(0.08)],
                                         startPoint: .topLeading, endPoint: .bottomTrailing),
                                     lineWidth: 1.0
                                 )
                         )
-                        .shadow(color: .black.opacity(0.15), radius: 6, x: 0, y: 2)
+                        .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 1)
                 )
                 .focused($isNameFocused)
                 .submitLabel(.done)
@@ -207,7 +210,7 @@ struct WalletAppearanceView: View {
         VStack(alignment: .center, spacing: 20) {
             Text("اختر شكل المحفظة اللي ودك فيه")
                 .font(svArabic("Bold", size: 18))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal, 24)
                 .padding(.top, 24)

@@ -3,6 +3,8 @@
 //  Snam
 //
 //  Created by Jojo on 03/06/2026.
+
+
 import SwiftUI
 
 // MARK: - Root
@@ -43,12 +45,11 @@ struct PortfolioMainView: View {
             ScrollView(showsIndicators: false) {
             
                 VStack(spacing: 0) {
-                    navBar
-                        .padding(.top, 20)
+                    NavigationHeader(title: "تحدي التنويع", onBack: {})
                         .padding(.bottom, 20)
-
+                    
                     Text("وزع المبلغ التالي كحد ادنى على قطاعين مختلفين")
-                        .font(.system(size: 13, weight: .regular))
+                        .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color.primary.opacity(0.55)) // ← primary
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 24)
@@ -345,14 +346,20 @@ struct SectorRowCard: View {
                 VStack(spacing: 0) {
 
                     HStack {
-                        Button(action: { vm.increment(id: sector.id) }) {
+                        Button(action: { vm.decrement(id: sector.id) }) {
                             ZStack {
                                 Circle()
-                                    .fill(Color.black.opacity(0.55))
-                                    .frame(width: 21, height: 21)
+                                    .fill(.ultraThinMaterial)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color.white.opacity(0.25), lineWidth: 1)
+                                    )
+                                    .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
+                                    .frame(width: 20, height: 20)
                                 Text("+")
-                                    .font(.system(size: 11, weight: .bold))
+                                    .font(.system(size: 14, weight: .bold))
                                     .foregroundColor(.white)
+                            
                             }
                         }
                         Spacer()
@@ -368,10 +375,15 @@ struct SectorRowCard: View {
                         Button(action: { vm.decrement(id: sector.id) }) {
                             ZStack {
                                 Circle()
-                                    .fill(Color.black.opacity(0.55))
-                                    .frame(width: 21, height: 21)
+                                    .fill(.ultraThinMaterial)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color.white.opacity(0.25), lineWidth: 1)
+                                    )
+                                    .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
+                                    .frame(width: 20, height: 20)
                                 Text("−")
-                                    .font(.system(size: 11, weight: .bold))
+                                    .font(.system(size: 14, weight: .bold))
                                     .foregroundColor(.white)
                             }
                         }

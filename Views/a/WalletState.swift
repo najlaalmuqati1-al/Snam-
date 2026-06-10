@@ -12,7 +12,7 @@ import Combine
 /// This object is injected at the root and shared between
 /// MainView ↔ SettingsView ↔ WalletAppearanceView
 final class WalletState: ObservableObject {
-    @Published var holderName: String = "مرام بن جبير"
+    @Published var holderName: String = "مزنة سنام"
     @Published var selectedThemeID: Int = 0
 
     // Toast state to notify MainView after saving wallet appearance

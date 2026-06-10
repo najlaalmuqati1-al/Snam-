@@ -3,6 +3,7 @@
 //  Snam
 //
 //  Created by Najla Almuqati on 28/11/1447 AH.
+
 import SwiftUI
 
 // MARK: - Tab Items
@@ -29,68 +30,56 @@ enum TabItem: Int, CaseIterable {
     }
 }
 
-// MARK: - Main Tab View
+// MARK: - Custom Tab Bar
 
 struct MainTabView: View {
     @State private var selectedTab: TabItem = .journey
-    @StateObject private var walletState = WalletState()
 
     var body: some View {
         NavigationStack {
+            ZStack {
+                
+                // الخلفية كما هي
+                Color(.systemBackground)
+                    .ignoresSafeArea()
+                    .overlay(
+                        Image("Frame")
+                            .resizable()
+                            .scaledToFill()
+                            .ignoresSafeArea()
+                    )
 
-            TabView(selection: $selectedTab) {
+                TabView(selection: $selectedTab) {
 
-                ZStack {
-                    BackgroundFrameView()
                     MarketListViewV2()
-                }
-                .tabItem {
-                    Image(systemName: TabItem.simulator.icon)
-                    Text(TabItem.simulator.title)
-                }
-                .tag(TabItem.simulator)
+                        .tabItem {
+                            Image(systemName: TabItem.simulator.icon)
+                            Text(TabItem.simulator.title)
+                        }
+                        .tag(TabItem.simulator)
 
-                ZStack {
-                    BackgroundFrameView()
                     LevelsView()
-                }
-                .tabItem {
-                    Image(systemName: TabItem.journey.icon)
-                    Text(TabItem.journey.title)
-                }
-                .tag(TabItem.journey)
+                        .tabItem {
+                            Image(systemName: TabItem.journey.icon)
+                            Text(TabItem.journey.title)
+                        }
+                        .tag(TabItem.journey)
 
-                ZStack {
-                    BackgroundFrameView()
                     MainView()
-                        .environmentObject(walletState)
+                        .environmentObject(WalletState())
+                        .tabItem {
+                            Image(systemName: TabItem.portfolio.icon)
+                            Text(TabItem.portfolio.title)
+                        }
+                        .tag(TabItem.portfolio)
                 }
-                .tabItem {
-                    Image(systemName: TabItem.portfolio.icon)
-                    Text(TabItem.portfolio.title)
-                }
-                .tag(TabItem.portfolio)
             }
             .toolbarBackground(.hidden, for: .navigationBar)
             .navigationBarHidden(true)
         }
     }
 }
-
-// MARK: - Background
-
-struct BackgroundFrameView: View {
-    var body: some View {
-        Color(.systemBackground)
-            .ignoresSafeArea()
-            .overlay(
-                Image("Frame")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-            )
-    }
-}
+// MARK: - Preview
 
 #Preview {
     MainTabView()

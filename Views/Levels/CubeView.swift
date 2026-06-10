@@ -8,10 +8,14 @@
 import SwiftUI
 import SceneKit
 
+
 // MARK: - ContentView
 
 struct ContentView: View {
     @StateObject private var vm = CubeViewModel()
+    @StateObject private var portfolioVM = PortfolioViewModel()
+    @State private var showCongrats = false
+
     var body: some View {
         ZStack {
             Color(.systemBackground)
@@ -21,81 +25,66 @@ struct ContentView: View {
                         .resizable()
                         .scaledToFill()
                         .ignoresSafeArea()
-                ) // ← هنا تقفل الـ overlay
+                )
 
             // زر "انتهيت" في الأسفل
             VStack {
                 Spacer()
                 if vm.showDoneButton {
-                    PrimaryButton(title: "انتهيت", action: vm.didTapDone)
-                        .padding(.bottom, 82)
-                        .transition(.opacity)
+                    PrimaryButton(title: "انتهيت", action: {
+                        showCongrats = true
+                    })
+                    .padding(.bottom, 20)
+                    .transition(.opacity)
                 }
             }
+
             // المحتوى الرئيسي
             VStack(spacing: 0) {
 
                 // Header
-                ZStack {
-                    Text("المستثمر الطموح")
-                        .foregroundColor(.white)
-                        .font(.system(size: 18, weight: .semibold))
-                        .frame(maxWidth: .infinity, alignment: .center)
-                    HStack {
-                        Button(action: {}) {
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(.white)
-                                .font(.system(size: 22, weight: .medium))
-                                .frame(width: 17, height: 14)
-                        }
-                        .frame(width: 44, height: 44)
-                        .background(Color.black.opacity(0.2))
-                        .clipShape(Circle())
-                        Spacer()
-                    }
-                }
-                .padding(.horizontal, 24)
-                .padding(.top, 32)// المسافج بين الستاتس والهيدر
+                NavigationHeader(title: "المستثمر الطموح", onBack: {})
+                    .padding(.horizontal, 24)
+                    .padding(.top, 16)
+
+                Spacer()
+                    .frame(maxHeight: 150)
 
                 // المكعب
-                
-                    .padding(.top, 64)// المسافة بين الستاتس والهيدر
+                CubeView(faces: vm.faces, onFaceChanged: vm.faceChanged)
+                    .frame(width: 325, height: 325)
 
-                    Spacer() // ← يدفع المكعب للمنتصف
-                    .frame(maxHeight: 150) // نوعا ما بالنص
-
-                    // المكعب
-                    CubeView(faces: vm.faces, onFaceChanged: vm.faceChanged)
-                        .frame(width: 325, height: 325)
-
-                  //  Spacer() // ← يدفع المكعب للمنتصف
                 // Hint
-                
                 ZStack {
-                    
                     if vm.showHint {
                         HStack(spacing: 6) {
-                            Image(systemName: "hand.tap") // مب نفسها بس اقرب وحده لقيتها
+                            Image(systemName: "hand.tap")
                             Text("حرك المكعب يمين و يسار")
                                 .foregroundColor(.white.opacity(0.5))
                                 .font(.system(size: 14))
                         }
                         .transition(.opacity)
                     }
-                    
                 }
-                Spacer()
                 .frame(height: 28)
                 .padding(.top, 12)
 
                 Spacer()
             }
+
+            // Congrats overlay
+            if showCongrats {
+                PortfolioCongratsView(vm: portfolioVM)
+                    .transition(.opacity.combined(with: .scale))
+            }
         }
+        .animation(.easeInOut(duration: 0.4), value: showCongrats)
         .environment(\.layoutDirection, .rightToLeft)
         .animation(.easeInOut(duration: 0.3), value: vm.currentFace)
     }
 }
 
+#Preview { ContentView() }
 // MARK: - CubeView
 
 struct CubeView: UIViewRepresentable {

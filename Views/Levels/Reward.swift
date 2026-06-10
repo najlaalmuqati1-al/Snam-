@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PortfolioCongratsView: View {
     @ObservedObject var vm: PortfolioViewModel
+    @AppStorage("currentLevel") private var currentLevel: Int = 1
     @State private var bouncing = false
     @State private var appeared = false
     @State private var showCoins = false
@@ -56,7 +57,7 @@ struct PortfolioCongratsView: View {
                     Image("currency")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 110, height: 110)
+                        .frame(width: 170, height: 170)
                         .scaleEffect(bouncing ? 1.04 : 1.0)
                         .animation(
                             .easeInOut(duration: 0.9).repeatForever(autoreverses: true),
@@ -84,6 +85,7 @@ struct PortfolioCongratsView: View {
                         showCoins = true
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+                        if currentLevel < 5 { currentLevel += 1 }
                         vm.collectReward()
                     }
                 }) {
@@ -170,6 +172,7 @@ struct PortfolioCongratsView: View {
             appeared = false
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            if currentLevel < 5 { currentLevel += 1 }  // ← أضف هذا
             vm.collectReward()
         }
     }
