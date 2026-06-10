@@ -5,7 +5,6 @@
 //  Created by Faitmh ibrahim on 21/12/1447 AH.
 //
 
-
 import SwiftUI
 
 // MARK: - Settings View
@@ -22,8 +21,15 @@ struct SettingsView: View {
 
     var body: some View {
         ZStack {
-            // Background → pure black
-            Color.black.ignoresSafeArea()
+            // Background → system background + overlay image
+            Color(.systemBackground)
+                .ignoresSafeArea()
+                .overlay(
+                    Image("Frame")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
+                )
 
             VStack(spacing: 0) {
                 // ── Navigation Header ────────────────────────────────
@@ -191,7 +197,14 @@ struct LanguageSettingsHelperView: View {
 
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
+            Color(.systemBackground)
+                .ignoresSafeArea()
+                .overlay(
+                    Image("Frame")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
+                )
             VStack(spacing: 18) {
                 header(title: "اللغة")
                 Text("لتغيير لغة التطبيق، افتح إعدادات النظام، ثم ابحث عن تطبيق سنام واختر اللغة المفضّلة.")
@@ -256,7 +269,14 @@ struct AppearanceSettingsHelperView: View {
 
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
+            Color(.systemBackground)
+                .ignoresSafeArea()
+                .overlay(
+                    Image("Frame")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
+                )
             VStack(spacing: 18) {
                 header(title: "شكل التطبيق")
                 Text("لتغيير المظهر (فاتح/داكن) أو الاعتماد على مظهر النظام، افتح إعدادات التطبيق من إعدادات النظام.")
@@ -319,17 +339,16 @@ struct PrivacySecurityView: View {
         .custom("SVArabic-\(weight)", size: size, relativeTo: .body)
     }
 
-    private var gradientBackground: some View {
-        LinearGradient(
-            colors: [Color.black, Color(hex: "0D0D1A").opacity(0.92), Color.black],
-            startPoint: .topLeading, endPoint: .bottomTrailing
-        )
-        .ignoresSafeArea()
-    }
-
     var body: some View {
         ZStack {
-            gradientBackground
+            Color(.systemBackground)
+                .ignoresSafeArea()
+                .overlay(
+                    Image("Frame")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
+                )
 
             VStack(spacing: 0) {
                 // Header
