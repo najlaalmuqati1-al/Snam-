@@ -39,7 +39,48 @@ struct WalletAppearanceView: View {
             Color(.systemBackground).ignoresSafeArea()
 
             VStack(spacing: 0) {
-                navigationHeader
+                // Navigation Header الموحد
+                ZStack {
+                    NavigationHeader(
+                        title: "شكل محفظتك",
+                        onBack: {
+                            if hasChanges {
+                                withAnimation(.easeInOut(duration: 0.2)) { showUnsavedAlert = true }
+                            } else {
+                                walletState.requestDismissToMain = true
+                            }
+                        }
+                    )
+                    .padding(.horizontal, 20)
+                    .padding(.top, 16)
+                    .padding(.bottom, 12)
+
+                    // زر الحفظ يبقى على اليسار بنفس الشكل عند وجود تغييرات
+                    HStack {
+                        Spacer()
+                        if hasChanges {
+                            Button(action: saveChangesAndClose) {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color.blue)
+                                        .frame(width: 36, height: 36)
+                                        .overlay(Circle().stroke(Color.primary.opacity(0.25), lineWidth: 1))
+                                        .shadow(color: .black.opacity(0.25), radius: 6, x: 0, y: 2)
+                                    Image(systemName: "checkmark")
+                                        .font(.system(size: 15, weight: .bold))
+                                        .foregroundColor(.white)
+                                }
+                            }
+                            .transition(.opacity.combined(with: .scale))
+                        } else {
+                            Color.clear.frame(width: 36, height: 36)
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 16)
+                    .padding(.bottom, 12)
+                }
+                .animation(.easeInOut(duration: 0.2), value: hasChanges)
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 0) {
@@ -69,60 +110,6 @@ struct WalletAppearanceView: View {
         } message: {
             Text("التعديلات اللي سويتها على المحفظة ما انحفظت، متأكد تبي تطلع؟")
         }
-    }
-
-    // MARK: - Navigation Header
-    private var navigationHeader: some View {
-        HStack(spacing: 12) {
-            Button(action: {
-                if hasChanges {
-                    withAnimation(.easeInOut(duration: 0.2)) { showUnsavedAlert = true }
-                } else {
-                    // No changes → just go back to MainView as requested
-                    walletState.requestDismissToMain = true
-                }
-            }) {
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 17, weight: .semibold))
-                    .foregroundColor(.primary)
-                    .padding(10)
-                    .background(
-                        RoundedRectangle(cornerRadius: 22)
-                            .fill(Color.secondary.opacity(0.12))
-                    )
-            }
-
-            Spacer(minLength: 12)
-
-            Text("شكل محفظتك")
-                .font(svArabic("Bold", size: 18))
-                .foregroundColor(.primary)
-                .frame(maxWidth: .infinity, alignment: .center)
-
-            Spacer(minLength: 12)
-
-            if hasChanges {
-                Button(action: saveChangesAndClose) {
-                    ZStack {
-                        Circle()
-                            .fill(Color.blue)
-                            .frame(width: 36, height: 36)
-                            .overlay(Circle().stroke(Color.primary.opacity(0.25), lineWidth: 1))
-                            .shadow(color: .black.opacity(0.25), radius: 6, x: 0, y: 2)
-                        Image(systemName: "checkmark")
-                            .font(.system(size: 15, weight: .bold))
-                            .foregroundColor(.white)
-                    }
-                }
-                .transition(.opacity .combined(with: .scale))
-            } else {
-                Color.clear.frame(width: 36, height: 36)
-            }
-        }
-        .padding(.horizontal, 20)
-        .padding(.top, 16)
-        .padding(.bottom, 12)
-        .animation(.easeInOut(duration: 0.2), value: hasChanges)
     }
 
     // MARK: - Save → writes to shared WalletState (reflects instantly on MainView)

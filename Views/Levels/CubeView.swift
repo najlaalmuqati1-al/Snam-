@@ -15,6 +15,7 @@ struct ContentView: View {
     @StateObject private var vm = CubeViewModel()
     @StateObject private var portfolioVM = PortfolioViewModel()
     @State private var showCongrats = false
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ZStack {
@@ -42,8 +43,8 @@ struct ContentView: View {
             // المحتوى الرئيسي
             VStack(spacing: 0) {
 
-                // Header
-                NavigationHeader(title: "المستثمر الطموح", onBack: {})
+                // Header باستخدام NavigationHeader الموحد والرجوع لصفحة اللفلز
+                NavigationHeader(title: "المستثمر الطموح", onBack: { dismiss() })
                     .padding(.horizontal, 24)
                     .padding(.top, 16)
 

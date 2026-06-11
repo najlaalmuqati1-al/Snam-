@@ -30,6 +30,7 @@ struct PortfolioRootView: View {
 
 struct PortfolioMainView: View {
     @ObservedObject var vm: PortfolioViewModel
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -45,7 +46,8 @@ struct PortfolioMainView: View {
             ScrollView(showsIndicators: false) {
             
                 VStack(spacing: 0) {
-                    NavigationHeader(title: "تحدي التنويع", onBack: {})
+                    // هيدر موحّد مع رجوع لصفحة اللفلز
+                    NavigationHeader(title: "تحدي التنويع", onBack: { dismiss() })
                         .padding(.bottom, 20)
                     
                     Text("وزع المبلغ التالي كحد ادنى على قطاعين مختلفين")

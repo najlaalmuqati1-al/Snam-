@@ -25,12 +25,10 @@ struct NavigationHeader: View {
     // MARK: - Toolbar
     private var toolbar: some View {
         ZStack {
-            // Title في المنتصف
+            // العنوان في المنتصف
             Text(title)
-                .font(.custom("SF Arabic", size: 24))
-                .fontWeight(.semibold)
-                .foregroundColor(.primary)
-                .tracking(-0.43)
+                .font(.custom("SVArabic-Bold", size: 17, relativeTo: .body))
+                .foregroundColor(.primary) // يتبع النظام: أبيض في الداكن، أسود في الفاتح
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
             

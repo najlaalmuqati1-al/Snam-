@@ -33,7 +33,13 @@ struct SettingsView: View {
 
             VStack(spacing: 0) {
                 // ── Navigation Header ────────────────────────────────
-                navigationHeader
+                NavigationHeader(
+                    title: "الإعدادات",
+                    onBack: { walletState.requestDismissToMain = true }
+                )
+                .padding(.horizontal, 22)
+                .padding(.top, 18)
+                .padding(.bottom, 10)
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .trailing, spacing: 34) {
@@ -48,6 +54,7 @@ struct SettingsView: View {
                                     title: "شكل محفظتك",
                                     destination: AnyView(
                                         WalletAppearanceView(walletState: walletState)
+                                            .environmentObject(walletState)
                                     )
                                 )
                             ]
@@ -61,19 +68,19 @@ struct SettingsView: View {
                                     icon: "globe",
                                     iconColor: .gray,
                                     title: "اللغة",
-                                    destination: AnyView(LanguageSettingsHelperView())
+                                    destination: AnyView(LanguageSettingsHelperView().environmentObject(walletState))
                                 ),
                                 SettingsItem(
                                     icon: "sun.max.fill",
                                     iconColor: .gray,
                                     title: "شكل التطبيق",
-                                    destination: AnyView(AppearanceSettingsHelperView())
+                                    destination: AnyView(AppearanceSettingsHelperView().environmentObject(walletState))
                                 ),
                                 SettingsItem(
                                     icon: "shield.fill",
                                     iconColor: .gray,
                                     title: "الخصوصية والأمان",
-                                    destination: AnyView(PrivacySecurityView())
+                                    destination: AnyView(PrivacySecurityView().environmentObject(walletState))
                                 ),
                             ]
                         )
@@ -87,34 +94,6 @@ struct SettingsView: View {
         }
         .navigationBarHidden(true)
         .environment(\.layoutDirection, .leftToRight)
-    }
-
-    // MARK: - Navigation Header
-    private var navigationHeader: some View {
-        HStack {
-            Button(action: { dismiss() }) {
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 19, weight: .semibold))
-                    .foregroundColor(.primary)
-                    .frame(width: 44, height: 44)
-                    .background(Color.secondary.opacity(0.12))
-                    .clipShape(Circle())
-            }
-
-            Spacer()
-
-            Text("الإعدادات")
-                .font(svArabic("Bold", size: 22))
-                .foregroundColor(.primary)
-
-            Spacer()
-
-            // Balance spacer
-            Color.clear.frame(width: 44, height: 44)
-        }
-        .padding(.horizontal, 22)
-        .padding(.top, 18)
-        .padding(.bottom, 10)
     }
 
     // MARK: - Settings Group Builder
@@ -191,6 +170,7 @@ struct SettingsItem {
 // MARK: - Language Settings Helper View
 struct LanguageSettingsHelperView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var walletState: WalletState
 
     private func svArabic(_ weight: String, size: CGFloat) -> Font {
         .custom("SVArabic-\(weight)", size: size, relativeTo: .body)
@@ -207,7 +187,14 @@ struct LanguageSettingsHelperView: View {
                         .ignoresSafeArea()
                 )
             VStack(spacing: 22) {
-                header(title: "اللغة")
+                NavigationHeader(
+                    title: "اللغة",
+                    onBack: { walletState.requestDismissToMain = true }
+                )
+                .padding(.horizontal, 22)
+                .padding(.top, 18)
+                .padding(.bottom, 10)
+
                 Text("لتغيير لغة التطبيق، افتح إعدادات النظام، ثم ابحث عن تطبيق سنام واختر اللغة المفضّلة.")
                     .font(svArabic("Regular", size: 18))
                     .foregroundColor(.primary)
@@ -232,28 +219,6 @@ struct LanguageSettingsHelperView: View {
         .environment(\.layoutDirection, .leftToRight)
     }
 
-    private func header(title: String) -> some View {
-        HStack {
-            Button(action: { dismiss() }) {
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 19, weight: .semibold))
-                    .foregroundColor(.primary)
-                    .frame(width: 44, height: 44)
-                    .background(Color.secondary.opacity(0.12))
-                    .clipShape(Circle())
-            }
-            Spacer()
-            Text(title)
-                .font(svArabic("Bold", size: 22))
-                .foregroundColor(.primary)
-            Spacer()
-            Color.clear.frame(width: 44, height: 44)
-        }
-        .padding(.horizontal, 22)
-        .padding(.top, 18)
-        .padding(.bottom, 10)
-    }
-
     private func openAppSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -263,6 +228,7 @@ struct LanguageSettingsHelperView: View {
 // MARK: - Appearance Settings Helper View
 struct AppearanceSettingsHelperView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var walletState: WalletState
 
     private func svArabic(_ weight: String, size: CGFloat) -> Font {
         .custom("SVArabic-\(weight)", size: size, relativeTo: .body)
@@ -279,7 +245,14 @@ struct AppearanceSettingsHelperView: View {
                         .ignoresSafeArea()
                 )
             VStack(spacing: 22) {
-                header(title: "شكل التطبيق")
+                NavigationHeader(
+                    title: "شكل التطبيق",
+                    onBack: { walletState.requestDismissToMain = true }
+                )
+                .padding(.horizontal, 22)
+                .padding(.top, 18)
+                .padding(.bottom, 10)
+
                 Text("لتغيير المظهر (فاتح/داكن) أو الاعتماد على مظهر النظام، افتح إعدادات التطبيق من إعدادات النظام.")
                     .font(svArabic("Regular", size: 18))
                     .foregroundColor(.primary)
@@ -304,28 +277,6 @@ struct AppearanceSettingsHelperView: View {
         .environment(\.layoutDirection, .leftToRight)
     }
 
-    private func header(title: String) -> some View {
-        HStack {
-            Button(action: { dismiss() }) {
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 19, weight: .semibold))
-                    .foregroundColor(.primary)
-                    .frame(width: 44, height: 44)
-                    .background(Color.secondary.opacity(0.12))
-                    .clipShape(Circle())
-            }
-            Spacer()
-            Text(title)
-                .font(svArabic("Bold", size: 22))
-                .foregroundColor(.primary)
-            Spacer()
-            Color.clear.frame(width: 44, height: 44)
-        }
-        .padding(.horizontal, 22)
-        .padding(.top, 18)
-        .padding(.bottom, 10)
-    }
-
     private func openAppSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -335,6 +286,7 @@ struct AppearanceSettingsHelperView: View {
 // MARK: - Privacy & Security Screen
 struct PrivacySecurityView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var walletState: WalletState
 
     private func svArabic(_ weight: String, size: CGFloat) -> Font {
         .custom("SVArabic-\(weight)", size: size, relativeTo: .body)
@@ -352,27 +304,11 @@ struct PrivacySecurityView: View {
                 )
 
             VStack(spacing: 0) {
-                // Header
-                HStack {
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: 19, weight: .semibold))
-                            .foregroundColor(.primary)
-                            .frame(width: 44, height: 44)
-                            .background(Color.secondary.opacity(0.12))
-                            .clipShape(Circle())
-                    }
-
-                    Spacer()
-
-                    Text("الخصوصية والأمان")
-                        .font(svArabic("Bold", size: 24))
-                        .foregroundColor(.primary)
-
-                    Spacer()
-
-                    Color.clear.frame(width: 44, height: 44)
-                }
+                // Header (using unified NavigationHeader)
+                NavigationHeader(
+                    title: "الخصوصية والأمان",
+                    onBack: { walletState.requestDismissToMain = true }
+                )
                 .padding(.horizontal, 22)
                 .padding(.top, 18)
                 .padding(.bottom, 10)
