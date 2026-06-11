@@ -39,8 +39,12 @@ struct RumorGameView: View {
                             .font(.system(size: 18))
                             .foregroundColor(.gray)
                         RoundedRectangle(cornerRadius: 25)
-                            .fill(Color(red: 43/255, green: 64/255, blue: 117/255).opacity(0.2))
+                            .fill(Color.black.opacity(0.15))
                             .frame(height: 92)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                            )
                             .overlay {
                                 
                                 HStack {
@@ -79,8 +83,12 @@ struct RumorGameView: View {
                             }
                             .padding(.horizontal, 16)
                         RoundedRectangle(cornerRadius: 25)
-                            .fill(Color(red: 43/255, green: 64/255, blue: 117/255).opacity(0.2))
-                            .frame(height: 119)
+                            .fill(Color.black.opacity(0.15))
+                            .frame(height: 92)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                            )
                             .overlay {
                                 HStack {
                                     
@@ -149,8 +157,12 @@ struct RumorGameView: View {
                     }
                     
                     RoundedRectangle(cornerRadius: 25)
-                        .fill(Color(red: 43/255, green: 64/255, blue: 117/255).opacity(0.2))
+                        .fill(Color.black.opacity(0.15))
                         .frame(height: 92)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                        )
                         .overlay {
                             
                             HStack {
@@ -190,8 +202,12 @@ struct RumorGameView: View {
                         .padding(.horizontal, 16)
                     
                     RoundedRectangle(cornerRadius: 25)
-                        .fill(Color(red: 43/255, green: 64/255, blue: 117/255).opacity(0.2))
-                        .frame(height: 119)
+                        .fill(Color.black.opacity(0.15))
+                        .frame(height: 92)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                        )
                         .overlay {
                             
                             HStack {
@@ -422,7 +438,8 @@ struct RumorGameView: View {
                 
                 if showRumorPopup {
                     
-                    Color.black.opacity(0.85)                        .ignoresSafeArea()
+                    Color.black.opacity(0.85)
+                        .ignoresSafeArea()
                     
                     VStack(spacing: 32) {
                         
@@ -458,24 +475,12 @@ struct RumorGameView: View {
                     .frame(width: 353, height: 428)
                     .background(
                         RoundedRectangle(cornerRadius: 30)
-                            .fill(
-                                Color(
-                                    red: 43/255,
-                                    green: 64/255,
-                                    blue: 117/255
-                                )
-                                .opacity(0.2)
-                            )
-                            .background(.ultraThinMaterial)
-                            .clipShape(
-                                RoundedRectangle(cornerRadius: 30)
-                            )
+                            .fill(Color.black.opacity(0.15))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 30)
                                     .stroke(
-                                        Color.white.opacity(0.12),
+                                        Color.white.opacity(0.15),
                                         lineWidth: 1
-                                            
                                     )
                             )
                     )
