@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  MainTabView.swift
 //  Snam
 //
 //  Created by Najla Almuqati on 28/11/1447 AH.
@@ -33,7 +33,8 @@ enum TabItem: Int, CaseIterable {
 // MARK: - Custom Tab Bar
 
 struct MainTabView: View {
-    @State private var selectedTab: TabItem = .portfolio
+   // @State private var selectedTab: TabItem = .portfolio
+    @AppStorage("selectedTab") private var selectedTab: Int = 2
 
     var body: some View {
         NavigationStack {
@@ -49,7 +50,10 @@ struct MainTabView: View {
                             .ignoresSafeArea()
                     )
 
-                TabView(selection: $selectedTab) {
+                TabView(selection: Binding(
+                    get: { TabItem(rawValue: selectedTab) ?? .portfolio },
+                    set: { selectedTab = $0.rawValue }
+                )) {
 
                     MarketListViewV2()
                         .tabItem {

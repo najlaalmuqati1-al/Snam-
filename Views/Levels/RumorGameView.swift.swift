@@ -499,5 +499,28 @@ struct RumorGameView: View {
     }
 }
     
-    
+// ====== التعديلات المطلوبة ======
+// ١. أضيف فوق body:
+// @Environment(\.dismiss) private var dismiss
+// @AppStorage("selectedTab") private var selectedTab: Int = 2
+// @State private var showReward = false
+// @StateObject private var rewardVM = PortfolioViewModel()
+
+// ٢. زر الانتهاء:
+// PrimaryButton(title: "انتهيت") {
+//     showReward = true
+// }
+
+// ٣. آخر شيء داخل ZStack قبل قفل القوس:
+// if showReward {
+//     PortfolioCongratsView(vm: rewardVM, onFinished: {
+//         selectedTab = 2
+//         dismiss()
+//     })
+//     .transition(.opacity.combined(with: .scale))
+// }
+
+// ٤. على الـ ZStack الرئيسي:
+// .animation(.easeInOut(duration: 0.4), value: showReward)
+// ================================
 

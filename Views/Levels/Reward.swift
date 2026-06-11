@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PortfolioCongratsView: View {
     @ObservedObject var vm: PortfolioViewModel
+    var onFinished: () -> Void  // ← هنا    @ObservedObject var vm: PortfolioViewModel
     @AppStorage("currentLevel") private var currentLevel: Int = 1
     @State private var bouncing = false
     @State private var appeared = false
@@ -88,6 +89,9 @@ struct PortfolioCongratsView: View {
                         if currentLevel < 5 { currentLevel += 1 }
                         vm.collectReward()
                     }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {  // ← هنا
+                         onFinished()
+                     }
                 }) {
                     Text("اجمع")
                         .font(.system(size: 22, weight: .bold))
@@ -236,9 +240,10 @@ struct CongratsFloatingCoin: View {
             }
     }
 }
+
 #Preview {
     PortfolioCongratsView(vm: {
         let vm = PortfolioViewModel()
         return vm
-    }())
+    }(), onFinished: {})
 }

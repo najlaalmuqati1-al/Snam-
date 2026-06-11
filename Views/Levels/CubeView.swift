@@ -16,6 +16,8 @@ struct ContentView: View {
     @StateObject private var portfolioVM = PortfolioViewModel()
     @State private var showCongrats = false
     @Environment(\.dismiss) private var dismiss
+    @AppStorage("selectedTab") private var selectedTab: Int = 2
+
 
     var body: some View {
         ZStack {
@@ -75,8 +77,15 @@ struct ContentView: View {
 
             // Congrats overlay
             if showCongrats {
-                PortfolioCongratsView(vm: portfolioVM)
-                    .transition(.opacity.combined(with: .scale))
+             /*   PortfolioCongratsView(vm: portfolioVM, onFinished: {
+                    
+                    dismiss()
+                })*/
+                PortfolioCongratsView(vm: portfolioVM, onFinished: {
+                    selectedTab = 2
+                    dismiss()
+                })
+                .transition(.opacity.combined(with: .scale))
             }
         }
         .animation(.easeInOut(duration: 0.4), value: showCongrats)

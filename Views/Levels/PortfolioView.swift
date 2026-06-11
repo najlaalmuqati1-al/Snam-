@@ -8,23 +8,28 @@
 import SwiftUI
 
 // MARK: - Root
-
 struct PortfolioRootView: View {
     @StateObject private var vm = PortfolioViewModel()
+    @Environment(\.dismiss) private var dismiss
+    @AppStorage("selectedTab") private var selectedTab: Int = 2  // ← أضيف هذا
 
     var body: some View {
         ZStack {
             PortfolioMainView(vm: vm)
 
             if vm.showCongrats {
-                PortfolioCongratsView(vm: vm)
-                    .transition(.opacity.combined(with: .scale))
+                PortfolioCongratsView(vm: vm, onFinished: {
+                    selectedTab = 2  // ← portfolio
+                    dismiss()
+                })
+                .transition(.opacity.combined(with: .scale))
             }
         }
         .animation(.easeInOut(duration: 0.4), value: vm.showCongrats)
         .environment(\.layoutDirection, .rightToLeft)
     }
 }
+
 
 // MARK: - Main View
 
