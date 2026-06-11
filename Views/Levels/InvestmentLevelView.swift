@@ -14,6 +14,10 @@ struct InvestmentLevelView: View {
     @StateObject private var vm = InvestmentViewModel()
     @Environment(\.colorScheme) private var colorScheme
 
+    // لعرض شيت المكافأة
+    @State private var showReward = false
+    @StateObject private var rewardVM = PortfolioViewModel()
+
     var body: some View {
         ZStack {
             // خلفية تتبع النظام: في الفاتح لمسة زرقاء خفيفة، في الداكن صورة Frame
@@ -63,16 +67,23 @@ struct InvestmentLevelView: View {
 
                 Spacer().frame(height: 32)
 
-                // زر المشروع كما هو
-                PrimaryButton(title: "اكمل") {}
-                    .frame(width: 358)
+                // زر المشروع: نعرض شيت المكافأة عند الضغط
+                PrimaryButton(title: "اكمل") {
+                    showReward = true
+                }
+                .frame(width: 358)
 
                 Spacer().frame(height: 12)
             }
             .padding(.horizontal, 16)
             .padding(.top, 16)
         }
-        // أزلنا فرض الداكن ليَتبع النظام
+        .sheet(isPresented: $showReward) {
+            // شيت المكافأة من ملف Reward.swift
+            PortfolioCongratsView(vm: rewardVM)
+                .presentationDetents([.fraction(0.55)])
+                .presentationBackground(.clear)
+        }
         .environment(\.layoutDirection, .leftToRight)
     }
 
