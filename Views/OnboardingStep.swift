@@ -458,18 +458,10 @@ struct SanamOnboardingView: View {
                         
                         // زر "ابدأ الآن" للشاشة الأخيرة
                         if currentStep == 1 {
-                            Button(action: {
+                            PrimaryButton(title: "ابدأ الآن") {
                                 withAnimation {
                                     showMainTab = true
                                 }
-                            }) {
-                                Text("ابدأ الآن")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(Capsule().stroke(Color.blue.opacity(0.5), lineWidth: 1))
-                                    .padding(.horizontal, 40)
                             }
                         }
                         Spacer().frame(height: 30)
