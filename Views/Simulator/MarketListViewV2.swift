@@ -72,7 +72,14 @@ struct MarketListViewV2: View {
         NavigationStack {
             
             ZStack {
-              
+                Color(.systemBackground)
+                     .ignoresSafeArea()
+                     .overlay(
+                         Image("Frame")
+                             .resizable()
+                             .scaledToFill()
+                             .ignoresSafeArea()
+                     )
                 
                 if !hasCompletedTutorial {
 

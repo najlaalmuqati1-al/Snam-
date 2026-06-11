@@ -442,7 +442,16 @@ struct LevelsView: View {
                 Spacer().frame(height: 40)
             }
         }
-        .background(Color.clear)
+        .background(
+                Color(.systemBackground)
+                    .ignoresSafeArea()
+                    .overlay(
+                        Image("Frame")
+                            .resizable()
+                            .scaledToFill()
+                            .ignoresSafeArea()
+                    )
+            )
         .environment(\.layoutDirection, .rightToLeft)
     }
 }
