@@ -33,7 +33,7 @@ enum TabItem: Int, CaseIterable {
 // MARK: - Custom Tab Bar
 
 struct MainTabView: View {
-    @State private var selectedTab: TabItem = .journey
+    @State private var selectedTab: TabItem = .portfolio
 
     var body: some View {
         NavigationStack {
