@@ -505,6 +505,7 @@ struct RumorGameView: View {
                                 .font(.system(size: 18))
                                 .foregroundColor(.gray)
                                 .multilineTextAlignment(.center)
+                                .fixedSize(horizontal: false, vertical: true)
                         }
                         
                         
@@ -514,7 +515,7 @@ struct RumorGameView: View {
                     }
                     
                     .padding(32)
-                    .frame(width: 353, height: 428)
+                    .frame(width: 353)
                     .background(
                         RoundedRectangle(cornerRadius: 30)
                             .fill(Color.black.opacity(0.45))
