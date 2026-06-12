@@ -9,7 +9,7 @@ import SwiftUI
 struct WalletView: View {
     
     @Environment(\.dismiss) var dismiss
-    
+    @EnvironmentObject var walletState: WalletState
     let items = [
         ("100", "اعلان"),
         ("500", "5 ريال"),
@@ -95,7 +95,7 @@ struct WalletView: View {
                                     
                                     VStack(spacing: 0) {
                                         
-                                        Text("100")
+                                        Text("\(Int(walletState.balance))")
                                             .font(.system(size: 22, weight: .medium))
                                             .foregroundColor(.white)
                                         

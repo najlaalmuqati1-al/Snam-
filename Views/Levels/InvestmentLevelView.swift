@@ -4,8 +4,6 @@
 //
 //  Created by Faitmh ibrahim on 19/12/1447 AH.
 
-
-
 import SwiftUI
 import Charts
 
@@ -17,10 +15,12 @@ struct InvestmentLevelView: View {
     // لعرض شيت المكافأة
     @State private var showReward = false
     @StateObject private var rewardVM = PortfolioViewModel()
+    @Environment(\.dismiss) private var dismiss
+    @AppStorage("selectedTab") private var selectedTab: Int = 2
+    @EnvironmentObject var walletState: WalletState
 
     var body: some View {
         ZStack {
-            // خلفية تتبع النظام: في الفاتح لمسة زرقاء خفيفة، في الداكن صورة Frame
             if colorScheme == .dark {
                 Color(.systemBackground)
                     .ignoresSafeArea()
@@ -35,23 +35,23 @@ struct InvestmentLevelView: View {
                     .overlay(Color.blue.opacity(0.06))
                     .ignoresSafeArea()
             }
-
+            
             VStack(spacing: 0) {
                 chartCard
                     .frame(width: 358, height: 320)
-
+                
                 Spacer().frame(height: 20)
-
+                
                 hintRow
                     .frame(maxWidth: .infinity, alignment: .center)
-
+                
                 Spacer().frame(height: 14)
-
+                
                 CustomGradientSlider(value: $vm.marketForce, range: -100...100)
                     .frame(width: 316)
-
+                
                 Spacer().frame(height: 6)
-
+                
                 HStack {
                     Text("بيع").foregroundStyle(.secondary)
                     Spacer()
@@ -59,34 +59,34 @@ struct InvestmentLevelView: View {
                 }
                 .font(.callout)
                 .frame(width: 316)
-
+                
                 Spacer().frame(height: 16)
-
+                
                 buyersSellersCard
                     .frame(width: 316, height: 72)
-
+                
                 Spacer().frame(height: 32)
-
-                // زر المشروع: نعرض شيت المكافأة عند الضغط
+                
                 PrimaryButton(title: "اكمل") {
                     showReward = true
                 }
                 .frame(width: 358)
-
+                
                 Spacer().frame(height: 12)
             }
             .padding(.horizontal, 16)
             .padding(.top, 16)
+            
+            if showReward {
+                PortfolioCongratsView(vm: rewardVM, onFinished: {
+                    walletState.collectReward(forLevel: 2);                    selectedTab = 2
+                    dismiss()
+                })
+                .transition(.opacity.combined(with: .scale))
+            }
         }
-        .sheet(isPresented: $showReward) {
-            // شيت المكافأة من ملف Reward.swift
-            PortfolioCongratsView(vm: rewardVM)
-                .presentationDetents([.fraction(0.55)])
-                .presentationBackground(.clear)
-        }
-        .environment(\.layoutDirection, .leftToRight)
+        .animation(.easeInOut(duration: 0.4), value: showReward)
     }
-
     // MARK: - Chart Card
 
     private var chartCard: some View {
@@ -305,4 +305,5 @@ struct CustomGradientSlider: View {
 
 #Preview {
     InvestmentLevelView()
+        .environmentObject(WalletState())
 }

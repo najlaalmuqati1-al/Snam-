@@ -8,19 +8,30 @@
 import SwiftUI
 
 // MARK: - Root
-
 struct PortfolioRootView: View {
     @StateObject private var vm = PortfolioViewModel()
+    @Environment(\.dismiss) private var dismiss
+    @AppStorage("selectedTab") private var selectedTab: Int = 2
+    @EnvironmentObject var walletState: WalletState
+    @State private var isLeaving = false  // ← أضيف هذا
 
     var body: some View {
         ZStack {
             PortfolioMainView(vm: vm)
 
             if vm.showCongrats {
-                PortfolioCongratsView(vm: vm)
-                    .transition(.opacity.combined(with: .scale))
+                PortfolioCongratsView(vm: vm, onFinished: {
+                    walletState.collectReward(forLevel: 3);                    selectedTab = 2
+                    dismiss()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        vm.collectReward()  // ← بعد الـ dismiss
+                    }
+                })
+                .transition(.opacity.combined(with: .scale))
             }
         }
+        .opacity(isLeaving ? 0 : 1)  // ← أضيف هذا
+        .animation(.easeInOut(duration: 0.2), value: isLeaving)
         .animation(.easeInOut(duration: 0.4), value: vm.showCongrats)
         .environment(\.layoutDirection, .rightToLeft)
     }
@@ -285,7 +296,10 @@ struct PortfolioMainView: View {
 
     // MARK: Confirm Button
     var confirmBtn: some View {
-        let hasAny = vm.selectedTabIDs.count >= 2
+        let hasAny = vm.selectedTabIDs.count >= 2 &&
+                     vm.selectedTabIDs.allSatisfy { id in
+                         vm.sectors.first(where: { $0.id == id })?.allocation ?? 0 > 0
+                     } // تعديل الشرط ع الاقل اضافة سنام واحد لكل قطاع 
         return PrimaryButton(title: "تأكيد التوزيع") {
             if hasAny { vm.confirm() }
         }
@@ -524,7 +538,7 @@ struct Triangle: Shape {
         return path
     }
 }
-
 #Preview {
     PortfolioRootView()
+        .environmentObject(WalletState())
 }

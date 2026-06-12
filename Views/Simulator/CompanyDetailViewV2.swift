@@ -1,3 +1,5 @@
+// CompanyDetailViewV2
+
 import SwiftUI
 
 struct CompanyDetailViewV2: View {
@@ -15,6 +17,8 @@ struct CompanyDetailViewV2: View {
     private var hasCompletedTutorial = false
     @State private var detailTutorialStep = 0
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var walletState: WalletState
+
     func tutorialBubble(_ text: String) -> some View {
         
         VStack(spacing: 0) {
@@ -188,6 +192,7 @@ struct CompanyDetailViewV2: View {
                     
                     NavigationLink {
                         WalletView()
+                            .environmentObject(walletState)
                     } label: {
                         
                         ZStack {
@@ -206,7 +211,7 @@ struct CompanyDetailViewV2: View {
                                     .scaledToFit()
                                     .frame(width: 30, height: 30)
                                 
-                                Text("٠٠.٠٠")
+                                Text("\(Int(walletState.balance))")
                                     .font(.system(size: 17, weight: .semibold))
                                     .foregroundColor(.white)
                             }
@@ -627,3 +632,4 @@ struct CompanyDetailViewV2: View {
     
     
 }
+

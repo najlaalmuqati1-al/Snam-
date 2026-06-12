@@ -1,4 +1,4 @@
-//
+//Bottom Sheet
 //  Reward.swift
 //  Snam
 //
@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PortfolioCongratsView: View {
     @ObservedObject var vm: PortfolioViewModel
+    var onFinished: () -> Void  // ← هنا    @ObservedObject var vm: PortfolioViewModel
     @AppStorage("currentLevel") private var currentLevel: Int = 1
     @State private var bouncing = false
     @State private var appeared = false
@@ -86,8 +87,11 @@ struct PortfolioCongratsView: View {
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
                         if currentLevel < 5 { currentLevel += 1 }
-                        vm.collectReward()
+                      //  vm.collectReward()
                     }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {  // ← هنا
+                         onFinished()
+                     }
                 }) {
                     Text("اجمع")
                         .font(.system(size: 22, weight: .bold))
@@ -113,7 +117,7 @@ struct PortfolioCongratsView: View {
                 .padding(.bottom, 32)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: UIScreen.main.bounds.height * 0.55)
+            .frame(height: UIScreen.main.bounds.height * 0.65) // ارتفاع البوتم شيت
             .background(
                 ZStack {
                     UnevenRoundedRectangle(
@@ -173,7 +177,7 @@ struct PortfolioCongratsView: View {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             if currentLevel < 5 { currentLevel += 1 }  // ← أضف هذا
-            vm.collectReward()
+           // vm.collectReward()
         }
     }
 }
@@ -236,9 +240,11 @@ struct CongratsFloatingCoin: View {
             }
     }
 }
+
 #Preview {
     PortfolioCongratsView(vm: {
         let vm = PortfolioViewModel()
         return vm
-    }())
+    }(), onFinished: {})
+    .environmentObject(WalletState())
 }

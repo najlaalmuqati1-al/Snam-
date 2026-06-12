@@ -12,7 +12,7 @@ struct YourAppName: App { // هنا اسم تطبيقك
     var body: some Scene {
         WindowGroup {
             AppContainerView {
-                LevelsView() // شاشة المراحل الحين صارت محصنة بداخل الخلفية الموحدة
+                MainTabView() // شاشة المراحل الحين صارت محصنة بداخل الخلفية الموحدة
             }
         }
     }
