@@ -117,7 +117,7 @@ struct PortfolioCongratsView: View {
                 .padding(.bottom, 32)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: UIScreen.main.bounds.height * 0.55)
+            .frame(height: UIScreen.main.bounds.height * 0.65) // ارتفاع البوتم شيت
             .background(
                 ZStack {
                     UnevenRoundedRectangle(

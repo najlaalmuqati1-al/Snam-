@@ -524,3 +524,49 @@ struct RumorGameView: View {
 // .animation(.easeInOut(duration: 0.4), value: showReward)
 // ================================
 
+// ============================================================
+// تعليمات إضافة النافيقيشن وتحديث الرصيد للمراحل الجديدة
+// ============================================================
+//
+// الخطوات المطلوبة في كل مرحلة جديدة:
+//
+// 1️⃣ أضيفي هذه المتغيرات فوق الـ body:
+//
+//    @Environment(\.dismiss) private var dismiss
+//    @AppStorage("selectedTab") private var selectedTab: Int = 2
+//    @EnvironmentObject var walletState: WalletState
+//    @State private var showReward = false
+//    @StateObject private var rewardVM = PortfolioViewModel()
+//
+// 2️⃣ زر الانتهاء يكون كذا:
+//
+//    PrimaryButton(title: "انتهيت") {
+//        showReward = true
+//    }
+//
+// 3️⃣ آخر شيء داخل الـ ZStack الرئيسي قبل قفل القوس:
+//
+//    if showReward {
+//        PortfolioCongratsView(vm: rewardVM, onFinished: {
+//            walletState.collectReward(forLevel: X) // ← غيري X برقم المرحلة
+//            selectedTab = 2
+//            dismiss()
+//        })
+//        .transition(.opacity.combined(with: .scale))
+//    }
+//
+// 4️⃣ على الـ ZStack الرئيسي أضيفي:
+//
+//    .animation(.easeInOut(duration: 0.4), value: showReward)
+//
+// 5️⃣ عدّلي الـ Preview:
+//
+//    #Preview {
+//        YourLevelView()
+//            .environmentObject(WalletState())
+//    }
+//
+// ⚠️ مهم: غيري X في collectReward(forLevel: X) برقم المرحلة الصحيح
+//    المرحلة الثالثة  → forLevel: 3
+//    المرحلة الرابعة → forLevel: 4
+// ============================================================
