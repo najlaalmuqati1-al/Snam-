@@ -35,8 +35,8 @@ enum TabItem: Int, CaseIterable {
 
 struct MainTabView: View {
     @AppStorage("selectedTab") private var selectedTab: Int = 2
-    @StateObject private var walletState = WalletState()  // ← هنا
-
+    @StateObject private var walletState = WalletState()
+    @StateObject private var marketVM = MarketViewModelNew()
     var body: some View {
         // ...
       //  MainView()
@@ -61,7 +61,7 @@ struct MainTabView: View {
 
                     MarketListViewV2()
                         .environmentObject(walletState)  // ← أضيف هذا
-
+                        .environmentObject(marketVM)
                         .tabItem {
                             Image(systemName: TabItem.simulator.icon)
                             Text(TabItem.simulator.title)
@@ -79,6 +79,7 @@ struct MainTabView: View {
 
                     MainView()
                         .environmentObject(walletState)
+                        .environmentObject(marketVM)
                         .tabItem {
                             Image(systemName: TabItem.portfolio.icon)
                             Text(TabItem.portfolio.title)

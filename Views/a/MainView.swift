@@ -19,6 +19,9 @@ struct FKStock: Identifiable {
 }
 
 // MARK: - Sample / Placeholder Data
+
+/**
+ 
 extension FKStock {
     static let sampleStocks: [FKStock] = [
         FKStock(
@@ -56,17 +59,26 @@ extension FKStock {
     ]
 }
 
+ */
 // MARK: - Main View
 struct MainView: View {
     @EnvironmentObject var walletState: WalletState
 
     @State private var showSettings = false
-    @State private var stocks: [FKStock] = FKStock.sampleStocks
+ //   @State private var stocks: [FKStock] = FKStock.sampleStocks
+    @EnvironmentObject var marketVM: MarketViewModelNew
 
+    private var ownedCompanies: [Company] {
+          marketVM.marketData?.companies.filter {
+              (marketVM.ownedShares[$0.id, default: 0]) > 0
+          } ?? []
+      }
+    
     // Convenience
     private func svArabic(_ weight: String, size: CGFloat) -> Font {
         .custom("SVArabic-\(weight)", size: size, relativeTo: .body)
     }
+    
 
     var body: some View {
         NavigationStack {
@@ -190,15 +202,23 @@ struct MainView: View {
                 .frame(height: 1)
                 .padding(.horizontal, 24)
 
-            VStack(spacing: 0) {
-                ForEach(stocks) { stock in
-                    StockRowView(stock: stock)
+            if ownedCompanies.isEmpty {
+                Text("ما عندك أسهم بعد، اشتري من المحاكي!")
+                    .font(svArabic("Regular", size: 14))
+                    .foregroundColor(.secondary)
+                    .padding(.top, 20)
+                    .frame(maxWidth: .infinity, alignment: .center)
+            } else {
+                VStack(spacing: 0) {
+                    ForEach(ownedCompanies) { company in
+                        CompanyRowView(company: company, shares: marketVM.ownedShares[company.id, default: 0])
 
-                    if stock.id != stocks.last?.id {
-                        Rectangle()
-                            .fill(Color.primary.opacity(0.1))
-                            .frame(height: 1)
-                            .padding(.horizontal, 24)
+                        if company.id != ownedCompanies.last?.id {
+                            Rectangle()
+                                .fill(Color.primary.opacity(0.1))
+                                .frame(height: 1)
+                                .padding(.horizontal, 24)
+                        }
                     }
                 }
             }
@@ -248,53 +268,40 @@ struct MainView: View {
 }
 
 // MARK: - Stock Row (simple single trend line)
-struct StockRowView: View {
-    let stock: FKStock
+struct CompanyRowView: View {
+    let company: Company
+    let shares: Int
 
     private func svArabic(_ weight: String, size: CGFloat) -> Font {
         .custom("SVArabic-\(weight)", size: size, relativeTo: .body)
     }
 
-    private var isPositive: Bool { stock.changePercent >= 0 }
-    private var changeColor: Color { isPositive ? Color(hex: "22C55E") : Color(hex: "EF4444") }
-
     var body: some View {
         HStack(spacing: 10) {
-            // السعر + النسبة
             VStack(alignment: .leading, spacing: 3) {
-                Text("\(Int(stock.price))")
+                Text("\(Int(company.stock.currentPrice))")
                     .font(svArabic("Bold", size: 17))
                     .foregroundColor(.primary)
-
-                Text("\(isPositive ? "+" : "")\(String(format: "%.2f", stock.changePercent))%")
+                Text("\(shares) أسهم")
                     .font(svArabic("Medium", size: 13))
-                    .foregroundColor(changeColor)
+                    .foregroundColor(.secondary)
             }
-            .frame(width: 60, alignment: .leading)
-            .padding(.trailing, 4)
+            .frame(width: 70, alignment: .leading)
 
             HStack(spacing: 10) {
                 VStack(alignment: .trailing, spacing: 3) {
-                    Text(stock.name)
+                    Text(company.fakeName)
                         .font(svArabic("Bold", size: 16))
                         .foregroundColor(.primary)
-
-                    Text(stock.sector)
+                    Text(sectorArabicNew(company.sector))
                         .font(svArabic("Regular", size: 12))
                         .foregroundColor(.secondary)
                 }
-
-                ZStack {
-                    Circle()
-                        .fill(Color.secondary.opacity(0.12))
-                        .frame(width: 44, height: 44)
-
-                    Image(stock.logoImageName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 30, height: 30)
-                        .clipShape(Circle())
-                }
+                Text(company.icon)
+                    .font(.title2)
+                    .frame(width: 44, height: 44)
+                    .background(Color.secondary.opacity(0.12))
+                    .clipShape(Circle())
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
         }
@@ -306,4 +313,5 @@ struct StockRowView: View {
 #Preview {
     MainView()
         .environmentObject(WalletState())
+        .environmentObject(MarketViewModelNew())
 }
