@@ -1,4 +1,5 @@
 
+//MarketListViewV2
 
 import SwiftUI
 
@@ -9,8 +10,9 @@ struct MarketListViewV2: View {
     @State private var selectedSector = "الكل"
 //    @AppStorage("hasSeenTutorial") var hasSeenTutorial = false
     @State private var tutorialStep = 0
-    @AppStorage("hasCompletedTutorial")
-    private var hasCompletedTutorial = false
+    @EnvironmentObject var walletState: WalletState
+    @AppStorage("hasCompletedTutorial") private var hasCompletedTutorial = false
+    
 
     var displayedCompanies: [Company] {
 
@@ -190,14 +192,9 @@ struct MarketListViewV2: View {
                                 ForEach(displayedCompanies) { company in
 
                                     NavigationLink {
-
-                                        CompanyDetailViewV2(
-                                            company: company,
-                                            vm: vm
-                                        )
-
+                                        CompanyDetailViewV2(company: company, vm: vm)
+                                            .environmentObject(walletState)
                                     } label: {
-
                                         CompanyCardV2(
                                             company: company,
                                             currency: vm.marketData?.currency ?? "SAR"
@@ -329,9 +326,7 @@ struct MarketListViewV2: View {
         
     }
 
-    #Preview {
-        MarketListViewV2()
-    }
+
 
 struct MiniSparklineNew: View {
 
@@ -480,4 +475,8 @@ struct StatDetailRowNew: View {
             Divider().background(Color.white.opacity(0.08))
         }
     }
+}
+#Preview {
+    MarketListViewV2()
+        .environmentObject(WalletState())
 }
