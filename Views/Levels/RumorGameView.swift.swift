@@ -8,6 +8,12 @@ struct RumorGameView: View {
     @State private var showSuccess = false
     @State private var showFailure = false
     @State private var showRumorPopup = true
+    @Environment(\.dismiss) private var dismiss
+    @AppStorage("selectedTab") private var selectedTab: Int = 2
+    @EnvironmentObject var walletState: WalletState
+
+    @State private var showReward = false
+    @StateObject private var rewardVM = PortfolioViewModel()
     
     var body: some View {
         ZStack {
@@ -120,13 +126,27 @@ struct RumorGameView: View {
                                 .padding(.horizontal, 24)
                             }
                             .padding(.horizontal, 16)
-                        PrimaryButton(title: "خلصت") {
-                            
+                        PrimaryButton(title: "انتهيت") {
+                            showReward = true
                         }
                         .padding(.horizontal, 32)
                         .padding(.top, 24)
+                        .fullScreenCover(isPresented: $showReward) {
+
+                            PortfolioCongratsView(
+                                vm: rewardVM,
+                                onFinished: {
+
+                                    walletState.collectReward(forLevel: 3)
+
+                                    selectedTab = 2
+                                    dismiss()
+                                }
+                            )
+                        }
                     }
                 }
+                
             } else if showFailure {
                 VStack(spacing: 28) {
                     
@@ -384,6 +404,8 @@ struct RumorGameView: View {
                             .overlay(
                                 Capsule()
                                     .stroke(Color.white.opacity(0.2))
+                                    .glassEffect()
+                                    .opacity(0.5)
                             )
                         }
                         
@@ -426,6 +448,8 @@ struct RumorGameView: View {
                             .overlay(
                                 Capsule()
                                     .stroke(Color.white.opacity(0.2))
+                                    .glassEffect()
+                                    .opacity(0.5)
                             )
                         }
                     }
@@ -453,6 +477,7 @@ struct RumorGameView: View {
                                 Color(red: 109/255,
                                       green: 144/255,
                                       blue: 229/255)
+                                
                             )
                         
                         VStack(spacing: 12) {
@@ -467,15 +492,17 @@ struct RumorGameView: View {
                                 .multilineTextAlignment(.center)
                         }
                         
+                        
                         PrimaryButton(title: "حسنًا") {
                             showRumorPopup = false
                         }
                     }
+                    
                     .padding(32)
                     .frame(width: 353, height: 428)
                     .background(
                         RoundedRectangle(cornerRadius: 30)
-                            .fill(Color.black.opacity(0.15))
+                            .fill(Color.black.opacity(0.45))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 30)
                                     .stroke(
@@ -483,10 +510,14 @@ struct RumorGameView: View {
                                         lineWidth: 1
                                     )
                             )
+                   
                     )
+                    
                 }
+            
+               
                 
-            } // نهاية الـ ZStack
+            }// نهاية الـ ZStack
         } // نهاية body
     } // نهاية RumorGameView
 }
@@ -496,9 +527,14 @@ struct RumorGameView: View {
 #Preview {
     AppContainerView {
         RumorGameView()
+            .environmentObject(WalletState())
     }
 }
     
+
+//تمممممممتتت المعلومات✌🏻
+
+
 // ====== التعديلات المطلوبة ======
 // ١. أضيف فوق body:
 // @Environment(\.dismiss) private var dismiss
