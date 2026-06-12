@@ -79,8 +79,7 @@ struct InvestmentLevelView: View {
             
             if showReward {
                 PortfolioCongratsView(vm: rewardVM, onFinished: {
-                    walletState.balance += 100
-                    selectedTab = 2
+                    walletState.collectReward(forLevel: 2);                    selectedTab = 2
                     dismiss()
                 })
                 .transition(.opacity.combined(with: .scale))

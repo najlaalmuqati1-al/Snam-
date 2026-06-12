@@ -82,7 +82,7 @@ struct ContentView: View {
                     dismiss()
                 })*/
                 PortfolioCongratsView(vm: portfolioVM, onFinished: {
-                    walletState.balance += 100
+                    walletState.collectReward(forLevel: 1)
                     selectedTab = 2
                     dismiss()
                 })
