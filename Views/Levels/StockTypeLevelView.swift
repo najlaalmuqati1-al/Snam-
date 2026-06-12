@@ -68,21 +68,20 @@ struct StockTypeLevelView: View {
                                                 
                                                 VStack(alignment: .trailing, spacing: 4) {
                                                     
-                                                    Text(company?.fakeName ?? "")
+                                                    Text("بيرن اكس")
                                                         .font(.system(size: 20, weight: .bold))
                                                         .foregroundColor(.white)
                                                     
-                                                    Text(
-                                                        company.map {
-                                                            sectorArabicNew($0.sector)
-                                                        } ?? ""
-                                                    )
+                                                    Text("قطاع الأعمال")
                                                     .font(.system(size: 16))
                                                     .foregroundColor(.gray)
                                                 }
                                                 
-                                                Text(company?.icon ?? "🏦")
-                                                    .font(.system(size: 36))
+                                                Image("bx")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 40, height: 40)
+                                                
                                             }
                                             HStack(spacing: 10) {
                                                 
@@ -242,21 +241,20 @@ struct StockTypeLevelView: View {
                                                 
                                                 VStack(alignment: .trailing, spacing: 4) {
                                                     
-                                                    Text(company?.fakeName ?? "")
+                                                    Text("بيرن اكس")
                                                         .font(.system(size: 20, weight: .bold))
                                                         .foregroundColor(.white)
                                                     
-                                                    Text(
-                                                        company.map {
-                                                            sectorArabicNew($0.sector)
-                                                        } ?? ""
-                                                    )
+                                                    Text("قطاع الأعمال")
                                                     .font(.system(size: 16))
                                                     .foregroundColor(.gray)
                                                 }
                                                 
-                                                Text(company?.icon ?? "🏦")
-                                                    .font(.system(size: 36))
+                                                Image("bx")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 40, height: 40)
+                                                
                                             }
                                             HStack(spacing: 10) {
                                                 
@@ -395,7 +393,7 @@ struct StockTypeLevelView: View {
             }
             .padding()
             .onAppear {
-                company = vm.marketData?.companies.randomElement()
+                company = vm.marketData?.companies.first
             }
             
 }

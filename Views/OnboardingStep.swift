@@ -403,8 +403,8 @@ struct SanamOnboardingView: View {
     @State private var showMainTab = false // <--- للتبديل للصفحة الرئيسية
 
     let steps = [
-        SanamStep(title: "أهلاً بك في سنام", description: "تطبيق يساعدك على تعلّم الاستثمار في الأسهم...", type: .cards),
-        SanamStep(title: "بطريقة تفاعلية", description: "أكمل مستوياتك لتحصل على أكبر قدر ممكن من المكافآت...", type: .coins)
+        SanamStep(title: "هلا بك في سنام", description: "بنساعدك تدخل عالم الأسهم وتستثمر فلوسك صح...", type: .cards),
+        SanamStep(title: " استمتع بالتعلم ", description: "بنعلمك بطريقة تشدك، وتخليك تستمتع بكل معلومة جديدة...", type: .coins)
     ]
     
     var body: some View {
@@ -540,12 +540,12 @@ struct SanamContentView: View {
             
             VStack(alignment: .leading, spacing: 15) {
                 Text(step.title)
-                    .font(.system(size: 28, weight: .bold))
+                    .font(.system(size: 35, weight: .bold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text(step.description)
-                    .font(.system(size: 16))
+                    .font(.system(size: 20))
                     .foregroundColor(.white.opacity(0.7))
                     .multilineTextAlignment(.leading)
                     .lineSpacing(4)

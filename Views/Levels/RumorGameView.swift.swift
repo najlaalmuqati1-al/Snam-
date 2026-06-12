@@ -311,8 +311,21 @@ struct RumorGameView: View {
                                             .foregroundColor(.gray)
                                     }
                                     
-                                    Text(company.icon)
-                                        .font(.system(size: 30))
+                                    Image(
+                                        company.fakeName == "Najd Energy" ? "energy_logo" :
+                                        company.fakeName == "Desert Bank" ? "bank_logo" :
+                                        company.fakeName == "Najd Telecom" ? "telecom_logo" :
+                                        company.fakeName == "Souq Arabia" ? "retail_logo" :
+                                        company.fakeName == "NeoTech KSA" ? "tech_logo" :
+                                        company.fakeName == "Palm Foods" ? "food_logo" :
+                                        company.fakeName == "Golden Cement" ? "construction_logo" :
+                                        company.fakeName == "Sky Airlines" ? "travel_logo" :
+                                        company.fakeName == "Future Health" ? "health_logo" :
+                                        "logistics_logo"
+                                    )
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40, height: 40)
                                 }
                                 .environment(\.layoutDirection, .leftToRight)
                                 

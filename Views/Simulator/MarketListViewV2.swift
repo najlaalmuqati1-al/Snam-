@@ -243,9 +243,21 @@ struct MarketListViewV2: View {
                     Circle()
                         .fill(Color.white.opacity(0.08))
                         .frame(width: 40, height: 44)
-                    
-                    Text(company.icon)
-                        .font(.title3)
+                    Image(
+                        company.fakeName == "Najd Energy" ? "energy_logo" :
+                        company.fakeName == "Desert Bank" ? "bank_logo" :
+                        company.fakeName == "Najd Telecom" ? "telecom_logo" :
+                        company.fakeName == "Souq Arabia" ? "retail_logo" :
+                        company.fakeName == "NeoTech KSA" ? "tech_logo" :
+                        company.fakeName == "Palm Foods" ? "food_logo" :
+                        company.fakeName == "Golden Cement" ? "construction_logo" :
+                        company.fakeName == "Sky Airlines" ? "travel_logo" :
+                        company.fakeName == "Future Health" ? "health_logo" :
+                        "logistics_logo"
+                    )
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 40, height: 44)
                 }
                 
                 VStack(alignment: .trailing, spacing: 4) {
@@ -261,12 +273,22 @@ struct MarketListViewV2: View {
                 
                 Spacer()
 //                هذا الشارت حق الاسهم
-                MiniSparklineNew(
-                    points: company.chartData.timeframes.oneDay.map { $0.price },
-                    trend: company.stock.trend
+//                MiniSparklineNew(
+//                    points: company.chartData.timeframes.oneDay.map { $0.price },
+//                    trend: company.stock.trend
+//                )
+                Image(systemName:
+                    company.stock.changePercent >= 0
+                    ? "arrowtriangle.up.fill"
+                    : "arrowtriangle.down.fill"
+                )
+                .font(.system(size: 24))
+                .foregroundColor(
+                    company.stock.changePercent >= 0
+                    ? .green
+                    : .red
                 )
                 .frame(width: 75, height: 22)
-                
                 
                 Spacer()
                 

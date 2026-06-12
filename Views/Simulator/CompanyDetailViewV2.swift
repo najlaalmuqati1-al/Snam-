@@ -247,8 +247,21 @@ struct CompanyDetailViewV2: View {
                         .fill(Color.white.opacity(0.08))
                         .frame(width: 60, height: 60)
                         .overlay(
-                            Text(company.icon)
-                                .font(.title2)
+                            Image(
+                                company.fakeName == "Najd Energy" ? "energy_logo" :
+                                company.fakeName == "Desert Bank" ? "bank_logo" :
+                                company.fakeName == "Najd Telecom" ? "telecom_logo" :
+                                company.fakeName == "Souq Arabia" ? "retail_logo" :
+                                company.fakeName == "NeoTech KSA" ? "tech_logo" :
+                                company.fakeName == "Palm Foods" ? "food_logo" :
+                                company.fakeName == "Golden Cement" ? "construction_logo" :
+                                company.fakeName == "Sky Airlines" ? "travel_logo" :
+                                company.fakeName == "Future Health" ? "health_logo" :
+                                "logistics_logo"
+                            )
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60, height: 60)
                         )
                     
                     VStack(alignment: .trailing, spacing: 4) {

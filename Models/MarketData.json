@@ -7,14 +7,14 @@
     {
       "company_id": 1,
       "fake_name": "Najd Energy",
-      "image_name": "najd_logo",
+      "image_name": "energy_logo",
       "inspired_by": "Aramco",
       "sector": "Energy",
       "description": "شركة طاقة افتراضية متخصصة في النفط والطاقة",
-      "icon": "🛢️",
+      "icon": "bolt.fill",
       "stock": {
         "symbol": "NJD",
-        "current_price": 124.00,
+        "current_price": 124.0,
         "trend": "up",
         "change_percent": 2.1,
         "change_amount": 2.55,
@@ -22,79 +22,200 @@
         "market_cap": "1.2T",
         "statistics": {
           "previous_close": 121.45,
-          "open_price": 121.00,
-          "day_high": 126.00,
-          "day_low": 119.00,
+          "open_price": 121.0,
+          "day_high": 126.0,
+          "day_low": 119.0,
           "volume_traded": 2300000,
           "trading_value": 285200000,
           "number_of_trades": 23302,
           "average_trade_size": 12240,
-          "average_price": 122.80,
-          "best_bid": 123.90,
-          "best_ask": 124.10
+          "average_price": 122.8,
+          "best_bid": 123.9,
+          "best_ask": 124.1
         }
       },
-      "news": { "headline": "ارتفاع أسعار النفط عالميًا يدعم أسهم الطاقة", "impact": "positive" },
+      "news": {
+        "headline": "ارتفاع أسعار النفط عالميًا يدعم أسهم الطاقة",
+        "impact": "positive"
+      },
       "chart_data": {
         "timeframes": {
           "1D": [
-            { "timestamp": "2026-05-12T09:00:00Z", "price": 118.00 },
-            { "timestamp": "2026-05-12T10:00:00Z", "price": 119.20 },
-            { "timestamp": "2026-05-12T11:00:00Z", "price": 121.50 },
-            { "timestamp": "2026-05-12T12:00:00Z", "price": 120.30 },
-            { "timestamp": "2026-05-12T13:00:00Z", "price": 122.80 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 124.00 }
+            {
+              "timestamp": "2026-05-12T09:00:00Z",
+              "price": 118.0
+            },
+            {
+              "timestamp": "2026-05-12T10:00:00Z",
+              "price": 119.2
+            },
+            {
+              "timestamp": "2026-05-12T11:00:00Z",
+              "price": 121.5
+            },
+            {
+              "timestamp": "2026-05-12T12:00:00Z",
+              "price": 120.3
+            },
+            {
+              "timestamp": "2026-05-12T13:00:00Z",
+              "price": 122.8
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 124.0
+            }
           ],
           "1W": [
-            { "timestamp": "2026-05-06T14:00:00Z", "price": 115.00 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 116.80 },
-            { "timestamp": "2026-05-08T14:00:00Z", "price": 118.20 },
-            { "timestamp": "2026-05-09T14:00:00Z", "price": 117.50 },
-            { "timestamp": "2026-05-10T14:00:00Z", "price": 119.00 },
-            { "timestamp": "2026-05-11T14:00:00Z", "price": 121.45 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 124.00 }
+            {
+              "timestamp": "2026-05-06T14:00:00Z",
+              "price": 115.0
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 116.8
+            },
+            {
+              "timestamp": "2026-05-08T14:00:00Z",
+              "price": 118.2
+            },
+            {
+              "timestamp": "2026-05-09T14:00:00Z",
+              "price": 117.5
+            },
+            {
+              "timestamp": "2026-05-10T14:00:00Z",
+              "price": 119.0
+            },
+            {
+              "timestamp": "2026-05-11T14:00:00Z",
+              "price": 121.45
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 124.0
+            }
           ],
           "1M": [
-            { "timestamp": "2026-04-13T14:00:00Z", "price": 108.00 },
-            { "timestamp": "2026-04-17T14:00:00Z", "price": 110.50 },
-            { "timestamp": "2026-04-21T14:00:00Z", "price": 109.80 },
-            { "timestamp": "2026-04-25T14:00:00Z", "price": 112.00 },
-            { "timestamp": "2026-04-29T14:00:00Z", "price": 114.30 },
-            { "timestamp": "2026-05-03T14:00:00Z", "price": 113.50 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 116.80 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 124.00 }
+            {
+              "timestamp": "2026-04-13T14:00:00Z",
+              "price": 108.0
+            },
+            {
+              "timestamp": "2026-04-17T14:00:00Z",
+              "price": 110.5
+            },
+            {
+              "timestamp": "2026-04-21T14:00:00Z",
+              "price": 109.8
+            },
+            {
+              "timestamp": "2026-04-25T14:00:00Z",
+              "price": 112.0
+            },
+            {
+              "timestamp": "2026-04-29T14:00:00Z",
+              "price": 114.3
+            },
+            {
+              "timestamp": "2026-05-03T14:00:00Z",
+              "price": 113.5
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 116.8
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 124.0
+            }
           ],
           "1Y": [
-            { "timestamp": "2025-05-12T14:00:00Z", "price": 88.00 },
-            { "timestamp": "2025-07-12T14:00:00Z", "price": 93.50 },
-            { "timestamp": "2025-09-12T14:00:00Z", "price": 99.00 },
-            { "timestamp": "2025-11-12T14:00:00Z", "price": 105.20 },
-            { "timestamp": "2026-01-12T14:00:00Z", "price": 112.00 },
-            { "timestamp": "2026-03-12T14:00:00Z", "price": 109.80 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 124.00 }
+            {
+              "timestamp": "2025-05-12T14:00:00Z",
+              "price": 88.0
+            },
+            {
+              "timestamp": "2025-07-12T14:00:00Z",
+              "price": 93.5
+            },
+            {
+              "timestamp": "2025-09-12T14:00:00Z",
+              "price": 99.0
+            },
+            {
+              "timestamp": "2025-11-12T14:00:00Z",
+              "price": 105.2
+            },
+            {
+              "timestamp": "2026-01-12T14:00:00Z",
+              "price": 112.0
+            },
+            {
+              "timestamp": "2026-03-12T14:00:00Z",
+              "price": 109.8
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 124.0
+            }
           ]
         }
       },
       "candlestick_data": [
-        { "timestamp": "2026-05-12T09:00:00Z", "open": 118.00, "high": 120.00, "low": 117.00, "close": 119.20, "volume": 300000 },
-        { "timestamp": "2026-05-12T10:00:00Z", "open": 119.20, "high": 122.00, "low": 118.50, "close": 121.50, "volume": 450000 },
-        { "timestamp": "2026-05-12T11:00:00Z", "open": 121.50, "high": 124.00, "low": 120.00, "close": 120.30, "volume": 380000 },
-        { "timestamp": "2026-05-12T12:00:00Z", "open": 120.30, "high": 123.50, "low": 119.80, "close": 122.80, "volume": 520000 },
-        { "timestamp": "2026-05-12T13:00:00Z", "open": 122.80, "high": 126.00, "low": 122.00, "close": 124.00, "volume": 650000 }
+        {
+          "timestamp": "2026-05-12T09:00:00Z",
+          "open": 118.0,
+          "high": 120.0,
+          "low": 117.0,
+          "close": 119.2,
+          "volume": 300000
+        },
+        {
+          "timestamp": "2026-05-12T10:00:00Z",
+          "open": 119.2,
+          "high": 122.0,
+          "low": 118.5,
+          "close": 121.5,
+          "volume": 450000
+        },
+        {
+          "timestamp": "2026-05-12T11:00:00Z",
+          "open": 121.5,
+          "high": 124.0,
+          "low": 120.0,
+          "close": 120.3,
+          "volume": 380000
+        },
+        {
+          "timestamp": "2026-05-12T12:00:00Z",
+          "open": 120.3,
+          "high": 123.5,
+          "low": 119.8,
+          "close": 122.8,
+          "volume": 520000
+        },
+        {
+          "timestamp": "2026-05-12T13:00:00Z",
+          "open": 122.8,
+          "high": 126.0,
+          "low": 122.0,
+          "close": 124.0,
+          "volume": 650000
+        }
       ]
     },
-
     {
       "company_id": 2,
       "fake_name": "Desert Bank",
-      "image_name": "najd_logo",
+      "image_name": "bank_logo",
       "inspired_by": "Al Rajhi Bank",
       "sector": "Banking",
       "description": "بنك افتراضي يقدم خدمات مالية واستثمارية متكاملة",
-      "icon": "🏦",
+      "icon": "building.columns.fill",
       "stock": {
         "symbol": "DSB",
-        "current_price": 88.60,
+        "current_price": 88.6,
         "trend": "stable",
         "change_percent": 0.4,
         "change_amount": 0.35,
@@ -102,79 +223,200 @@
         "market_cap": "340B",
         "statistics": {
           "previous_close": 88.25,
-          "open_price": 88.10,
-          "day_high": 89.40,
-          "day_low": 87.60,
+          "open_price": 88.1,
+          "day_high": 89.4,
+          "day_low": 87.6,
           "volume_traded": 1850000,
           "trading_value": 163790000,
           "number_of_trades": 18540,
           "average_trade_size": 9940,
           "average_price": 88.54,
-          "best_bid": 88.50,
-          "best_ask": 88.70
+          "best_bid": 88.5,
+          "best_ask": 88.7
         }
       },
-      "news": { "headline": "استقرار أرباح الربع الأول يعزز ثقة المستثمرين", "impact": "neutral" },
+      "news": {
+        "headline": "استقرار أرباح الربع الأول يعزز ثقة المستثمرين",
+        "impact": "neutral"
+      },
       "chart_data": {
         "timeframes": {
           "1D": [
-            { "timestamp": "2026-05-12T09:00:00Z", "price": 88.10 },
-            { "timestamp": "2026-05-12T10:00:00Z", "price": 87.90 },
-            { "timestamp": "2026-05-12T11:00:00Z", "price": 88.50 },
-            { "timestamp": "2026-05-12T12:00:00Z", "price": 88.20 },
-            { "timestamp": "2026-05-12T13:00:00Z", "price": 88.80 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 88.60 }
+            {
+              "timestamp": "2026-05-12T09:00:00Z",
+              "price": 88.1
+            },
+            {
+              "timestamp": "2026-05-12T10:00:00Z",
+              "price": 87.9
+            },
+            {
+              "timestamp": "2026-05-12T11:00:00Z",
+              "price": 88.5
+            },
+            {
+              "timestamp": "2026-05-12T12:00:00Z",
+              "price": 88.2
+            },
+            {
+              "timestamp": "2026-05-12T13:00:00Z",
+              "price": 88.8
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 88.6
+            }
           ],
           "1W": [
-            { "timestamp": "2026-05-06T14:00:00Z", "price": 87.00 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 87.40 },
-            { "timestamp": "2026-05-08T14:00:00Z", "price": 88.00 },
-            { "timestamp": "2026-05-09T14:00:00Z", "price": 87.80 },
-            { "timestamp": "2026-05-10T14:00:00Z", "price": 88.10 },
-            { "timestamp": "2026-05-11T14:00:00Z", "price": 88.25 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 88.60 }
+            {
+              "timestamp": "2026-05-06T14:00:00Z",
+              "price": 87.0
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 87.4
+            },
+            {
+              "timestamp": "2026-05-08T14:00:00Z",
+              "price": 88.0
+            },
+            {
+              "timestamp": "2026-05-09T14:00:00Z",
+              "price": 87.8
+            },
+            {
+              "timestamp": "2026-05-10T14:00:00Z",
+              "price": 88.1
+            },
+            {
+              "timestamp": "2026-05-11T14:00:00Z",
+              "price": 88.25
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 88.6
+            }
           ],
           "1M": [
-            { "timestamp": "2026-04-13T14:00:00Z", "price": 84.50 },
-            { "timestamp": "2026-04-17T14:00:00Z", "price": 85.20 },
-            { "timestamp": "2026-04-21T14:00:00Z", "price": 85.80 },
-            { "timestamp": "2026-04-25T14:00:00Z", "price": 86.40 },
-            { "timestamp": "2026-04-29T14:00:00Z", "price": 87.10 },
-            { "timestamp": "2026-05-03T14:00:00Z", "price": 87.60 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 88.00 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 88.60 }
+            {
+              "timestamp": "2026-04-13T14:00:00Z",
+              "price": 84.5
+            },
+            {
+              "timestamp": "2026-04-17T14:00:00Z",
+              "price": 85.2
+            },
+            {
+              "timestamp": "2026-04-21T14:00:00Z",
+              "price": 85.8
+            },
+            {
+              "timestamp": "2026-04-25T14:00:00Z",
+              "price": 86.4
+            },
+            {
+              "timestamp": "2026-04-29T14:00:00Z",
+              "price": 87.1
+            },
+            {
+              "timestamp": "2026-05-03T14:00:00Z",
+              "price": 87.6
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 88.0
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 88.6
+            }
           ],
           "1Y": [
-            { "timestamp": "2025-05-12T14:00:00Z", "price": 74.00 },
-            { "timestamp": "2025-07-12T14:00:00Z", "price": 77.50 },
-            { "timestamp": "2025-09-12T14:00:00Z", "price": 80.20 },
-            { "timestamp": "2025-11-12T14:00:00Z", "price": 82.00 },
-            { "timestamp": "2026-01-12T14:00:00Z", "price": 84.50 },
-            { "timestamp": "2026-03-12T14:00:00Z", "price": 86.80 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 88.60 }
+            {
+              "timestamp": "2025-05-12T14:00:00Z",
+              "price": 74.0
+            },
+            {
+              "timestamp": "2025-07-12T14:00:00Z",
+              "price": 77.5
+            },
+            {
+              "timestamp": "2025-09-12T14:00:00Z",
+              "price": 80.2
+            },
+            {
+              "timestamp": "2025-11-12T14:00:00Z",
+              "price": 82.0
+            },
+            {
+              "timestamp": "2026-01-12T14:00:00Z",
+              "price": 84.5
+            },
+            {
+              "timestamp": "2026-03-12T14:00:00Z",
+              "price": 86.8
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 88.6
+            }
           ]
         }
       },
       "candlestick_data": [
-        { "timestamp": "2026-05-12T09:00:00Z", "open": 88.10, "high": 88.80, "low": 87.60, "close": 87.90, "volume": 280000 },
-        { "timestamp": "2026-05-12T10:00:00Z", "open": 87.90, "high": 88.90, "low": 87.70, "close": 88.50, "volume": 390000 },
-        { "timestamp": "2026-05-12T11:00:00Z", "open": 88.50, "high": 89.40, "low": 88.00, "close": 88.20, "volume": 310000 },
-        { "timestamp": "2026-05-12T12:00:00Z", "open": 88.20, "high": 89.00, "low": 87.90, "close": 88.80, "volume": 420000 },
-        { "timestamp": "2026-05-12T13:00:00Z", "open": 88.80, "high": 89.40, "low": 88.40, "close": 88.60, "volume": 450000 }
+        {
+          "timestamp": "2026-05-12T09:00:00Z",
+          "open": 88.1,
+          "high": 88.8,
+          "low": 87.6,
+          "close": 87.9,
+          "volume": 280000
+        },
+        {
+          "timestamp": "2026-05-12T10:00:00Z",
+          "open": 87.9,
+          "high": 88.9,
+          "low": 87.7,
+          "close": 88.5,
+          "volume": 390000
+        },
+        {
+          "timestamp": "2026-05-12T11:00:00Z",
+          "open": 88.5,
+          "high": 89.4,
+          "low": 88.0,
+          "close": 88.2,
+          "volume": 310000
+        },
+        {
+          "timestamp": "2026-05-12T12:00:00Z",
+          "open": 88.2,
+          "high": 89.0,
+          "low": 87.9,
+          "close": 88.8,
+          "volume": 420000
+        },
+        {
+          "timestamp": "2026-05-12T13:00:00Z",
+          "open": 88.8,
+          "high": 89.4,
+          "low": 88.4,
+          "close": 88.6,
+          "volume": 450000
+        }
       ]
     },
-
     {
       "company_id": 3,
       "fake_name": "Najd Telecom",
-      "image_name": "najd_logo",
+      "image_name": "telecom_logo",
       "inspired_by": "STC",
       "sector": "Telecom",
       "description": "شركة اتصالات افتراضية تقدم خدمات رقمية متطورة",
-      "icon": "📶",
+      "icon": "antenna.radiowaves.left.and.right",
       "stock": {
         "symbol": "NTC",
-        "current_price": 67.30,
+        "current_price": 67.3,
         "trend": "down",
         "change_percent": -1.7,
         "change_amount": -1.16,
@@ -182,76 +424,197 @@
         "market_cap": "215B",
         "statistics": {
           "previous_close": 68.46,
-          "open_price": 68.20,
-          "day_high": 68.90,
-          "day_low": 66.80,
+          "open_price": 68.2,
+          "day_high": 68.9,
+          "day_low": 66.8,
           "volume_traded": 3100000,
           "trading_value": 209110000,
           "number_of_trades": 27650,
           "average_trade_size": 7560,
           "average_price": 67.45,
-          "best_bid": 67.20,
-          "best_ask": 67.40
+          "best_bid": 67.2,
+          "best_ask": 67.4
         }
       },
-      "news": { "headline": "زيادة حدة المنافسة في قطاع الاتصالات تضغط على الأسعار", "impact": "negative" },
+      "news": {
+        "headline": "زيادة حدة المنافسة في قطاع الاتصالات تضغط على الأسعار",
+        "impact": "negative"
+      },
       "chart_data": {
         "timeframes": {
           "1D": [
-            { "timestamp": "2026-05-12T09:00:00Z", "price": 68.20 },
-            { "timestamp": "2026-05-12T10:00:00Z", "price": 68.50 },
-            { "timestamp": "2026-05-12T11:00:00Z", "price": 67.90 },
-            { "timestamp": "2026-05-12T12:00:00Z", "price": 67.50 },
-            { "timestamp": "2026-05-12T13:00:00Z", "price": 67.00 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 67.30 }
+            {
+              "timestamp": "2026-05-12T09:00:00Z",
+              "price": 68.2
+            },
+            {
+              "timestamp": "2026-05-12T10:00:00Z",
+              "price": 68.5
+            },
+            {
+              "timestamp": "2026-05-12T11:00:00Z",
+              "price": 67.9
+            },
+            {
+              "timestamp": "2026-05-12T12:00:00Z",
+              "price": 67.5
+            },
+            {
+              "timestamp": "2026-05-12T13:00:00Z",
+              "price": 67.0
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 67.3
+            }
           ],
           "1W": [
-            { "timestamp": "2026-05-06T14:00:00Z", "price": 71.00 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 70.50 },
-            { "timestamp": "2026-05-08T14:00:00Z", "price": 69.80 },
-            { "timestamp": "2026-05-09T14:00:00Z", "price": 69.20 },
-            { "timestamp": "2026-05-10T14:00:00Z", "price": 68.90 },
-            { "timestamp": "2026-05-11T14:00:00Z", "price": 68.46 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 67.30 }
+            {
+              "timestamp": "2026-05-06T14:00:00Z",
+              "price": 71.0
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 70.5
+            },
+            {
+              "timestamp": "2026-05-08T14:00:00Z",
+              "price": 69.8
+            },
+            {
+              "timestamp": "2026-05-09T14:00:00Z",
+              "price": 69.2
+            },
+            {
+              "timestamp": "2026-05-10T14:00:00Z",
+              "price": 68.9
+            },
+            {
+              "timestamp": "2026-05-11T14:00:00Z",
+              "price": 68.46
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 67.3
+            }
           ],
           "1M": [
-            { "timestamp": "2026-04-13T14:00:00Z", "price": 75.00 },
-            { "timestamp": "2026-04-17T14:00:00Z", "price": 74.20 },
-            { "timestamp": "2026-04-21T14:00:00Z", "price": 73.50 },
-            { "timestamp": "2026-04-25T14:00:00Z", "price": 72.80 },
-            { "timestamp": "2026-04-29T14:00:00Z", "price": 71.40 },
-            { "timestamp": "2026-05-03T14:00:00Z", "price": 70.60 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 69.20 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 67.30 }
+            {
+              "timestamp": "2026-04-13T14:00:00Z",
+              "price": 75.0
+            },
+            {
+              "timestamp": "2026-04-17T14:00:00Z",
+              "price": 74.2
+            },
+            {
+              "timestamp": "2026-04-21T14:00:00Z",
+              "price": 73.5
+            },
+            {
+              "timestamp": "2026-04-25T14:00:00Z",
+              "price": 72.8
+            },
+            {
+              "timestamp": "2026-04-29T14:00:00Z",
+              "price": 71.4
+            },
+            {
+              "timestamp": "2026-05-03T14:00:00Z",
+              "price": 70.6
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 69.2
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 67.3
+            }
           ],
           "1Y": [
-            { "timestamp": "2025-05-12T14:00:00Z", "price": 82.00 },
-            { "timestamp": "2025-07-12T14:00:00Z", "price": 80.50 },
-            { "timestamp": "2025-09-12T14:00:00Z", "price": 78.00 },
-            { "timestamp": "2025-11-12T14:00:00Z", "price": 76.40 },
-            { "timestamp": "2026-01-12T14:00:00Z", "price": 74.20 },
-            { "timestamp": "2026-03-12T14:00:00Z", "price": 71.00 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 67.30 }
+            {
+              "timestamp": "2025-05-12T14:00:00Z",
+              "price": 82.0
+            },
+            {
+              "timestamp": "2025-07-12T14:00:00Z",
+              "price": 80.5
+            },
+            {
+              "timestamp": "2025-09-12T14:00:00Z",
+              "price": 78.0
+            },
+            {
+              "timestamp": "2025-11-12T14:00:00Z",
+              "price": 76.4
+            },
+            {
+              "timestamp": "2026-01-12T14:00:00Z",
+              "price": 74.2
+            },
+            {
+              "timestamp": "2026-03-12T14:00:00Z",
+              "price": 71.0
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 67.3
+            }
           ]
         }
       },
       "candlestick_data": [
-        { "timestamp": "2026-05-12T09:00:00Z", "open": 68.20, "high": 68.90, "low": 67.80, "close": 68.50, "volume": 520000 },
-        { "timestamp": "2026-05-12T10:00:00Z", "open": 68.50, "high": 68.70, "low": 67.60, "close": 67.90, "volume": 680000 },
-        { "timestamp": "2026-05-12T11:00:00Z", "open": 67.90, "high": 68.10, "low": 67.20, "close": 67.50, "volume": 590000 },
-        { "timestamp": "2026-05-12T12:00:00Z", "open": 67.50, "high": 67.80, "low": 66.80, "close": 67.00, "volume": 710000 },
-        { "timestamp": "2026-05-12T13:00:00Z", "open": 67.00, "high": 67.50, "low": 66.90, "close": 67.30, "volume": 600000 }
+        {
+          "timestamp": "2026-05-12T09:00:00Z",
+          "open": 68.2,
+          "high": 68.9,
+          "low": 67.8,
+          "close": 68.5,
+          "volume": 520000
+        },
+        {
+          "timestamp": "2026-05-12T10:00:00Z",
+          "open": 68.5,
+          "high": 68.7,
+          "low": 67.6,
+          "close": 67.9,
+          "volume": 680000
+        },
+        {
+          "timestamp": "2026-05-12T11:00:00Z",
+          "open": 67.9,
+          "high": 68.1,
+          "low": 67.2,
+          "close": 67.5,
+          "volume": 590000
+        },
+        {
+          "timestamp": "2026-05-12T12:00:00Z",
+          "open": 67.5,
+          "high": 67.8,
+          "low": 66.8,
+          "close": 67.0,
+          "volume": 710000
+        },
+        {
+          "timestamp": "2026-05-12T13:00:00Z",
+          "open": 67.0,
+          "high": 67.5,
+          "low": 66.9,
+          "close": 67.3,
+          "volume": 600000
+        }
       ]
     },
-
     {
       "company_id": 4,
       "fake_name": "Souq Arabia",
-      "image_name": "najd_logo",
+      "image_name": "retail_logo",
       "inspired_by": "Jarir",
       "sector": "Retail",
       "description": "شركة تجارة افتراضية متخصصة بالتجزئة والتسوق",
-      "icon": "🛍️",
+      "icon": "bag.fill",
       "stock": {
         "symbol": "SQA",
         "current_price": 54.75,
@@ -262,79 +625,200 @@
         "market_cap": "87B",
         "statistics": {
           "previous_close": 53.99,
-          "open_price": 54.10,
-          "day_high": 55.30,
-          "day_low": 53.80,
+          "open_price": 54.1,
+          "day_high": 55.3,
+          "day_low": 53.8,
           "volume_traded": 1420000,
           "trading_value": 77548500,
           "number_of_trades": 14230,
           "average_trade_size": 5450,
           "average_price": 54.61,
-          "best_bid": 54.70,
-          "best_ask": 54.80
+          "best_bid": 54.7,
+          "best_ask": 54.8
         }
       },
-      "news": { "headline": "موسم التخفيضات الصيفي يدفع مبيعات التجزئة للأعلى", "impact": "positive" },
+      "news": {
+        "headline": "موسم التخفيضات الصيفي يدفع مبيعات التجزئة للأعلى",
+        "impact": "positive"
+      },
       "chart_data": {
         "timeframes": {
           "1D": [
-            { "timestamp": "2026-05-12T09:00:00Z", "price": 54.10 },
-            { "timestamp": "2026-05-12T10:00:00Z", "price": 54.40 },
-            { "timestamp": "2026-05-12T11:00:00Z", "price": 54.00 },
-            { "timestamp": "2026-05-12T12:00:00Z", "price": 54.60 },
-            { "timestamp": "2026-05-12T13:00:00Z", "price": 55.10 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 54.75 }
+            {
+              "timestamp": "2026-05-12T09:00:00Z",
+              "price": 54.1
+            },
+            {
+              "timestamp": "2026-05-12T10:00:00Z",
+              "price": 54.4
+            },
+            {
+              "timestamp": "2026-05-12T11:00:00Z",
+              "price": 54.0
+            },
+            {
+              "timestamp": "2026-05-12T12:00:00Z",
+              "price": 54.6
+            },
+            {
+              "timestamp": "2026-05-12T13:00:00Z",
+              "price": 55.1
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 54.75
+            }
           ],
           "1W": [
-            { "timestamp": "2026-05-06T14:00:00Z", "price": 52.00 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 52.80 },
-            { "timestamp": "2026-05-08T14:00:00Z", "price": 53.20 },
-            { "timestamp": "2026-05-09T14:00:00Z", "price": 53.60 },
-            { "timestamp": "2026-05-10T14:00:00Z", "price": 53.90 },
-            { "timestamp": "2026-05-11T14:00:00Z", "price": 53.99 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 54.75 }
+            {
+              "timestamp": "2026-05-06T14:00:00Z",
+              "price": 52.0
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 52.8
+            },
+            {
+              "timestamp": "2026-05-08T14:00:00Z",
+              "price": 53.2
+            },
+            {
+              "timestamp": "2026-05-09T14:00:00Z",
+              "price": 53.6
+            },
+            {
+              "timestamp": "2026-05-10T14:00:00Z",
+              "price": 53.9
+            },
+            {
+              "timestamp": "2026-05-11T14:00:00Z",
+              "price": 53.99
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 54.75
+            }
           ],
           "1M": [
-            { "timestamp": "2026-04-13T14:00:00Z", "price": 49.00 },
-            { "timestamp": "2026-04-17T14:00:00Z", "price": 49.80 },
-            { "timestamp": "2026-04-21T14:00:00Z", "price": 50.50 },
-            { "timestamp": "2026-04-25T14:00:00Z", "price": 51.20 },
-            { "timestamp": "2026-04-29T14:00:00Z", "price": 51.90 },
-            { "timestamp": "2026-05-03T14:00:00Z", "price": 52.40 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 53.30 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 54.75 }
+            {
+              "timestamp": "2026-04-13T14:00:00Z",
+              "price": 49.0
+            },
+            {
+              "timestamp": "2026-04-17T14:00:00Z",
+              "price": 49.8
+            },
+            {
+              "timestamp": "2026-04-21T14:00:00Z",
+              "price": 50.5
+            },
+            {
+              "timestamp": "2026-04-25T14:00:00Z",
+              "price": 51.2
+            },
+            {
+              "timestamp": "2026-04-29T14:00:00Z",
+              "price": 51.9
+            },
+            {
+              "timestamp": "2026-05-03T14:00:00Z",
+              "price": 52.4
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 53.3
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 54.75
+            }
           ],
           "1Y": [
-            { "timestamp": "2025-05-12T14:00:00Z", "price": 41.00 },
-            { "timestamp": "2025-07-12T14:00:00Z", "price": 43.50 },
-            { "timestamp": "2025-09-12T14:00:00Z", "price": 46.00 },
-            { "timestamp": "2025-11-12T14:00:00Z", "price": 47.80 },
-            { "timestamp": "2026-01-12T14:00:00Z", "price": 50.00 },
-            { "timestamp": "2026-03-12T14:00:00Z", "price": 52.00 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 54.75 }
+            {
+              "timestamp": "2025-05-12T14:00:00Z",
+              "price": 41.0
+            },
+            {
+              "timestamp": "2025-07-12T14:00:00Z",
+              "price": 43.5
+            },
+            {
+              "timestamp": "2025-09-12T14:00:00Z",
+              "price": 46.0
+            },
+            {
+              "timestamp": "2025-11-12T14:00:00Z",
+              "price": 47.8
+            },
+            {
+              "timestamp": "2026-01-12T14:00:00Z",
+              "price": 50.0
+            },
+            {
+              "timestamp": "2026-03-12T14:00:00Z",
+              "price": 52.0
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 54.75
+            }
           ]
         }
       },
       "candlestick_data": [
-        { "timestamp": "2026-05-12T09:00:00Z", "open": 54.10, "high": 54.70, "low": 53.80, "close": 54.40, "volume": 210000 },
-        { "timestamp": "2026-05-12T10:00:00Z", "open": 54.40, "high": 54.80, "low": 53.90, "close": 54.00, "volume": 270000 },
-        { "timestamp": "2026-05-12T11:00:00Z", "open": 54.00, "high": 55.00, "low": 53.90, "close": 54.60, "volume": 310000 },
-        { "timestamp": "2026-05-12T12:00:00Z", "open": 54.60, "high": 55.30, "low": 54.50, "close": 55.10, "volume": 340000 },
-        { "timestamp": "2026-05-12T13:00:00Z", "open": 55.10, "high": 55.30, "low": 54.60, "close": 54.75, "volume": 290000 }
+        {
+          "timestamp": "2026-05-12T09:00:00Z",
+          "open": 54.1,
+          "high": 54.7,
+          "low": 53.8,
+          "close": 54.4,
+          "volume": 210000
+        },
+        {
+          "timestamp": "2026-05-12T10:00:00Z",
+          "open": 54.4,
+          "high": 54.8,
+          "low": 53.9,
+          "close": 54.0,
+          "volume": 270000
+        },
+        {
+          "timestamp": "2026-05-12T11:00:00Z",
+          "open": 54.0,
+          "high": 55.0,
+          "low": 53.9,
+          "close": 54.6,
+          "volume": 310000
+        },
+        {
+          "timestamp": "2026-05-12T12:00:00Z",
+          "open": 54.6,
+          "high": 55.3,
+          "low": 54.5,
+          "close": 55.1,
+          "volume": 340000
+        },
+        {
+          "timestamp": "2026-05-12T13:00:00Z",
+          "open": 55.1,
+          "high": 55.3,
+          "low": 54.6,
+          "close": 54.75,
+          "volume": 290000
+        }
       ]
     },
-
     {
       "company_id": 5,
       "fake_name": "NeoTech KSA",
-      "image_name": "najd_logo",
+      "image_name": "technology_logo",
       "inspired_by": "solutions by stc",
       "sector": "Technology",
       "description": "شركة تقنية افتراضية متخصصة بالحلول الذكية والبرمجيات",
-      "icon": "💻",
+      "icon": "cpu.fill",
       "stock": {
         "symbol": "NTK",
-        "current_price": 39.10,
+        "current_price": 39.1,
         "trend": "down",
         "change_percent": -3.2,
         "change_amount": -1.29,
@@ -342,79 +826,200 @@
         "market_cap": "42B",
         "statistics": {
           "previous_close": 40.39,
-          "open_price": 40.20,
-          "day_high": 40.50,
-          "day_low": 38.70,
+          "open_price": 40.2,
+          "day_high": 40.5,
+          "day_low": 38.7,
           "volume_traded": 4800000,
           "trading_value": 187836000,
           "number_of_trades": 41200,
           "average_trade_size": 4560,
           "average_price": 39.13,
-          "best_bid": 39.00,
-          "best_ask": 39.20
+          "best_bid": 39.0,
+          "best_ask": 39.2
         }
       },
-      "news": { "headline": "تأجيل إطلاق المنتج الذكي الجديد يثير قلق المستثمرين", "impact": "negative" },
+      "news": {
+        "headline": "تأجيل إطلاق المنتج الذكي الجديد يثير قلق المستثمرين",
+        "impact": "negative"
+      },
       "chart_data": {
         "timeframes": {
           "1D": [
-            { "timestamp": "2026-05-12T09:00:00Z", "price": 40.20 },
-            { "timestamp": "2026-05-12T10:00:00Z", "price": 40.50 },
-            { "timestamp": "2026-05-12T11:00:00Z", "price": 39.80 },
-            { "timestamp": "2026-05-12T12:00:00Z", "price": 39.40 },
-            { "timestamp": "2026-05-12T13:00:00Z", "price": 38.90 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 39.10 }
+            {
+              "timestamp": "2026-05-12T09:00:00Z",
+              "price": 40.2
+            },
+            {
+              "timestamp": "2026-05-12T10:00:00Z",
+              "price": 40.5
+            },
+            {
+              "timestamp": "2026-05-12T11:00:00Z",
+              "price": 39.8
+            },
+            {
+              "timestamp": "2026-05-12T12:00:00Z",
+              "price": 39.4
+            },
+            {
+              "timestamp": "2026-05-12T13:00:00Z",
+              "price": 38.9
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 39.1
+            }
           ],
           "1W": [
-            { "timestamp": "2026-05-06T14:00:00Z", "price": 44.00 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 43.20 },
-            { "timestamp": "2026-05-08T14:00:00Z", "price": 42.50 },
-            { "timestamp": "2026-05-09T14:00:00Z", "price": 41.80 },
-            { "timestamp": "2026-05-10T14:00:00Z", "price": 41.10 },
-            { "timestamp": "2026-05-11T14:00:00Z", "price": 40.39 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 39.10 }
+            {
+              "timestamp": "2026-05-06T14:00:00Z",
+              "price": 44.0
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 43.2
+            },
+            {
+              "timestamp": "2026-05-08T14:00:00Z",
+              "price": 42.5
+            },
+            {
+              "timestamp": "2026-05-09T14:00:00Z",
+              "price": 41.8
+            },
+            {
+              "timestamp": "2026-05-10T14:00:00Z",
+              "price": 41.1
+            },
+            {
+              "timestamp": "2026-05-11T14:00:00Z",
+              "price": 40.39
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 39.1
+            }
           ],
           "1M": [
-            { "timestamp": "2026-04-13T14:00:00Z", "price": 51.00 },
-            { "timestamp": "2026-04-17T14:00:00Z", "price": 49.80 },
-            { "timestamp": "2026-04-21T14:00:00Z", "price": 48.20 },
-            { "timestamp": "2026-04-25T14:00:00Z", "price": 46.50 },
-            { "timestamp": "2026-04-29T14:00:00Z", "price": 45.00 },
-            { "timestamp": "2026-05-03T14:00:00Z", "price": 43.20 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 41.50 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 39.10 }
+            {
+              "timestamp": "2026-04-13T14:00:00Z",
+              "price": 51.0
+            },
+            {
+              "timestamp": "2026-04-17T14:00:00Z",
+              "price": 49.8
+            },
+            {
+              "timestamp": "2026-04-21T14:00:00Z",
+              "price": 48.2
+            },
+            {
+              "timestamp": "2026-04-25T14:00:00Z",
+              "price": 46.5
+            },
+            {
+              "timestamp": "2026-04-29T14:00:00Z",
+              "price": 45.0
+            },
+            {
+              "timestamp": "2026-05-03T14:00:00Z",
+              "price": 43.2
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 41.5
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 39.1
+            }
           ],
           "1Y": [
-            { "timestamp": "2025-05-12T14:00:00Z", "price": 68.00 },
-            { "timestamp": "2025-07-12T14:00:00Z", "price": 72.50 },
-            { "timestamp": "2025-09-12T14:00:00Z", "price": 65.00 },
-            { "timestamp": "2025-11-12T14:00:00Z", "price": 60.20 },
-            { "timestamp": "2026-01-12T14:00:00Z", "price": 55.00 },
-            { "timestamp": "2026-03-12T14:00:00Z", "price": 50.40 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 39.10 }
+            {
+              "timestamp": "2025-05-12T14:00:00Z",
+              "price": 68.0
+            },
+            {
+              "timestamp": "2025-07-12T14:00:00Z",
+              "price": 72.5
+            },
+            {
+              "timestamp": "2025-09-12T14:00:00Z",
+              "price": 65.0
+            },
+            {
+              "timestamp": "2025-11-12T14:00:00Z",
+              "price": 60.2
+            },
+            {
+              "timestamp": "2026-01-12T14:00:00Z",
+              "price": 55.0
+            },
+            {
+              "timestamp": "2026-03-12T14:00:00Z",
+              "price": 50.4
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 39.1
+            }
           ]
         }
       },
       "candlestick_data": [
-        { "timestamp": "2026-05-12T09:00:00Z", "open": 40.20, "high": 40.80, "low": 39.90, "close": 40.50, "volume": 800000 },
-        { "timestamp": "2026-05-12T10:00:00Z", "open": 40.50, "high": 40.50, "low": 39.50, "close": 39.80, "volume": 1100000 },
-        { "timestamp": "2026-05-12T11:00:00Z", "open": 39.80, "high": 40.00, "low": 39.00, "close": 39.40, "volume": 980000 },
-        { "timestamp": "2026-05-12T12:00:00Z", "open": 39.40, "high": 39.60, "low": 38.70, "close": 38.90, "volume": 1200000 },
-        { "timestamp": "2026-05-12T13:00:00Z", "open": 38.90, "high": 39.40, "low": 38.70, "close": 39.10, "volume": 720000 }
+        {
+          "timestamp": "2026-05-12T09:00:00Z",
+          "open": 40.2,
+          "high": 40.8,
+          "low": 39.9,
+          "close": 40.5,
+          "volume": 800000
+        },
+        {
+          "timestamp": "2026-05-12T10:00:00Z",
+          "open": 40.5,
+          "high": 40.5,
+          "low": 39.5,
+          "close": 39.8,
+          "volume": 1100000
+        },
+        {
+          "timestamp": "2026-05-12T11:00:00Z",
+          "open": 39.8,
+          "high": 40.0,
+          "low": 39.0,
+          "close": 39.4,
+          "volume": 980000
+        },
+        {
+          "timestamp": "2026-05-12T12:00:00Z",
+          "open": 39.4,
+          "high": 39.6,
+          "low": 38.7,
+          "close": 38.9,
+          "volume": 1200000
+        },
+        {
+          "timestamp": "2026-05-12T13:00:00Z",
+          "open": 38.9,
+          "high": 39.4,
+          "low": 38.7,
+          "close": 39.1,
+          "volume": 720000
+        }
       ]
     },
-
     {
       "company_id": 6,
       "fake_name": "Palm Foods",
-      "image_name": "najd_logo",
+      "image_name": "food_logo",
       "inspired_by": "Almarai",
       "sector": "Food",
       "description": "شركة غذائية افتراضية متخصصة بمنتجات الألبان والمشروبات",
-      "icon": "🥛",
+      "icon": "fork.knife",
       "stock": {
         "symbol": "PLF",
-        "current_price": 73.20,
+        "current_price": 73.2,
         "trend": "stable",
         "change_percent": 0.2,
         "change_amount": 0.15,
@@ -422,79 +1027,200 @@
         "market_cap": "128B",
         "statistics": {
           "previous_close": 73.05,
-          "open_price": 73.00,
-          "day_high": 73.80,
-          "day_low": 72.60,
+          "open_price": 73.0,
+          "day_high": 73.8,
+          "day_low": 72.6,
           "volume_traded": 980000,
           "trading_value": 71694000,
           "number_of_trades": 9870,
           "average_trade_size": 7270,
           "average_price": 73.16,
-          "best_bid": 73.10,
-          "best_ask": 73.30
+          "best_bid": 73.1,
+          "best_ask": 73.3
         }
       },
-      "news": { "headline": "استقرار الطلب على المنتجات الغذائية يدعم أداء الشركة", "impact": "neutral" },
+      "news": {
+        "headline": "استقرار الطلب على المنتجات الغذائية يدعم أداء الشركة",
+        "impact": "neutral"
+      },
       "chart_data": {
         "timeframes": {
           "1D": [
-            { "timestamp": "2026-05-12T09:00:00Z", "price": 73.00 },
-            { "timestamp": "2026-05-12T10:00:00Z", "price": 73.30 },
-            { "timestamp": "2026-05-12T11:00:00Z", "price": 73.60 },
-            { "timestamp": "2026-05-12T12:00:00Z", "price": 73.10 },
-            { "timestamp": "2026-05-12T13:00:00Z", "price": 73.40 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 73.20 }
+            {
+              "timestamp": "2026-05-12T09:00:00Z",
+              "price": 73.0
+            },
+            {
+              "timestamp": "2026-05-12T10:00:00Z",
+              "price": 73.3
+            },
+            {
+              "timestamp": "2026-05-12T11:00:00Z",
+              "price": 73.6
+            },
+            {
+              "timestamp": "2026-05-12T12:00:00Z",
+              "price": 73.1
+            },
+            {
+              "timestamp": "2026-05-12T13:00:00Z",
+              "price": 73.4
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 73.2
+            }
           ],
           "1W": [
-            { "timestamp": "2026-05-06T14:00:00Z", "price": 72.00 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 72.40 },
-            { "timestamp": "2026-05-08T14:00:00Z", "price": 72.80 },
-            { "timestamp": "2026-05-09T14:00:00Z", "price": 73.00 },
-            { "timestamp": "2026-05-10T14:00:00Z", "price": 72.90 },
-            { "timestamp": "2026-05-11T14:00:00Z", "price": 73.05 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 73.20 }
+            {
+              "timestamp": "2026-05-06T14:00:00Z",
+              "price": 72.0
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 72.4
+            },
+            {
+              "timestamp": "2026-05-08T14:00:00Z",
+              "price": 72.8
+            },
+            {
+              "timestamp": "2026-05-09T14:00:00Z",
+              "price": 73.0
+            },
+            {
+              "timestamp": "2026-05-10T14:00:00Z",
+              "price": 72.9
+            },
+            {
+              "timestamp": "2026-05-11T14:00:00Z",
+              "price": 73.05
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 73.2
+            }
           ],
           "1M": [
-            { "timestamp": "2026-04-13T14:00:00Z", "price": 70.00 },
-            { "timestamp": "2026-04-17T14:00:00Z", "price": 70.80 },
-            { "timestamp": "2026-04-21T14:00:00Z", "price": 71.20 },
-            { "timestamp": "2026-04-25T14:00:00Z", "price": 71.80 },
-            { "timestamp": "2026-04-29T14:00:00Z", "price": 72.20 },
-            { "timestamp": "2026-05-03T14:00:00Z", "price": 72.60 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 72.90 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 73.20 }
+            {
+              "timestamp": "2026-04-13T14:00:00Z",
+              "price": 70.0
+            },
+            {
+              "timestamp": "2026-04-17T14:00:00Z",
+              "price": 70.8
+            },
+            {
+              "timestamp": "2026-04-21T14:00:00Z",
+              "price": 71.2
+            },
+            {
+              "timestamp": "2026-04-25T14:00:00Z",
+              "price": 71.8
+            },
+            {
+              "timestamp": "2026-04-29T14:00:00Z",
+              "price": 72.2
+            },
+            {
+              "timestamp": "2026-05-03T14:00:00Z",
+              "price": 72.6
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 72.9
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 73.2
+            }
           ],
           "1Y": [
-            { "timestamp": "2025-05-12T14:00:00Z", "price": 62.00 },
-            { "timestamp": "2025-07-12T14:00:00Z", "price": 64.50 },
-            { "timestamp": "2025-09-12T14:00:00Z", "price": 66.00 },
-            { "timestamp": "2025-11-12T14:00:00Z", "price": 67.80 },
-            { "timestamp": "2026-01-12T14:00:00Z", "price": 69.50 },
-            { "timestamp": "2026-03-12T14:00:00Z", "price": 71.00 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 73.20 }
+            {
+              "timestamp": "2025-05-12T14:00:00Z",
+              "price": 62.0
+            },
+            {
+              "timestamp": "2025-07-12T14:00:00Z",
+              "price": 64.5
+            },
+            {
+              "timestamp": "2025-09-12T14:00:00Z",
+              "price": 66.0
+            },
+            {
+              "timestamp": "2025-11-12T14:00:00Z",
+              "price": 67.8
+            },
+            {
+              "timestamp": "2026-01-12T14:00:00Z",
+              "price": 69.5
+            },
+            {
+              "timestamp": "2026-03-12T14:00:00Z",
+              "price": 71.0
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 73.2
+            }
           ]
         }
       },
       "candlestick_data": [
-        { "timestamp": "2026-05-12T09:00:00Z", "open": 73.00, "high": 73.50, "low": 72.60, "close": 73.30, "volume": 150000 },
-        { "timestamp": "2026-05-12T10:00:00Z", "open": 73.30, "high": 73.80, "low": 73.20, "close": 73.60, "volume": 210000 },
-        { "timestamp": "2026-05-12T11:00:00Z", "open": 73.60, "high": 73.80, "low": 72.90, "close": 73.10, "volume": 190000 },
-        { "timestamp": "2026-05-12T12:00:00Z", "open": 73.10, "high": 73.60, "low": 73.00, "close": 73.40, "volume": 220000 },
-        { "timestamp": "2026-05-12T13:00:00Z", "open": 73.40, "high": 73.70, "low": 73.10, "close": 73.20, "volume": 210000 }
+        {
+          "timestamp": "2026-05-12T09:00:00Z",
+          "open": 73.0,
+          "high": 73.5,
+          "low": 72.6,
+          "close": 73.3,
+          "volume": 150000
+        },
+        {
+          "timestamp": "2026-05-12T10:00:00Z",
+          "open": 73.3,
+          "high": 73.8,
+          "low": 73.2,
+          "close": 73.6,
+          "volume": 210000
+        },
+        {
+          "timestamp": "2026-05-12T11:00:00Z",
+          "open": 73.6,
+          "high": 73.8,
+          "low": 72.9,
+          "close": 73.1,
+          "volume": 190000
+        },
+        {
+          "timestamp": "2026-05-12T12:00:00Z",
+          "open": 73.1,
+          "high": 73.6,
+          "low": 73.0,
+          "close": 73.4,
+          "volume": 220000
+        },
+        {
+          "timestamp": "2026-05-12T13:00:00Z",
+          "open": 73.4,
+          "high": 73.7,
+          "low": 73.1,
+          "close": 73.2,
+          "volume": 210000
+        }
       ]
     },
-
     {
       "company_id": 7,
       "fake_name": "Golden Cement",
-      "image_name": "najd_logo",
+      "image_name": "construction_logo",
       "inspired_by": "Saudi Cement",
       "sector": "Construction",
       "description": "شركة افتراضية رائدة في تصنيع وتوزيع مواد البناء",
-      "icon": "🏗️",
+      "icon": "hammer.fill",
       "stock": {
         "symbol": "GCM",
-        "current_price": 91.80,
+        "current_price": 91.8,
         "trend": "up",
         "change_percent": 1.9,
         "change_amount": 1.71,
@@ -502,79 +1228,200 @@
         "market_cap": "76B",
         "statistics": {
           "previous_close": 90.09,
-          "open_price": 90.20,
-          "day_high": 92.50,
-          "day_low": 89.70,
+          "open_price": 90.2,
+          "day_high": 92.5,
+          "day_low": 89.7,
           "volume_traded": 1650000,
           "trading_value": 151416000,
           "number_of_trades": 16780,
           "average_trade_size": 9020,
           "average_price": 91.77,
-          "best_bid": 91.70,
-          "best_ask": 91.90
+          "best_bid": 91.7,
+          "best_ask": 91.9
         }
       },
-      "news": { "headline": "ارتفاع وتيرة مشاريع رؤية 2030 يرفع الطلب على مواد البناء", "impact": "positive" },
+      "news": {
+        "headline": "ارتفاع وتيرة مشاريع رؤية 2030 يرفع الطلب على مواد البناء",
+        "impact": "positive"
+      },
       "chart_data": {
         "timeframes": {
           "1D": [
-            { "timestamp": "2026-05-12T09:00:00Z", "price": 90.20 },
-            { "timestamp": "2026-05-12T10:00:00Z", "price": 90.80 },
-            { "timestamp": "2026-05-12T11:00:00Z", "price": 91.50 },
-            { "timestamp": "2026-05-12T12:00:00Z", "price": 91.00 },
-            { "timestamp": "2026-05-12T13:00:00Z", "price": 92.20 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 91.80 }
+            {
+              "timestamp": "2026-05-12T09:00:00Z",
+              "price": 90.2
+            },
+            {
+              "timestamp": "2026-05-12T10:00:00Z",
+              "price": 90.8
+            },
+            {
+              "timestamp": "2026-05-12T11:00:00Z",
+              "price": 91.5
+            },
+            {
+              "timestamp": "2026-05-12T12:00:00Z",
+              "price": 91.0
+            },
+            {
+              "timestamp": "2026-05-12T13:00:00Z",
+              "price": 92.2
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 91.8
+            }
           ],
           "1W": [
-            { "timestamp": "2026-05-06T14:00:00Z", "price": 87.00 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 87.80 },
-            { "timestamp": "2026-05-08T14:00:00Z", "price": 88.60 },
-            { "timestamp": "2026-05-09T14:00:00Z", "price": 89.20 },
-            { "timestamp": "2026-05-10T14:00:00Z", "price": 89.80 },
-            { "timestamp": "2026-05-11T14:00:00Z", "price": 90.09 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 91.80 }
+            {
+              "timestamp": "2026-05-06T14:00:00Z",
+              "price": 87.0
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 87.8
+            },
+            {
+              "timestamp": "2026-05-08T14:00:00Z",
+              "price": 88.6
+            },
+            {
+              "timestamp": "2026-05-09T14:00:00Z",
+              "price": 89.2
+            },
+            {
+              "timestamp": "2026-05-10T14:00:00Z",
+              "price": 89.8
+            },
+            {
+              "timestamp": "2026-05-11T14:00:00Z",
+              "price": 90.09
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 91.8
+            }
           ],
           "1M": [
-            { "timestamp": "2026-04-13T14:00:00Z", "price": 82.00 },
-            { "timestamp": "2026-04-17T14:00:00Z", "price": 83.50 },
-            { "timestamp": "2026-04-21T14:00:00Z", "price": 84.80 },
-            { "timestamp": "2026-04-25T14:00:00Z", "price": 85.90 },
-            { "timestamp": "2026-04-29T14:00:00Z", "price": 87.00 },
-            { "timestamp": "2026-05-03T14:00:00Z", "price": 88.20 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 89.50 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 91.80 }
+            {
+              "timestamp": "2026-04-13T14:00:00Z",
+              "price": 82.0
+            },
+            {
+              "timestamp": "2026-04-17T14:00:00Z",
+              "price": 83.5
+            },
+            {
+              "timestamp": "2026-04-21T14:00:00Z",
+              "price": 84.8
+            },
+            {
+              "timestamp": "2026-04-25T14:00:00Z",
+              "price": 85.9
+            },
+            {
+              "timestamp": "2026-04-29T14:00:00Z",
+              "price": 87.0
+            },
+            {
+              "timestamp": "2026-05-03T14:00:00Z",
+              "price": 88.2
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 89.5
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 91.8
+            }
           ],
           "1Y": [
-            { "timestamp": "2025-05-12T14:00:00Z", "price": 68.00 },
-            { "timestamp": "2025-07-12T14:00:00Z", "price": 72.00 },
-            { "timestamp": "2025-09-12T14:00:00Z", "price": 75.50 },
-            { "timestamp": "2025-11-12T14:00:00Z", "price": 78.00 },
-            { "timestamp": "2026-01-12T14:00:00Z", "price": 81.50 },
-            { "timestamp": "2026-03-12T14:00:00Z", "price": 85.00 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 91.80 }
+            {
+              "timestamp": "2025-05-12T14:00:00Z",
+              "price": 68.0
+            },
+            {
+              "timestamp": "2025-07-12T14:00:00Z",
+              "price": 72.0
+            },
+            {
+              "timestamp": "2025-09-12T14:00:00Z",
+              "price": 75.5
+            },
+            {
+              "timestamp": "2025-11-12T14:00:00Z",
+              "price": 78.0
+            },
+            {
+              "timestamp": "2026-01-12T14:00:00Z",
+              "price": 81.5
+            },
+            {
+              "timestamp": "2026-03-12T14:00:00Z",
+              "price": 85.0
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 91.8
+            }
           ]
         }
       },
       "candlestick_data": [
-        { "timestamp": "2026-05-12T09:00:00Z", "open": 90.20, "high": 91.00, "low": 89.70, "close": 90.80, "volume": 280000 },
-        { "timestamp": "2026-05-12T10:00:00Z", "open": 90.80, "high": 92.00, "low": 90.50, "close": 91.50, "volume": 350000 },
-        { "timestamp": "2026-05-12T11:00:00Z", "open": 91.50, "high": 92.50, "low": 90.80, "close": 91.00, "volume": 300000 },
-        { "timestamp": "2026-05-12T12:00:00Z", "open": 91.00, "high": 92.80, "low": 90.90, "close": 92.20, "volume": 420000 },
-        { "timestamp": "2026-05-12T13:00:00Z", "open": 92.20, "high": 92.50, "low": 91.40, "close": 91.80, "volume": 300000 }
+        {
+          "timestamp": "2026-05-12T09:00:00Z",
+          "open": 90.2,
+          "high": 91.0,
+          "low": 89.7,
+          "close": 90.8,
+          "volume": 280000
+        },
+        {
+          "timestamp": "2026-05-12T10:00:00Z",
+          "open": 90.8,
+          "high": 92.0,
+          "low": 90.5,
+          "close": 91.5,
+          "volume": 350000
+        },
+        {
+          "timestamp": "2026-05-12T11:00:00Z",
+          "open": 91.5,
+          "high": 92.5,
+          "low": 90.8,
+          "close": 91.0,
+          "volume": 300000
+        },
+        {
+          "timestamp": "2026-05-12T12:00:00Z",
+          "open": 91.0,
+          "high": 92.8,
+          "low": 90.9,
+          "close": 92.2,
+          "volume": 420000
+        },
+        {
+          "timestamp": "2026-05-12T13:00:00Z",
+          "open": 92.2,
+          "high": 92.5,
+          "low": 91.4,
+          "close": 91.8,
+          "volume": 300000
+        }
       ]
     },
-
     {
       "company_id": 8,
       "fake_name": "Sky Airlines",
-      "image_name": "najd_logo",
+      "image_name": "travel_logo",
       "inspired_by": "Saudi Airlines",
       "sector": "Travel",
       "description": "شركة طيران افتراضية للنقل الجوي والسياحة",
-      "icon": "✈️",
+      "icon": "airplane",
       "stock": {
         "symbol": "SKA",
-        "current_price": 45.20,
+        "current_price": 45.2,
         "trend": "down",
         "change_percent": -2.4,
         "change_amount": -1.11,
@@ -582,79 +1429,200 @@
         "market_cap": "31B",
         "statistics": {
           "previous_close": 46.31,
-          "open_price": 46.10,
-          "day_high": 46.50,
-          "day_low": 44.80,
+          "open_price": 46.1,
+          "day_high": 46.5,
+          "day_low": 44.8,
           "volume_traded": 3600000,
           "trading_value": 163008000,
           "number_of_trades": 32400,
           "average_trade_size": 5040,
           "average_price": 45.28,
-          "best_bid": 45.10,
-          "best_ask": 45.30
+          "best_bid": 45.1,
+          "best_ask": 45.3
         }
       },
-      "news": { "headline": "ارتفاع أسعار الوقود عالميًا يضغط على هوامش ربح شركات الطيران", "impact": "negative" },
+      "news": {
+        "headline": "ارتفاع أسعار الوقود عالميًا يضغط على هوامش ربح شركات الطيران",
+        "impact": "negative"
+      },
       "chart_data": {
         "timeframes": {
           "1D": [
-            { "timestamp": "2026-05-12T09:00:00Z", "price": 46.10 },
-            { "timestamp": "2026-05-12T10:00:00Z", "price": 46.50 },
-            { "timestamp": "2026-05-12T11:00:00Z", "price": 45.80 },
-            { "timestamp": "2026-05-12T12:00:00Z", "price": 45.30 },
-            { "timestamp": "2026-05-12T13:00:00Z", "price": 44.90 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 45.20 }
+            {
+              "timestamp": "2026-05-12T09:00:00Z",
+              "price": 46.1
+            },
+            {
+              "timestamp": "2026-05-12T10:00:00Z",
+              "price": 46.5
+            },
+            {
+              "timestamp": "2026-05-12T11:00:00Z",
+              "price": 45.8
+            },
+            {
+              "timestamp": "2026-05-12T12:00:00Z",
+              "price": 45.3
+            },
+            {
+              "timestamp": "2026-05-12T13:00:00Z",
+              "price": 44.9
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 45.2
+            }
           ],
           "1W": [
-            { "timestamp": "2026-05-06T14:00:00Z", "price": 49.00 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 48.30 },
-            { "timestamp": "2026-05-08T14:00:00Z", "price": 47.80 },
-            { "timestamp": "2026-05-09T14:00:00Z", "price": 47.20 },
-            { "timestamp": "2026-05-10T14:00:00Z", "price": 46.80 },
-            { "timestamp": "2026-05-11T14:00:00Z", "price": 46.31 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 45.20 }
+            {
+              "timestamp": "2026-05-06T14:00:00Z",
+              "price": 49.0
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 48.3
+            },
+            {
+              "timestamp": "2026-05-08T14:00:00Z",
+              "price": 47.8
+            },
+            {
+              "timestamp": "2026-05-09T14:00:00Z",
+              "price": 47.2
+            },
+            {
+              "timestamp": "2026-05-10T14:00:00Z",
+              "price": 46.8
+            },
+            {
+              "timestamp": "2026-05-11T14:00:00Z",
+              "price": 46.31
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 45.2
+            }
           ],
           "1M": [
-            { "timestamp": "2026-04-13T14:00:00Z", "price": 55.00 },
-            { "timestamp": "2026-04-17T14:00:00Z", "price": 53.80 },
-            { "timestamp": "2026-04-21T14:00:00Z", "price": 52.50 },
-            { "timestamp": "2026-04-25T14:00:00Z", "price": 51.20 },
-            { "timestamp": "2026-04-29T14:00:00Z", "price": 50.00 },
-            { "timestamp": "2026-05-03T14:00:00Z", "price": 48.50 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 47.00 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 45.20 }
+            {
+              "timestamp": "2026-04-13T14:00:00Z",
+              "price": 55.0
+            },
+            {
+              "timestamp": "2026-04-17T14:00:00Z",
+              "price": 53.8
+            },
+            {
+              "timestamp": "2026-04-21T14:00:00Z",
+              "price": 52.5
+            },
+            {
+              "timestamp": "2026-04-25T14:00:00Z",
+              "price": 51.2
+            },
+            {
+              "timestamp": "2026-04-29T14:00:00Z",
+              "price": 50.0
+            },
+            {
+              "timestamp": "2026-05-03T14:00:00Z",
+              "price": 48.5
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 47.0
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 45.2
+            }
           ],
           "1Y": [
-            { "timestamp": "2025-05-12T14:00:00Z", "price": 62.00 },
-            { "timestamp": "2025-07-12T14:00:00Z", "price": 60.50 },
-            { "timestamp": "2025-09-12T14:00:00Z", "price": 58.00 },
-            { "timestamp": "2025-11-12T14:00:00Z", "price": 56.20 },
-            { "timestamp": "2026-01-12T14:00:00Z", "price": 54.00 },
-            { "timestamp": "2026-03-12T14:00:00Z", "price": 51.00 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 45.20 }
+            {
+              "timestamp": "2025-05-12T14:00:00Z",
+              "price": 62.0
+            },
+            {
+              "timestamp": "2025-07-12T14:00:00Z",
+              "price": 60.5
+            },
+            {
+              "timestamp": "2025-09-12T14:00:00Z",
+              "price": 58.0
+            },
+            {
+              "timestamp": "2025-11-12T14:00:00Z",
+              "price": 56.2
+            },
+            {
+              "timestamp": "2026-01-12T14:00:00Z",
+              "price": 54.0
+            },
+            {
+              "timestamp": "2026-03-12T14:00:00Z",
+              "price": 51.0
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 45.2
+            }
           ]
         }
       },
       "candlestick_data": [
-        { "timestamp": "2026-05-12T09:00:00Z", "open": 46.10, "high": 46.70, "low": 45.80, "close": 46.50, "volume": 620000 },
-        { "timestamp": "2026-05-12T10:00:00Z", "open": 46.50, "high": 46.50, "low": 45.40, "close": 45.80, "volume": 780000 },
-        { "timestamp": "2026-05-12T11:00:00Z", "open": 45.80, "high": 46.00, "low": 45.00, "close": 45.30, "volume": 820000 },
-        { "timestamp": "2026-05-12T12:00:00Z", "open": 45.30, "high": 45.50, "low": 44.80, "close": 44.90, "volume": 900000 },
-        { "timestamp": "2026-05-12T13:00:00Z", "open": 44.90, "high": 45.40, "low": 44.80, "close": 45.20, "volume": 480000 }
+        {
+          "timestamp": "2026-05-12T09:00:00Z",
+          "open": 46.1,
+          "high": 46.7,
+          "low": 45.8,
+          "close": 46.5,
+          "volume": 620000
+        },
+        {
+          "timestamp": "2026-05-12T10:00:00Z",
+          "open": 46.5,
+          "high": 46.5,
+          "low": 45.4,
+          "close": 45.8,
+          "volume": 780000
+        },
+        {
+          "timestamp": "2026-05-12T11:00:00Z",
+          "open": 45.8,
+          "high": 46.0,
+          "low": 45.0,
+          "close": 45.3,
+          "volume": 820000
+        },
+        {
+          "timestamp": "2026-05-12T12:00:00Z",
+          "open": 45.3,
+          "high": 45.5,
+          "low": 44.8,
+          "close": 44.9,
+          "volume": 900000
+        },
+        {
+          "timestamp": "2026-05-12T13:00:00Z",
+          "open": 44.9,
+          "high": 45.4,
+          "low": 44.8,
+          "close": 45.2,
+          "volume": 480000
+        }
       ]
     },
-
     {
       "company_id": 9,
       "fake_name": "Future Health",
-      "image_name": "najd_logo",
+      "image_name": "health_logo",
       "inspired_by": "Dallah Health",
       "sector": "Healthcare",
       "description": "شركة صحية افتراضية متخصصة في الخدمات الطبية المتكاملة",
-      "icon": "🏥",
+      "icon": "cross.case.fill",
       "stock": {
         "symbol": "FTH",
-        "current_price": 82.50,
+        "current_price": 82.5,
         "trend": "up",
         "change_percent": 2.0,
         "change_amount": 1.62,
@@ -662,79 +1630,200 @@
         "market_cap": "95B",
         "statistics": {
           "previous_close": 80.88,
-          "open_price": 81.00,
-          "day_high": 83.20,
-          "day_low": 80.50,
+          "open_price": 81.0,
+          "day_high": 83.2,
+          "day_low": 80.5,
           "volume_traded": 1380000,
           "trading_value": 113883000,
           "number_of_trades": 13500,
           "average_trade_size": 8440,
           "average_price": 82.52,
-          "best_bid": 82.40,
-          "best_ask": 82.60
+          "best_bid": 82.4,
+          "best_ask": 82.6
         }
       },
-      "news": { "headline": "افتتاح ثلاثة مراكز طبية جديدة يعزز حضور الشركة في المنطقة", "impact": "positive" },
+      "news": {
+        "headline": "افتتاح ثلاثة مراكز طبية جديدة يعزز حضور الشركة في المنطقة",
+        "impact": "positive"
+      },
       "chart_data": {
         "timeframes": {
           "1D": [
-            { "timestamp": "2026-05-12T09:00:00Z", "price": 81.00 },
-            { "timestamp": "2026-05-12T10:00:00Z", "price": 81.50 },
-            { "timestamp": "2026-05-12T11:00:00Z", "price": 82.20 },
-            { "timestamp": "2026-05-12T12:00:00Z", "price": 81.80 },
-            { "timestamp": "2026-05-12T13:00:00Z", "price": 82.80 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 82.50 }
+            {
+              "timestamp": "2026-05-12T09:00:00Z",
+              "price": 81.0
+            },
+            {
+              "timestamp": "2026-05-12T10:00:00Z",
+              "price": 81.5
+            },
+            {
+              "timestamp": "2026-05-12T11:00:00Z",
+              "price": 82.2
+            },
+            {
+              "timestamp": "2026-05-12T12:00:00Z",
+              "price": 81.8
+            },
+            {
+              "timestamp": "2026-05-12T13:00:00Z",
+              "price": 82.8
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 82.5
+            }
           ],
           "1W": [
-            { "timestamp": "2026-05-06T14:00:00Z", "price": 78.00 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 78.80 },
-            { "timestamp": "2026-05-08T14:00:00Z", "price": 79.50 },
-            { "timestamp": "2026-05-09T14:00:00Z", "price": 80.00 },
-            { "timestamp": "2026-05-10T14:00:00Z", "price": 80.50 },
-            { "timestamp": "2026-05-11T14:00:00Z", "price": 80.88 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 82.50 }
+            {
+              "timestamp": "2026-05-06T14:00:00Z",
+              "price": 78.0
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 78.8
+            },
+            {
+              "timestamp": "2026-05-08T14:00:00Z",
+              "price": 79.5
+            },
+            {
+              "timestamp": "2026-05-09T14:00:00Z",
+              "price": 80.0
+            },
+            {
+              "timestamp": "2026-05-10T14:00:00Z",
+              "price": 80.5
+            },
+            {
+              "timestamp": "2026-05-11T14:00:00Z",
+              "price": 80.88
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 82.5
+            }
           ],
           "1M": [
-            { "timestamp": "2026-04-13T14:00:00Z", "price": 74.00 },
-            { "timestamp": "2026-04-17T14:00:00Z", "price": 75.20 },
-            { "timestamp": "2026-04-21T14:00:00Z", "price": 76.00 },
-            { "timestamp": "2026-04-25T14:00:00Z", "price": 76.80 },
-            { "timestamp": "2026-04-29T14:00:00Z", "price": 77.50 },
-            { "timestamp": "2026-05-03T14:00:00Z", "price": 78.50 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 80.00 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 82.50 }
+            {
+              "timestamp": "2026-04-13T14:00:00Z",
+              "price": 74.0
+            },
+            {
+              "timestamp": "2026-04-17T14:00:00Z",
+              "price": 75.2
+            },
+            {
+              "timestamp": "2026-04-21T14:00:00Z",
+              "price": 76.0
+            },
+            {
+              "timestamp": "2026-04-25T14:00:00Z",
+              "price": 76.8
+            },
+            {
+              "timestamp": "2026-04-29T14:00:00Z",
+              "price": 77.5
+            },
+            {
+              "timestamp": "2026-05-03T14:00:00Z",
+              "price": 78.5
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 80.0
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 82.5
+            }
           ],
           "1Y": [
-            { "timestamp": "2025-05-12T14:00:00Z", "price": 62.00 },
-            { "timestamp": "2025-07-12T14:00:00Z", "price": 65.50 },
-            { "timestamp": "2025-09-12T14:00:00Z", "price": 68.00 },
-            { "timestamp": "2025-11-12T14:00:00Z", "price": 70.80 },
-            { "timestamp": "2026-01-12T14:00:00Z", "price": 73.50 },
-            { "timestamp": "2026-03-12T14:00:00Z", "price": 77.00 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 82.50 }
+            {
+              "timestamp": "2025-05-12T14:00:00Z",
+              "price": 62.0
+            },
+            {
+              "timestamp": "2025-07-12T14:00:00Z",
+              "price": 65.5
+            },
+            {
+              "timestamp": "2025-09-12T14:00:00Z",
+              "price": 68.0
+            },
+            {
+              "timestamp": "2025-11-12T14:00:00Z",
+              "price": 70.8
+            },
+            {
+              "timestamp": "2026-01-12T14:00:00Z",
+              "price": 73.5
+            },
+            {
+              "timestamp": "2026-03-12T14:00:00Z",
+              "price": 77.0
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 82.5
+            }
           ]
         }
       },
       "candlestick_data": [
-        { "timestamp": "2026-05-12T09:00:00Z", "open": 81.00, "high": 81.80, "low": 80.50, "close": 81.50, "volume": 220000 },
-        { "timestamp": "2026-05-12T10:00:00Z", "open": 81.50, "high": 82.50, "low": 81.20, "close": 82.20, "volume": 290000 },
-        { "timestamp": "2026-05-12T11:00:00Z", "open": 82.20, "high": 83.20, "low": 81.70, "close": 81.80, "volume": 260000 },
-        { "timestamp": "2026-05-12T12:00:00Z", "open": 81.80, "high": 83.00, "low": 81.60, "close": 82.80, "volume": 320000 },
-        { "timestamp": "2026-05-12T13:00:00Z", "open": 82.80, "high": 83.20, "low": 82.20, "close": 82.50, "volume": 290000 }
+        {
+          "timestamp": "2026-05-12T09:00:00Z",
+          "open": 81.0,
+          "high": 81.8,
+          "low": 80.5,
+          "close": 81.5,
+          "volume": 220000
+        },
+        {
+          "timestamp": "2026-05-12T10:00:00Z",
+          "open": 81.5,
+          "high": 82.5,
+          "low": 81.2,
+          "close": 82.2,
+          "volume": 290000
+        },
+        {
+          "timestamp": "2026-05-12T11:00:00Z",
+          "open": 82.2,
+          "high": 83.2,
+          "low": 81.7,
+          "close": 81.8,
+          "volume": 260000
+        },
+        {
+          "timestamp": "2026-05-12T12:00:00Z",
+          "open": 81.8,
+          "high": 83.0,
+          "low": 81.6,
+          "close": 82.8,
+          "volume": 320000
+        },
+        {
+          "timestamp": "2026-05-12T13:00:00Z",
+          "open": 82.8,
+          "high": 83.2,
+          "low": 82.2,
+          "close": 82.5,
+          "volume": 290000
+        }
       ]
     },
-
     {
       "company_id": 10,
       "fake_name": "Smart Logistics",
-      "image_name": "najd_logo",
+      "image_name": "logistics_logo",
       "inspired_by": "Bahri",
       "sector": "Logistics",
       "description": "شركة لوجستية افتراضية متخصصة في النقل البري والبحري والشحن",
-      "icon": "🚚",
+      "icon": "shippingbox.fill",
       "stock": {
         "symbol": "SML",
-        "current_price": 58.10,
+        "current_price": 58.1,
         "trend": "stable",
         "change_percent": 0.1,
         "change_amount": 0.06,
@@ -742,67 +1831,190 @@
         "market_cap": "53B",
         "statistics": {
           "previous_close": 58.04,
-          "open_price": 58.00,
-          "day_high": 58.90,
-          "day_low": 57.60,
+          "open_price": 58.0,
+          "day_high": 58.9,
+          "day_low": 57.6,
           "volume_traded": 1100000,
           "trading_value": 63932000,
           "number_of_trades": 11200,
           "average_trade_size": 5710,
           "average_price": 58.12,
-          "best_bid": 58.00,
-          "best_ask": 58.20
+          "best_bid": 58.0,
+          "best_ask": 58.2
         }
       },
-      "news": { "headline": "استقرار حركة الشحن الدولي يحافظ على أداء القطاع اللوجستي", "impact": "neutral" },
+      "news": {
+        "headline": "استقرار حركة الشحن الدولي يحافظ على أداء القطاع اللوجستي",
+        "impact": "neutral"
+      },
       "chart_data": {
         "timeframes": {
           "1D": [
-            { "timestamp": "2026-05-12T09:00:00Z", "price": 58.00 },
-            { "timestamp": "2026-05-12T10:00:00Z", "price": 58.40 },
-            { "timestamp": "2026-05-12T11:00:00Z", "price": 58.80 },
-            { "timestamp": "2026-05-12T12:00:00Z", "price": 58.30 },
-            { "timestamp": "2026-05-12T13:00:00Z", "price": 58.60 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 58.10 }
+            {
+              "timestamp": "2026-05-12T09:00:00Z",
+              "price": 58.0
+            },
+            {
+              "timestamp": "2026-05-12T10:00:00Z",
+              "price": 58.4
+            },
+            {
+              "timestamp": "2026-05-12T11:00:00Z",
+              "price": 58.8
+            },
+            {
+              "timestamp": "2026-05-12T12:00:00Z",
+              "price": 58.3
+            },
+            {
+              "timestamp": "2026-05-12T13:00:00Z",
+              "price": 58.6
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 58.1
+            }
           ],
           "1W": [
-            { "timestamp": "2026-05-06T14:00:00Z", "price": 57.00 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 57.30 },
-            { "timestamp": "2026-05-08T14:00:00Z", "price": 57.60 },
-            { "timestamp": "2026-05-09T14:00:00Z", "price": 57.80 },
-            { "timestamp": "2026-05-10T14:00:00Z", "price": 58.00 },
-            { "timestamp": "2026-05-11T14:00:00Z", "price": 58.04 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 58.10 }
+            {
+              "timestamp": "2026-05-06T14:00:00Z",
+              "price": 57.0
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 57.3
+            },
+            {
+              "timestamp": "2026-05-08T14:00:00Z",
+              "price": 57.6
+            },
+            {
+              "timestamp": "2026-05-09T14:00:00Z",
+              "price": 57.8
+            },
+            {
+              "timestamp": "2026-05-10T14:00:00Z",
+              "price": 58.0
+            },
+            {
+              "timestamp": "2026-05-11T14:00:00Z",
+              "price": 58.04
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 58.1
+            }
           ],
           "1M": [
-            { "timestamp": "2026-04-13T14:00:00Z", "price": 54.00 },
-            { "timestamp": "2026-04-17T14:00:00Z", "price": 54.80 },
-            { "timestamp": "2026-04-21T14:00:00Z", "price": 55.40 },
-            { "timestamp": "2026-04-25T14:00:00Z", "price": 55.90 },
-            { "timestamp": "2026-04-29T14:00:00Z", "price": 56.50 },
-            { "timestamp": "2026-05-03T14:00:00Z", "price": 57.00 },
-            { "timestamp": "2026-05-07T14:00:00Z", "price": 57.60 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 58.10 }
+            {
+              "timestamp": "2026-04-13T14:00:00Z",
+              "price": 54.0
+            },
+            {
+              "timestamp": "2026-04-17T14:00:00Z",
+              "price": 54.8
+            },
+            {
+              "timestamp": "2026-04-21T14:00:00Z",
+              "price": 55.4
+            },
+            {
+              "timestamp": "2026-04-25T14:00:00Z",
+              "price": 55.9
+            },
+            {
+              "timestamp": "2026-04-29T14:00:00Z",
+              "price": 56.5
+            },
+            {
+              "timestamp": "2026-05-03T14:00:00Z",
+              "price": 57.0
+            },
+            {
+              "timestamp": "2026-05-07T14:00:00Z",
+              "price": 57.6
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 58.1
+            }
           ],
           "1Y": [
-            { "timestamp": "2025-05-12T14:00:00Z", "price": 48.00 },
-            { "timestamp": "2025-07-12T14:00:00Z", "price": 50.00 },
-            { "timestamp": "2025-09-12T14:00:00Z", "price": 51.80 },
-            { "timestamp": "2025-11-12T14:00:00Z", "price": 53.00 },
-            { "timestamp": "2026-01-12T14:00:00Z", "price": 54.50 },
-            { "timestamp": "2026-03-12T14:00:00Z", "price": 56.20 },
-            { "timestamp": "2026-05-12T14:00:00Z", "price": 58.10 }
+            {
+              "timestamp": "2025-05-12T14:00:00Z",
+              "price": 48.0
+            },
+            {
+              "timestamp": "2025-07-12T14:00:00Z",
+              "price": 50.0
+            },
+            {
+              "timestamp": "2025-09-12T14:00:00Z",
+              "price": 51.8
+            },
+            {
+              "timestamp": "2025-11-12T14:00:00Z",
+              "price": 53.0
+            },
+            {
+              "timestamp": "2026-01-12T14:00:00Z",
+              "price": 54.5
+            },
+            {
+              "timestamp": "2026-03-12T14:00:00Z",
+              "price": 56.2
+            },
+            {
+              "timestamp": "2026-05-12T14:00:00Z",
+              "price": 58.1
+            }
           ]
         }
       },
       "candlestick_data": [
-        { "timestamp": "2026-05-12T09:00:00Z", "open": 58.00, "high": 58.60, "low": 57.60, "close": 58.40, "volume": 190000 },
-        { "timestamp": "2026-05-12T10:00:00Z", "open": 58.40, "high": 58.90, "low": 58.20, "close": 58.80, "volume": 240000 },
-        { "timestamp": "2026-05-12T11:00:00Z", "open": 58.80, "high": 58.90, "low": 58.10, "close": 58.30, "volume": 210000 },
-        { "timestamp": "2026-05-12T12:00:00Z", "open": 58.30, "high": 58.80, "low": 58.10, "close": 58.60, "volume": 250000 },
-        { "timestamp": "2026-05-12T13:00:00Z", "open": 58.60, "high": 58.80, "low": 57.90, "close": 58.10, "volume": 210000 }
+        {
+          "timestamp": "2026-05-12T09:00:00Z",
+          "open": 58.0,
+          "high": 58.6,
+          "low": 57.6,
+          "close": 58.4,
+          "volume": 190000
+        },
+        {
+          "timestamp": "2026-05-12T10:00:00Z",
+          "open": 58.4,
+          "high": 58.9,
+          "low": 58.2,
+          "close": 58.8,
+          "volume": 240000
+        },
+        {
+          "timestamp": "2026-05-12T11:00:00Z",
+          "open": 58.8,
+          "high": 58.9,
+          "low": 58.1,
+          "close": 58.3,
+          "volume": 210000
+        },
+        {
+          "timestamp": "2026-05-12T12:00:00Z",
+          "open": 58.3,
+          "high": 58.8,
+          "low": 58.1,
+          "close": 58.6,
+          "volume": 250000
+        },
+        {
+          "timestamp": "2026-05-12T13:00:00Z",
+          "open": 58.6,
+          "high": 58.8,
+          "low": 57.9,
+          "close": 58.1,
+          "volume": 210000
+        }
       ]
     }
   ]
 }
+
 
