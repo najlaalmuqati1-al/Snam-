@@ -422,15 +422,17 @@ struct CompanyDetailViewV2: View {
                             company: company,
                             vm: vm,
                             onSuccess: { message in
-
                                 toastMessage = message
                                 showSuccessToast = true
-
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     showSuccessToast = false
                                 }
+                            },
+                            onBalanceChanged: { amount in
+                                walletState.balance += amount
                             }
                         )
+                        
                         .presentationDetents([.height(730)])
                         .presentationBackground(.black)
                     }

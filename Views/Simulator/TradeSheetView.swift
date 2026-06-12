@@ -19,7 +19,8 @@ struct TradeSheetView: View {
     @State private var isBuy = true
     @State private var showErrorPopup = false
     @State private var errorMessage = ""
-
+    
+    var onBalanceChanged: (Double) -> Void
     var body: some View {
 
         ZStack {
@@ -152,14 +153,10 @@ struct TradeSheetView: View {
                     if isBuy {
 
                         if vm.buyStock(company: company, count: quantity) {
-
+                            let cost = company.stock.currentPrice * Double(quantity)  // ← أضيف هذا
+                            onBalanceChanged(-cost)
                             onSuccess("كفو! السهم صار بمحفظتك")
                             dismiss()
-
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                dismiss()
-                            }
-
                         } else {
 
                             errorMessage = "ليس لديك رصيد كافٍ"
@@ -169,13 +166,10 @@ struct TradeSheetView: View {
                     } else {
 
                         if vm.sellStock(company: company, count: quantity) {
-
+                            let revenue = company.stock.currentPrice * Double(quantity)  // ← أضيف هذا
+                            onBalanceChanged(revenue)
                             onSuccess("تم بيع السهم بنجاح")
                             dismiss()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                dismiss()
-                            }
-
                         } else {
 
                             errorMessage = "لا تملك أسهماً كافية للبيع"

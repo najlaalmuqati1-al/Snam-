@@ -23,6 +23,13 @@ class PortfolioViewModel: ObservableObject {
     @Published var showCongrats: Bool = false
     @Published var showDiversifyTip: Bool = false
 
+    @Published var ownedShares: [Int: Int] = [:] {
+        didSet {
+            if let encoded = try? JSONEncoder().encode(ownedShares) {
+                UserDefaults.standard.set(encoded, forKey: "ownedShares")
+            }
+        }
+    }
     var remaining: Int {
         totalBalance - sectors.reduce(0) { $0 + $1.allocation }
     }

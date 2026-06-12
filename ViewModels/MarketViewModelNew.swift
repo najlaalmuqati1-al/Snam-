@@ -13,8 +13,13 @@ class MarketViewModelNew: ObservableObject {
     @Published var marketData: MarketData?
     @Published var selectedSector: String = "الكل"
     @Published var userBalance: Double = 50000.0
-    @Published var ownedShares: [Int: Int] = [:]
-
+    @Published var ownedShares: [Int: Int] = [:] {
+        didSet {
+            if let encoded = try? JSONEncoder().encode(ownedShares) {
+                UserDefaults.standard.set(encoded, forKey: "ownedShares")
+            }
+        }
+    }
     var sectors: [String] {
         var list = ["الكل"]
 
@@ -41,36 +46,33 @@ class MarketViewModelNew: ObservableObject {
         }
     }
 
+ 
+
     init() {
+        if let data = UserDefaults.standard.data(forKey: "ownedShares"),
+           let decoded = try? JSONDecoder().decode([Int: Int].self, from: data) {
+            self.ownedShares = decoded
+        }
         loadLocalJSON()
     }
 
     private func loadLocalJSON() {
-
         if let url = Bundle.main.url(
             forResource: "MarketData",
             withExtension: "json"
         ) {
-
             do {
-
                 let data = try Data(contentsOf: url)
-
                 let decoder = JSONDecoder()
-
                 self.marketData = try decoder.decode(
                     MarketData.self,
                     from: data
                 )
-
             } catch {
-
                 print("Error parsing MarketData.json: \(error)")
                 setupFallbackMockData()
             }
-
         } else {
-
             setupFallbackMockData()
         }
     }
@@ -202,9 +204,4 @@ class MarketViewModelNew: ObservableObject {
 
         return false
     }
-}
-#Preview {
-    MarketListViewV2()
-        .environmentObject(WalletState())
-        .environmentObject(MarketViewModelNew())
 }
