@@ -69,7 +69,7 @@ struct TradeSheetView: View {
                     .foregroundColor(.white)
                     .padding(.top, 20)
 
-                Text(String(format: "%.2f", company.stock.currentPrice))
+                Text(String(format: "%.2f", company.stock.currentPrice * Double(quantity)))
                     .font(.system(size: 64, weight: .black))
                     .foregroundColor(.white)
                     .padding(.top, 35)
