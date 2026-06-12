@@ -18,7 +18,7 @@ struct CompanyDetailViewV2: View {
     @State private var detailTutorialStep = 0
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var walletState: WalletState
-
+    @State private var isSuccessToast: Bool = true
     func tutorialBubble(_ text: String) -> some View {
         
         VStack(spacing: 0) {
@@ -164,15 +164,12 @@ struct CompanyDetailViewV2: View {
                             .font(.system(size: 13))
 
                         ZStack {
-
                             Circle()
-                                .fill(Color.green.opacity(0.19))
+                                .fill(isSuccessToast ? Color.green.opacity(0.19) : Color.red.opacity(0.19))
                                 .frame(width: 26, height: 26)
 
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(Color(red: 65/255,
-                                                       green: 233/255,
-                                                       blue: 112/255))
+                            Image(systemName: isSuccessToast ? "checkmark.circle.fill" : "xmark.circle.fill")
+                                .foregroundColor(isSuccessToast ? Color(red: 65/255, green: 233/255, blue: 112/255) : .red)
                                 .font(.system(size: 18))
                         }
                     }
@@ -423,6 +420,7 @@ struct CompanyDetailViewV2: View {
                             vm: vm,
                             onSuccess: { message in
                                 toastMessage = message
+                                isSuccessToast = !message.contains("غير كافية") && !message.contains("ما عندك")
                                 showSuccessToast = true
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     showSuccessToast = false
