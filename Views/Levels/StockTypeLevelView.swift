@@ -1,4 +1,6 @@
-//
+// لمن يتوسع خلي البوتن ( السهم المضارب - الامن ) ظاهرة شوي من ورا بحيث يبان انه يقدر يضغط بس ويرجع لهم
+// زر البوتن حق انتهيت مفرضو يظهر بعد ما يدخل على كل الاثنين
+// تعديل متعلق باللوجك هنا
 //  StockTypeLevelView.swift
 //  Snam
 //
@@ -11,7 +13,8 @@ struct StockTypeLevelView: View {
     @State private var selectedCard: Int? = nil
     @StateObject private var vm = MarketViewModelNew()
     @State private var company: Company?
-
+    @EnvironmentObject var walletState: WalletState
+    
     var body: some View {
 
         if currentStep == 1 {

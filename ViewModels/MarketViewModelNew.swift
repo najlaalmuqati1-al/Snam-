@@ -203,3 +203,8 @@ class MarketViewModelNew: ObservableObject {
         return false
     }
 }
+#Preview {
+    MarketListViewV2()
+        .environmentObject(WalletState())
+        .environmentObject(MarketViewModelNew())
+}

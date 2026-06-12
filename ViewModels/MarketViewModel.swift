@@ -1,5 +1,5 @@
 
- 
+ /*
 import Combine
 import Foundation
 
@@ -46,3 +46,4 @@ class MarketViewModel: ObservableObject {
     
 }
 
+*/

@@ -3,8 +3,7 @@
 //  Snam
 //
 //  Created by Jojo on 07/06/2026.
-// اللوجك بسيط بس بنتظر تكتمل اللفلز اسوي مره وحده
-
+// باقي البرقراس هنا فقط
 
 import SwiftUI
 
@@ -159,8 +158,8 @@ struct LevelsListView: View {
         switch id {
         case 1: ContentView().environmentObject(walletState)
         case 2: InvestmentLevelView().environmentObject(walletState)
-        case 3: LevelThreeView() // الحين هي فاضيه اضيفيها هنا
-        case 4: LevelFourView()
+        case 3: RumorGameView().environmentObject(walletState)
+        case 4: StockTypeLevelView().environmentObject(walletState)
         case 5: PortfolioRootView().environmentObject(walletState)
         default: EmptyView()
         }
@@ -366,4 +365,5 @@ extension Color {
     AppContainerView {
         LevelsView()
     }
+    .environmentObject(WalletState())
 }

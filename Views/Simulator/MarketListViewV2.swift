@@ -1,14 +1,14 @@
 
 //MarketListViewV2
-
+// التعديلات :
 import SwiftUI
 
 struct MarketListViewV2: View {
     
-    @StateObject private var vm = MarketViewModelNew()
+    @EnvironmentObject var vm: MarketViewModelNew
     @State private var showFilterMenu = false
     @State private var selectedSector = "الكل"
-//    @AppStorage("hasSeenTutorial") var hasSeenTutorial = false
+
     @State private var tutorialStep = 0
     @EnvironmentObject var walletState: WalletState
     @AppStorage("hasCompletedTutorial") private var hasCompletedTutorial = false
