@@ -17,7 +17,7 @@ struct ContentView: View {
     @State private var showCongrats = false
     @Environment(\.dismiss) private var dismiss
     @AppStorage("selectedTab") private var selectedTab: Int = 2
-
+    @EnvironmentObject var walletState: WalletState
 
     var body: some View {
         ZStack {
@@ -82,6 +82,7 @@ struct ContentView: View {
                     dismiss()
                 })*/
                 PortfolioCongratsView(vm: portfolioVM, onFinished: {
+                    walletState.balance += 100
                     selectedTab = 2
                     dismiss()
                 })
@@ -94,7 +95,7 @@ struct ContentView: View {
     }
 }
 
-#Preview { ContentView() }
+
 // MARK: - CubeView
 
 struct CubeView: UIViewRepresentable {
@@ -348,4 +349,8 @@ struct CubeView: UIViewRepresentable {
     }
 }
 
-#Preview { ContentView() }
+#Preview {
+    ContentView()
+        .environmentObject(WalletState())
+}
+

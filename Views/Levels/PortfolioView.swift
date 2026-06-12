@@ -11,7 +11,9 @@ import SwiftUI
 struct PortfolioRootView: View {
     @StateObject private var vm = PortfolioViewModel()
     @Environment(\.dismiss) private var dismiss
-    @AppStorage("selectedTab") private var selectedTab: Int = 2  // ← أضيف هذا
+    @AppStorage("selectedTab") private var selectedTab: Int = 2
+    @EnvironmentObject var walletState: WalletState
+    @State private var isLeaving = false  // ← أضيف هذا
 
     var body: some View {
         ZStack {
@@ -19,17 +21,22 @@ struct PortfolioRootView: View {
 
             if vm.showCongrats {
                 PortfolioCongratsView(vm: vm, onFinished: {
-                    selectedTab = 2  // ← portfolio
+                    walletState.balance += 100
+                    selectedTab = 2
                     dismiss()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        vm.collectReward()  // ← بعد الـ dismiss
+                    }
                 })
                 .transition(.opacity.combined(with: .scale))
             }
         }
+        .opacity(isLeaving ? 0 : 1)  // ← أضيف هذا
+        .animation(.easeInOut(duration: 0.2), value: isLeaving)
         .animation(.easeInOut(duration: 0.4), value: vm.showCongrats)
         .environment(\.layoutDirection, .rightToLeft)
     }
 }
-
 
 // MARK: - Main View
 
@@ -529,7 +536,7 @@ struct Triangle: Shape {
         return path
     }
 }
-
 #Preview {
     PortfolioRootView()
+        .environmentObject(WalletState())
 }

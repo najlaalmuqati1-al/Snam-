@@ -30,17 +30,21 @@ enum TabItem: Int, CaseIterable {
     }
 }
 
+
 // MARK: - Custom Tab Bar
 
 struct MainTabView: View {
-   // @State private var selectedTab: TabItem = .portfolio
     @AppStorage("selectedTab") private var selectedTab: Int = 2
+    @StateObject private var walletState = WalletState()  // ← هنا
 
     var body: some View {
+        // ...
+      //  MainView()
+        //    .environmentObject(walletState)  // ← نفس النسخة
         NavigationStack {
             ZStack {
                 
-                // الخلفية كما هي
+                // الخلفيه
                 Color(.systemBackground)
                     .ignoresSafeArea()
                     .overlay(
@@ -56,6 +60,8 @@ struct MainTabView: View {
                 )) {
 
                     MarketListViewV2()
+                        .environmentObject(walletState)  // ← أضيف هذا
+
                         .tabItem {
                             Image(systemName: TabItem.simulator.icon)
                             Text(TabItem.simulator.title)
@@ -63,6 +69,8 @@ struct MainTabView: View {
                         .tag(TabItem.simulator)
 
                     LevelsView()
+                        .environmentObject(walletState)  // ← أضيف هذا
+
                         .tabItem {
                             Image(systemName: TabItem.journey.icon)
                             Text(TabItem.journey.title)
@@ -70,7 +78,7 @@ struct MainTabView: View {
                         .tag(TabItem.journey)
 
                     MainView()
-                        .environmentObject(WalletState())
+                        .environmentObject(walletState)
                         .tabItem {
                             Image(systemName: TabItem.portfolio.icon)
                             Text(TabItem.portfolio.title)
@@ -88,6 +96,14 @@ struct MainTabView: View {
 #Preview {
     MainTabView()
 }
+
+// Preview إضافي لتهنئة المحفظة مع نفس الاعتماديات المستخدمة في Reward.swift
+/* حل شات الزق
+#Preview("PortfolioCongratsView Preview") {
+    PortfolioCongratsView(vm: PortfolioViewModel(), onFinished: {})
+        .environmentObject(WalletState())
+}
+*/
 /**
  NavigationStack { //
      ZStack(alignment: .bottom) {
@@ -104,4 +120,3 @@ struct MainTabView: View {
  
  
  */
-

@@ -59,7 +59,7 @@ struct WalletCardView: View {
     private func svArabic(_ weight: String, size: CGFloat) -> Font {
         .custom("SVArabic-\(weight)", size: size, relativeTo: .body)
     }
-
+    @EnvironmentObject var walletState: WalletState
     var body: some View {
         ZStack {
             Image(theme.backgroundImage)
@@ -73,7 +73,8 @@ struct WalletCardView: View {
                     .foregroundColor(.primary.opacity(0.95))
                     .frame(maxWidth: .infinity, alignment: .center)
 
-                Text("00.00")
+              //  Text("00.00")
+                Text(String(format: "%.2f", walletState.balance))
                     .font(svArabic("Black", size: isPreview ? 42 : 54))
                     .foregroundColor(.primary)
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -157,4 +158,5 @@ struct ThemeOptionRow: View {
         theme: CardTheme.allThemes[0],
         holderName: "مزنة سنام"
     )
+    .environmentObject(WalletState())
 }

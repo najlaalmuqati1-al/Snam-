@@ -17,6 +17,8 @@ struct InvestmentLevelView: View {
     @StateObject private var rewardVM = PortfolioViewModel()
     @Environment(\.dismiss) private var dismiss
     @AppStorage("selectedTab") private var selectedTab: Int = 2
+    @EnvironmentObject var walletState: WalletState
+
     var body: some View {
         ZStack {
             if colorScheme == .dark {
@@ -77,6 +79,7 @@ struct InvestmentLevelView: View {
             
             if showReward {
                 PortfolioCongratsView(vm: rewardVM, onFinished: {
+                    walletState.balance += 100
                     selectedTab = 2
                     dismiss()
                 })
@@ -303,4 +306,5 @@ struct CustomGradientSlider: View {
 
 #Preview {
     InvestmentLevelView()
+        .environmentObject(WalletState())
 }

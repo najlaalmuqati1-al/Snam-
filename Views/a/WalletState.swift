@@ -14,6 +14,7 @@ import Combine
 final class WalletState: ObservableObject {
     @Published var holderName: String = "مزنة سنام"
     @Published var selectedThemeID: Int = 0
+    @Published var balance: Double = 0
 
     // Toast state to notify MainView after saving wallet appearance
     @Published var showWalletSavedToast: Bool = false
@@ -25,4 +26,10 @@ final class WalletState: ObservableObject {
         CardTheme.allThemes.first(where: { $0.id == selectedThemeID }) ?? CardTheme.allThemes[0]
     }
 }
-
+#Preview {
+    WalletCardView(
+        theme: CardTheme.allThemes[0],
+        holderName: "مزنة سنام"
+    )
+    .environmentObject(WalletState())
+}

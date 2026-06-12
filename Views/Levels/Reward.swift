@@ -1,4 +1,4 @@
-//
+//Bottom Sheet
 //  Reward.swift
 //  Snam
 //
@@ -87,7 +87,7 @@ struct PortfolioCongratsView: View {
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
                         if currentLevel < 5 { currentLevel += 1 }
-                        vm.collectReward()
+                      //  vm.collectReward()
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {  // ← هنا
                          onFinished()
@@ -177,7 +177,7 @@ struct PortfolioCongratsView: View {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             if currentLevel < 5 { currentLevel += 1 }  // ← أضف هذا
-            vm.collectReward()
+           // vm.collectReward()
         }
     }
 }
@@ -246,4 +246,5 @@ struct CongratsFloatingCoin: View {
         let vm = PortfolioViewModel()
         return vm
     }(), onFinished: {})
+    .environmentObject(WalletState())
 }
