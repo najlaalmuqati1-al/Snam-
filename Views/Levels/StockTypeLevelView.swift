@@ -1,6 +1,5 @@
 // لمن يتوسع خلي البوتن ( السهم المضارب - الامن ) ظاهرة شوي من ورا بحيث يبان انه يقدر يضغط بس ويرجع لهم
-// زر البوتن حق انتهيت مفرضو يظهر بعد ما يدخل على كل الاثنين
-// تعديل متعلق باللوجك هنا
+// تعديل متعلق باللوجك 
 //  StockTypeLevelView.swift
 //  Snam
 //
@@ -14,6 +13,8 @@ struct StockTypeLevelView: View {
     @StateObject private var vm = MarketViewModelNew()
     @State private var company: Company?
     @EnvironmentObject var walletState: WalletState
+    @State private var visitedSpeculative = false
+    @State private var visitedSafe = false
     
     var body: some View {
 
@@ -33,7 +34,12 @@ struct StockTypeLevelView: View {
                     Button {
                         withAnimation(.spring(response: 0.5,
                                               dampingFraction: 0.85)) {
-                            selectedCard = selectedCard == 1 ? nil : 1
+                            if selectedCard == 1 {
+                                selectedCard = nil
+                                visitedSpeculative = true
+                            } else {
+                                selectedCard = 1
+                            }
                         }
                     } label: {
                         
@@ -207,8 +213,14 @@ struct StockTypeLevelView: View {
                     Button {
                         withAnimation(.spring(response: 0.5,
                                                dampingFraction: 0.85)) {
-                            selectedCard = selectedCard == 2 ? nil : 2
+                            if selectedCard == 2 {
+                                selectedCard = nil
+                                visitedSafe = true
+                            } else {
+                                selectedCard = 2
+                            }
                         }
+                        
                     } label: {
                         ZStack {
                             
@@ -392,7 +404,12 @@ struct StockTypeLevelView: View {
                     }
                 }
 
+                if visitedSpeculative && visitedSafe {
 
+                    PrimaryButton(title: "انتهيت") {
+                        currentStep += 1
+                    }
+                }
             }
             .padding()
             .onAppear {
