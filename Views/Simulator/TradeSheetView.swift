@@ -14,7 +14,7 @@ struct TradeSheetView: View {
     let onSuccess: (String) -> Void
 
     @Environment(\.dismiss) var dismiss
-
+    @EnvironmentObject var walletState: WalletState
     @State private var quantity = 1
     @State private var isBuy = true
     @State private var showErrorPopup = false
@@ -151,34 +151,29 @@ struct TradeSheetView: View {
                 PrimaryButton(title: isBuy ? "اشتر" : "بع") {
 
                     if isBuy {
-
-                        if vm.buyStock(company: company, count: quantity) {
-                            let cost = company.stock.currentPrice * Double(quantity)  // ← أضيف هذا
+                        let cost = company.stock.currentPrice * Double(quantity)
+                        
+                        if walletState.balance >= cost {
+                            _ = vm.buyStock(company: company, count: quantity)
                             onBalanceChanged(-cost)
                             onSuccess("كفو! السهم صار بمحفظتك")
                             dismiss()
                         } else {
-
-                            errorMessage = "ليس لديك رصيد كافٍ"
-                            showErrorPopup = true
+                            onSuccess("فلوسك غير كافية")
+                            dismiss()
                         }
-
                     } else {
-
                         if vm.sellStock(company: company, count: quantity) {
-                            let revenue = company.stock.currentPrice * Double(quantity)  // ← أضيف هذا
+                            let revenue = company.stock.currentPrice * Double(quantity)
                             onBalanceChanged(revenue)
                             onSuccess("تم بيع السهم بنجاح")
                             dismiss()
                         } else {
-
-                            errorMessage = "لا تملك أسهماً كافية للبيع"
-                            showErrorPopup = true
+                            onSuccess("ما عندك أسهم كافية للبيع")
+                            dismiss()
                         }
                     }
                 }
-                .padding(.horizontal)
-                .padding(.top, 40)
 
                 Spacer()
                             }
