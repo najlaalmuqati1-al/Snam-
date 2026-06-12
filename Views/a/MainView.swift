@@ -312,6 +312,7 @@ struct CompanyRowView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 30, height: 30)
+                
                 .clipShape(Circle())
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
