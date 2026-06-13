@@ -49,74 +49,78 @@ struct CompanyDetailViewV2: View {
                 .ignoresSafeArea()
                 .navigationBarBackButtonHidden(true)
             
-            if !hasCompletedTutorial {
-                
-                Color.black.opacity(0.65)
-                    .ignoresSafeArea()
-                
-                VStack {
-                    
-                    switch detailTutorialStep {
-                        
-                    case 0:
-                        tutorialBubble("هذا سعر السهم الحالي")
-                            .offset(x: 95, y: 105)
-                        
-                    case 1:
-                        tutorialBubble("هنا يمكنك متابعة حركة السهم")
-                            .offset(x: 0, y: 310)
-                        
-                    case 2:
-                        tutorialBubble("اضغط هنا لمعرفة المؤشرات")
-                            .offset(x: 80, y: 500)
-                        
-                    case 3:
-                        tutorialBubble("من هنا تستطيع شراء وبيع الأسهم")
-                            .offset(x: 0, y: 680)
-                        
-                    case 4:
-                        
-                        ZStack {
-                            
-                            Color.black.opacity(0.35)
-                                .ignoresSafeArea()
-                            
-                            VStack(spacing: 28) {
-                                
-                                
-                                Text("الآن يمكنك التداول، جرّب بنفسك")
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                
-                                PrimaryButton(title: "ابدأ") {
-                                    
-                                    hasCompletedTutorial = true
-                                    
-                                    dismiss()
-                                }
-                                .frame(width: 220)
-                            }
-                            .padding(.vertical, 40)
-                            .padding(.horizontal, 35)
-                            .background(
-                                RoundedRectangle(cornerRadius: 35)
-                                    .fill(Color.black.opacity(0.9))
-                            )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 35)
-                                    .stroke(Color.white.opacity(0.2))
-                            )
-                        }
-                        
-                    default:
-                        EmptyView()
-                    }
-                    
-                    Spacer()
-                }
-                .zIndex(999)
-            }
+            //MARK: - onbording
+            
+//            if !hasCompletedTutorial {
+//                
+//                Color.black.opacity(0.65)
+//                    .ignoresSafeArea()
+//                
+//                VStack {
+//                    
+//                    switch detailTutorialStep {
+//                        
+//                    case 0:
+//                        tutorialBubble("هذا سعر السهم الحالي")
+//                            .offset(x: 95, y: 105)
+//                        
+//                    case 1:
+//                        tutorialBubble("هنا يمكنك متابعة حركة السهم")
+//                            .offset(x: 0, y: 310)
+//                        
+//                    case 2:
+//                        tutorialBubble("اضغط هنا لمعرفة المؤشرات")
+//                            .offset(x: 80, y: 500)
+//                        
+//                    case 3:
+//                        tutorialBubble("من هنا تستطيع شراء وبيع الأسهم")
+//                            .offset(x: 0, y: 680)
+//                        
+//                    case 4:
+//                        
+//                        ZStack {
+//                            
+//                            Color.black.opacity(0.35)
+//                                .ignoresSafeArea()
+//                            
+//                            VStack(spacing: 28) {
+//                                
+//                                
+//                                Text("الآن يمكنك التداول، جرّب بنفسك")
+//                                    .font(.title3)
+//                                    .fontWeight(.bold)
+//                                    .foregroundColor(.white)
+//                                
+//                                PrimaryButton(title: "ابدأ") {
+//                                    
+//                                    hasCompletedTutorial = true
+//                                    
+//                                    dismiss()
+//                                }
+//                                .frame(width: 220)
+//                            }
+//                            .padding(.vertical, 40)
+//                            .padding(.horizontal, 35)
+//                            .background(
+//                                RoundedRectangle(cornerRadius: 35)
+//                                    .fill(Color.black.opacity(0.9))
+//                            )
+//                            .overlay(
+//                                RoundedRectangle(cornerRadius: 35)
+//                                    .stroke(Color.white.opacity(0.2))
+//                            )
+//                        }
+//                        
+//                    default:
+//                        EmptyView()
+//                    }
+//                    
+//                    Spacer()
+//                }
+//                .zIndex(999)
+//            }
+            
+            
             if showSuccessBanner {
                 
                 VStack {
@@ -184,8 +188,11 @@ struct CompanyDetailViewV2: View {
                 }
                 .zIndex(999)
             }
-            VStack(spacing: 0) {
-                HStack {
+            
+            VStack(alignment: .trailing){
+                
+                //MARK: - header
+                HStack{
                     
                     NavigationLink {
                         WalletView()
@@ -195,22 +202,22 @@ struct CompanyDetailViewV2: View {
                         ZStack {
                             
                             RoundedRectangle(cornerRadius: 900)
-                                .fill(Color.black.opacity(0.55))
-                                .frame(width: 112, height: 52)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 900)
-                                        .stroke(Color.white.opacity(0.06), lineWidth: 1)
-                                )
+                                .fill(.black)
+                                .frame(width: 100, height: 44)
+                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.2, y: 0.2)
+                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.1)
+                            
                             HStack(spacing: 8) {
                                 
                                 Image("wallet")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: 30, height: 30,alignment: .leading)
                                 
                                 Text("\(Int(walletState.balance))")
                                     .font(.system(size: 17, weight: .semibold))
                                     .foregroundColor(.white)
+                                    .frame(alignment: .center)
                             }
                         }
                     }
@@ -221,28 +228,43 @@ struct CompanyDetailViewV2: View {
                         dismiss()
                     } label: {
                         
-                        Circle()
-                            .fill(Color.black.opacity(0.2))
-                            .frame(width: 52, height: 52)
-                            .overlay(
-                                Circle()
-                                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
-                            )
-                            .overlay(
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 22, weight: .regular))
-                            )
+                        ZStack{
+                            Circle()
+                                .fill(Color.black)
+                                .frame(width: 44, height: 44)
+                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.2)
+                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.2)
+                                
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 22, weight: .medium))
+                        }
                     }
                 }
                 .padding(.horizontal, 24)
                 .padding(.top, 10)
                 
+                Spacer().frame(height: 42)
+                
+                //MARK: - CompanyDetails
+                
                 HStack(spacing: 12) {
+                    
+                    VStack(alignment: .trailing, spacing: 4) {
+                        
+                        Text(company.fakeName)
+                            .font(.system(size: 14,weight: .bold))
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                        
+                        Text(sectorArabicNew(company.sector))
+                            .font(.system(size: 10))
+                            .foregroundColor(.gray)
+                    }
                     
                     Circle()
                         .fill(Color.white.opacity(0.08))
-                        .frame(width: 60, height: 60)
+                        .frame(width: 40, height: 40)
                         .overlay(
                             Image(
                                 company.fakeName == "Najd Energy" ? "energy_logo" :
@@ -258,106 +280,61 @@ struct CompanyDetailViewV2: View {
                             )
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 60, height: 60)
+                            .frame(width: 40, height: 40)
                         )
-                    
-                    VStack(alignment: .trailing, spacing: 4) {
-                        
-                        Text(company.fakeName)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                        
-                        Text(sectorArabicNew(company.sector))
-                            .foregroundColor(.gray)
-                    }
-                    
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.horizontal,24)
-                .padding(.top,20)
-                .environment(\.layoutDirection, .rightToLeft)
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.horizontal,24)
-                .padding(.top,12)
+                }//h
                 
-                
+                Spacer().frame(height: 20)
                 
                 HStack {
                     
-                    Spacer()
-                    
-                    VStack(alignment: .trailing) {
-                        
-                        Text("\(Int(company.stock.currentPrice))")
-                            .font(.system(size: 34, weight: .bold))
-                            .foregroundColor(.white)
-                        
                         Text(
                             company.stock.changePercent >= 0
                             ? "+\(String(format: "%.2f", company.stock.changePercent))%"
                             : "\(String(format: "%.2f", company.stock.changePercent))%"
                         )
-                        .foregroundColor(.green)
-                        .font(.title3)
-                    }
-                }
-                .padding(.horizontal,24)
-                .padding(.top,0)
-                
-                VStack(spacing: 16) {
+                    .foregroundColor(
+                        company.stock.changePercent >= 0
+                        ? .green
+                        : .red
+                                    ).font(.system(size: 12,weight: .semibold))
                     
+                    Text("\(Int(company.stock.currentPrice))")
+                        .font(.system(size: 34, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(.bottom)
+                }
+                .frame(width: 120,height: 50)
+                
+                    //MARK: - picker
+                    
+                VStack(alignment: .center,spacing: 16) {
+                
                     HStack(spacing: 16) {
-
-                        ForEach(["سنه", "شهر","اسبوع", "يوم"], id: \.self) { period in
-
-                            Button {
-
-                                selectedPeriod = period
-
-                            } label: {
-
-                                Text(period)
-                                    .font(.system(size: 14, weight: .medium))
-                                    .foregroundColor(
-                                        selectedPeriod == period
-                                        ? .white
-                                        : .gray
-                                    )
-                                    .padding(.horizontal, 14)
-                                    .padding(.vertical, 8)
-                                    .background(
-                                        selectedPeriod == period
-                                        ? Color.white.opacity(0.15)
-                                        : Color.clear
-                                    )
-                                    .clipShape(Capsule())
-                            }
-                        }
-                    }
+                        
+                        Picker("", selection: $selectedPeriod) {
+                            Text("سنه").tag("سنه")
+                            Text("شهر").tag("شهر")
+                            Text("اسبوع").tag("اسبوع")
+                            Text("يوم").tag("يوم")
+                        }//p
+                        .pickerStyle(.segmented)
+                        .tint(.black)
+                        .glassEffect(in: .rect(cornerRadius: 100))
+                        
+                    }//h
                     .font(.caption)
                     .foregroundColor(.white)
                     
-                    ZStack {
-                        
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.black.opacity(0.15))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 16)
-                                    .stroke(Color.white.opacity(0.08))
-                            )
-                        
-                        MarketBigChartView(
-                            prices: selectedPrices
-                        )
-                        .padding()
-                        
-                    }
-                    .frame(height: 200)
-                    .padding(.bottom, 10)
+                    //MARK: - Chart
                     
-                    //                    Spacer()
+                    StockChartContainer(
+                        prices: selectedPrices,
+                        selectedPeriod: selectedPeriod
+                    ).frame(width: 390 ,height: 220)
+                   
+                    //MARK: - infoButton
+                    
                     Button {
                         showInfo = true
                     } label: {
@@ -365,54 +342,62 @@ struct CompanyDetailViewV2: View {
                         ZStack {
 
                             Circle()
-                                .fill(Color.black.opacity(0.2))
+                                .fill(Color.black)
                                 .frame(width: 22, height: 22)
+                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.2)
+                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.2)
 
                             Text("!")
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(.white)
                         }
-                    }
-                    .offset(x: 180) // إذا تبينها يمين شوي
-                    HStack(alignment: .top, spacing: 24)
+                    }.offset(x: 180) // إذا تبينها يمين شوي
                     
-                    {
+                    //MARK: - Summry
+                    
+                    HStack(alignment: .top, spacing: 16) {
                         
-                        statisticsColumn(
-                            values: ["٠٠،٠٠", "٠٠،٠٠"],
-                            titles: ["الكمية المتداولة", "القيمة المتداولة"]
-                        )
+                        VStack(alignment: .trailing, spacing: 16) {
+                            
+                            summryRow(title: "الكمية المتداولة", value: "...")
+                            summryRow(title: "القيمة المتداولة", value: "...")
+                        }
                         
                         Divider()
                             .frame(height: 80)
+                            .background(Color.white.opacity(0.2))
                         
-                        statisticsColumn(
-                            values: ["٠٠،٠٠", "٠٠،٠٠", "٠٠،٠٠"],
-                            titles: ["إغلاق سابق", "عدد الصفقات", "متوسط كمية\nالصفقة"]
-                        )
+                        VStack(alignment: .trailing, spacing: 16) {
+                            
+                            summryRow(title: "إغلاق سابق", value: "...")
+                            summryRow(title: "عدد الصفقات", value: "...")
+                            summryRow(title: "متوسط الصفقة", value: "...")
+                        }
                         
                         Divider()
                             .frame(height: 80)
-                        statisticsColumn(
-                            values: ["٠٠،٠٠", "٠٠،٠٠", "٠٠،٠٠"],
-                            titles: ["إفتتاح", "الأعلى", "الأدنى"]
-                        )
+                            .background(Color.white.opacity(0.2))
                         
-                    
+                        VStack(alignment: .trailing, spacing: 16) {
+                            
+                            summryRow(title: "افتتاح", value: "...")
+                            summryRow(title: "الأعلى", value: "...")
+                            summryRow(title: "الأدنى", value: "...")
+                        }
                     }
-                    .padding(.horizontal, 24)
-                    .padding(.top, 8)
-                    Divider()
-                        .background(Color.white.opacity(0.08))
-                        .padding(.horizontal, 24)
-                        .padding(.top, 12)
+                   
+                }//vFromPicker
+                
+                Spacer().frame(height: 86)
+                
+                    //MARK: - Tadawl
+                    
+                    //Button
                     PrimaryButton(title: "تداول") {
                         showTradeSheet = true
-                    }
-                    .padding(.horizontal, 18)
-                    .padding(.top, 25)
-                    .offset(y: -25)
-                    .cornerRadius(60)
+                    }.frame(maxWidth:.infinity,alignment: .center)
+                    
+                    //sheet
                     .sheet(isPresented: $showTradeSheet) {
 
                         TradeSheetView(
@@ -435,9 +420,8 @@ struct CompanyDetailViewV2: View {
                         .presentationBackground(.black)
                     }
                     
-                }
-                .padding(.horizontal,18)
-                .padding(.top,30)
+                
+                //MARK: - InfoSheet
                 
                 .sheet(isPresented: $showInfo) {
                     
@@ -567,15 +551,12 @@ struct CompanyDetailViewV2: View {
                     .presentationBackground(
                         Color.black.opacity(0.2)
                     )
-                }
+                }//endOfSheet
                 
-                
-                
-                
-                
-            }
+            }//vMain
+            .padding(.horizontal,16)
             
-        }
+        }//zMain
         
         .onAppear {
             
@@ -615,34 +596,200 @@ struct CompanyDetailViewV2: View {
             return company.chartData.timeframes.oneDay.map { $0.price }
         }
     }
-    @ViewBuilder
-    func statisticsColumn(
-        values: [String],
-        titles: [String]
-    ) -> some View {
-        
-        VStack(alignment: .trailing, spacing: 16) {
-            
-            ForEach(0..<titles.count, id: \.self) { index in
-                
-                HStack(spacing: 8) {
-                    
-                    Text(values[index])
-                        .font(.system(size: 10, weight: .medium))
-                        .foregroundColor(.white)
-                    
-                    Text(titles[index])
-                        .font(.system(size: 10, weight: .medium))
-                        .foregroundColor(.gray)
-                        .multilineTextAlignment(.trailing)
-                }
-            }
-        }
-    }
-    
-    
-    
     
     
 }
 
+@ViewBuilder
+func summryRow(title: String, value: String) -> some View {
+    
+    HStack {
+        
+        Text(value)
+            .font(.system(size: 10, weight: .regular))
+            .foregroundColor(.white.opacity(0.9))
+            .frame(width: 30, alignment: .leading)
+        
+        Spacer()
+        
+        Text(title)
+            .font(.system(size: 10, weight: .regular))
+            .frame(width: 70, alignment: .trailing)
+            .foregroundColor(.gray)
+    }
+}
+
+
+func xLabels(for period: String) -> [String] {
+    
+    switch period {
+        
+    case "يوم":
+        return ["١١ص","١٠ص","٩ص","٨ص","٧ص","٦ص"]
+        
+    case "اسبوع":
+        return ["جمعة","خميس","اربعاء","ثلاثاء","اثنين","سبت"]
+        
+    case "شهر":
+        return ["الاسبوع٤","الاسبوع٣","الاسبوع٢","الاسبوع١"]
+        
+    case "سنه":
+        return ["رجب","جماد٢","جماد١","ربيع١","صفر","محرم"]
+        
+    default:
+        return []
+    }
+}
+
+struct GridBackground: View {
+    
+    var body: some View {
+        
+        GeometryReader { geo in
+            
+            Path { path in
+                
+                let rows = 4
+                let cols = 6
+                
+                let rowHeight = geo.size.height / CGFloat(rows)
+                let colWidth = geo.size.width / CGFloat(cols)
+                
+                // horizontal lines
+                for i in 0...rows {
+                    let y = CGFloat(i) * rowHeight
+                    path.move(to: CGPoint(x: 0, y: y))
+                    path.addLine(to: CGPoint(x: geo.size.width, y: y))
+                }
+                
+                // vertical lines
+                for i in 0...cols {
+                    let x = CGFloat(i) * colWidth
+                    path.move(to: CGPoint(x: x, y: 0))
+                    path.addLine(to: CGPoint(x: x, y: geo.size.height))
+                }
+            }
+            .stroke(Color.white.opacity(0.06), lineWidth: 1)
+        }
+    }
+}
+
+struct SimpleStockChart: View {
+    
+    let prices: [Double]
+    
+    var body: some View {
+        
+        GeometryReader { geo in
+            
+            let width = geo.size.width
+            let height = geo.size.height
+            
+            let maxPrice = prices.max() ?? 1
+            let minPrice = prices.min() ?? 0
+            let range = maxPrice - minPrice
+            
+            ZStack {
+                
+                // GRID فقط
+                GridBackground()
+                
+                // LINE
+                Path { path in
+                    
+                    for i in prices.indices {
+                        
+                        let x = width * CGFloat(i) / CGFloat(prices.count - 1)
+                        let y = height - CGFloat((prices[i] - minPrice) / range) * height
+                        
+                        if i == 0 {
+                            path.move(to: CGPoint(x: x, y: y))
+                        } else {
+                            path.addLine(to: CGPoint(x: x, y: y))
+                        }
+                    }
+                }
+                .stroke(Color.green, lineWidth: 2)
+                
+                // FILL
+                Path { path in
+                    
+                    for i in prices.indices {
+                        
+                        let x = width * CGFloat(i) / CGFloat(prices.count - 1)
+                        let y = height - CGFloat((prices[i] - minPrice) / range) * height
+                        
+                        if i == 0 {
+                            path.move(to: CGPoint(x: x, y: height))
+                            path.addLine(to: CGPoint(x: x, y: y))
+                        } else {
+                            path.addLine(to: CGPoint(x: x, y: y))
+                        }
+                    }
+                    
+                    path.addLine(to: CGPoint(x: width, y: height))
+                    path.closeSubpath()
+                }
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            Color.green.opacity(0.3),
+                            Color.green.opacity(0.0)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+            }
+        }
+    }
+}
+
+struct StockChartContainer: View {
+    
+    let prices: [Double]
+    let selectedPeriod: String
+    
+    var body: some View {
+        
+        VStack(spacing: 8) {
+            
+            HStack(spacing: 8) {
+                
+                SimpleStockChart(
+                    prices: prices
+                )
+                .frame(maxWidth: .infinity)
+                
+                VStack {
+                    
+                    let max = prices.max() ?? 1
+                    let min = prices.min() ?? 0
+                    let step = (max - min) / 3
+                    
+                    ForEach(0..<4) { i in
+                        
+                        Spacer()
+                        
+                        Text(String(format: "%.0f", max - step * Double(i)))
+                            .font(.caption2)
+                            .foregroundColor(.gray)
+                    }
+                }
+                .frame(width: 35)
+            }
+            
+            HStack {
+                
+                ForEach(xLabels(for: selectedPeriod), id: \.self) { label in
+                    
+                    Text(label)
+                        .font(.caption2)
+                        .foregroundColor(.gray)
+                    
+                    Spacer()
+                }
+            }
+        }
+    }
+}

@@ -166,9 +166,10 @@ struct MarketListViewV2: View {
                                 ZStack{
                                     Color.black
                                         .cornerRadius(1000)
-                                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
-                                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
+                                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.2)
+                                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.2)
                                         .frame(width: 44, height: 44)
+                                        .glassEffect()
                                     
                                     Image(systemName: "line.3.horizontal.decrease")
                                         .foregroundStyle(Color.white)
