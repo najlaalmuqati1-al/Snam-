@@ -235,14 +235,15 @@ struct CubeView: UIViewRepresentable {
             // الجديد بعد تصغير الـ Rect الخاص بكل أيقونة:
             switch face.icon {
             case .pieChart:
-//بحكم اختلاف الايكونز صار في اختلاف باحجامها
                 drawPieChart(ctx: cgCtx, rect: CGRect(x: 140, y: 175, width: 240, height: 180))
             case .trendingUp:
-                // صغرنا الأبعاد من (380, 210) إلى (280, 160)
                 drawTrendingUp(ctx: cgCtx, rect: CGRect(x: 110, y: 170, width: 220, height: 150))
             case .trendingDown:
-                // صغرنا الأبعاد من (380, 210) إلى (280, 160)
                 drawTrendingDown(ctx: cgCtx, rect: CGRect(x: 110, y: 170, width: 220, height: 150))
+            case .cubeIcon:
+                if let img = UIImage(named: "CubeIcon") {
+                    img.draw(in: CGRect(x: 125, y: 150, width: 250, height: 250))
+                }
             case .empty:
                 break
             }
