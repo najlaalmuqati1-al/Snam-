@@ -17,3 +17,6 @@ struct YourAppName: App { // هنا اسم تطبيقك
         }
     }
 }
+#Preview{
+    MainTabView()
+}

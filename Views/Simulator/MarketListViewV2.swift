@@ -1,14 +1,14 @@
 
-//MarketListViewV2
-// التعديلات :
+
+
 import SwiftUI
 
 struct MarketListViewV2: View {
     
-    @EnvironmentObject var vm: MarketViewModelNew
+    @StateObject private var vm = MarketViewModelNew()
     @State private var showFilterMenu = false
     @State private var selectedSector = "الكل"
-
+//    @AppStorage("hasSeenTutorial") var hasSeenTutorial = false
     @State private var tutorialStep = 0
     @EnvironmentObject var walletState: WalletState
     @AppStorage("hasCompletedTutorial") private var hasCompletedTutorial = false
@@ -26,31 +26,25 @@ struct MarketListViewV2: View {
     }
 
     func filterButton(_ title: String) -> some View {
-
         Button {
-
             selectedSector = title
             showFilterMenu = false
-
         } label: {
-
             HStack {
-
                 if selectedSector == title {
                     Image(systemName: "checkmark")
                         .foregroundColor(.white)
                 }
-
                 Spacer()
-
+                
                 Text(title)
                     .foregroundColor(.white)
                     .font(.title3)
             }
             .padding(.horizontal, 24)
         }
-        
     }
+    
     func tutorialBubble(_ text: String) -> some View {
 
         VStack(spacing: 0) {
@@ -70,88 +64,91 @@ struct MarketListViewV2: View {
                 .offset(y: -3)
         }
     }
+    
+    //MARK: - body
+    
     var body: some View {
         NavigationStack {
             
             ZStack {
                 Color(.systemBackground)
-                     .ignoresSafeArea()
-                     .overlay(
-                         Image("Frame")
-                             .resizable()
-                             .scaledToFill()
-                             .ignoresSafeArea()
-                     )
+                    .ignoresSafeArea()
+                    .overlay(
+                        Image("Frame")
+                            .resizable()
+                            .scaledToFill()
+                            .ignoresSafeArea()
+                    )
                 
-                if !hasCompletedTutorial {
-
-                    Color.black.opacity(0.100)
-                        .ignoresSafeArea()
-
-                    VStack {
-
-                        switch tutorialStep {
-
-                        case 0:
-                            tutorialBubble("اسم الشركة والقطاع")
-                                .offset(x: 20, y: 120)
-
-                        case 1:
-                            tutorialBubble("سعر السهم الحالي")
-                                .offset(x: -120, y: 120)
-
-                        case 2:
-                            tutorialBubble("شارت السهم")
-                                .offset(x: -30, y: 239)
-
-                        case 3:
-                            tutorialBubble("اضغط على أي شركة لعرض التفاصيل")
-                                .offset(x: 20, y: 310)
-
-                        default:
-                            EmptyView()
-                        }
-
-                        Spacer()
-                    }
-                    .zIndex(999)
-                }
+            //MARK: - onbording
+                
+//                if !hasCompletedTutorial {
+//                    ZStack{
+//                        Color.black.opacity(0.100)
+//                            .ignoresSafeArea()
+//
+//                        VStack {
+//
+//                            switch tutorialStep {
+//
+//                            case 0:
+//                                tutorialBubble("اسم الشركة والقطاع")
+//                                    .offset(x: 20, y: 120)
+//
+//                            case 1:
+//                                tutorialBubble("سعر السهم الحالي")
+//                                    .offset(x: -120, y: 120)
+//
+//                            case 2:
+//                                tutorialBubble("شارت السهم")
+//                                    .offset(x: -30, y: 239)
+//
+//                            case 3:
+//                                tutorialBubble("اضغط على أي شركة لعرض التفاصيل")
+//                                    .offset(x: 20, y: 310)
+//
+//                            default:
+//                                EmptyView()
+//                            }
+//
+//                            Spacer()
+//                        }
+//                        .zIndex(999)
+//                    }
+//                }//end of if
+                
+                //MARK: - heder
+                
                 if showFilterMenu {
 
                     VStack {
-
                         HStack {
-
-                            VStack(spacing: 8) {
-
+                            VStack(spacing: 20) {
                                 filterButton("الكل")
                                 filterButton("قطاع الطاقة")
                                 filterButton("قطاع المال والبنوك")
                                 filterButton("قطاع الاتصالات")
                                 filterButton("قطاع التقنية")
                             }
-                            .padding(.vertical, 10)
+                            .padding(.vertical, 18)
                             .frame(width: 260)
                             .background(
                                 RoundedRectangle(cornerRadius: 34)
-                                    .fill(Color.black.opacity(0.93))
+                                    .fill(Color.black)
+                                    .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.1, y: 0.1)
+                                    .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.2, y: -0.2)
                             )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 34)
-                                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
-                            )
-
+                        
                             Spacer()
                         }
                         .padding(.leading, 20)   // ← زيدي أو نقصي هنا فقط
-
                         Spacer()
                     }
                     .padding(.top, 110)
                     .zIndex(999)
-                }
+                }//end of if
+                
                 VStack {
-                    
                     HStack {
                         
                         Text("المحاكي")
@@ -166,25 +163,28 @@ struct MarketListViewV2: View {
                             }
                                 
                             } label: {
-                                Image(systemName: "line.3.horizontal.decrease")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 22, weight: .regular))
-                                    .frame(width: 44, height: 44)
-                                    .background(
-                                        Circle()
-                                            .fill(Color.black.opacity(0.2))
-                                    )
-                                    .overlay(
-                                        Circle()
-                                            .stroke(Color.white.opacity(0.08), lineWidth: 1)
-                                    )
+                                ZStack{
+                                    Color.black
+                                        .cornerRadius(1000)
+                                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
+                                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
+                                        .frame(width: 44, height: 44)
+                                    
+                                    Image(systemName: "line.3.horizontal.decrease")
+                                        .foregroundStyle(Color.white)
+                                        .font(.system(size: 22))
+                                }//z
+                                .glassEffect()
                             }
                     
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.top, 55)
-                        .padding(.bottom, 20)
+                        .padding(.horizontal, 16)
+                        .padding(.top, 42)
+                        .padding(.bottom, 32)
                         .environment(\.layoutDirection, .rightToLeft)
+                    
+                    //MARK: - Market
+                    
                         ScrollView {
                             
                             LazyVStack(spacing: 0) {
@@ -204,7 +204,6 @@ struct MarketListViewV2: View {
                                     .buttonStyle(.plain)
 
                                 }
-//                                .padding(.horizontal)
                             }
                         }
                     }
@@ -237,93 +236,89 @@ struct MarketListViewV2: View {
             
             
             HStack {
+                      ZStack {
+                               Circle()
+                                   .fill(Color.white.opacity(0.08))
+                                   .frame(width: 40, height: 44)
+                               Image(
+                                   company.fakeName == "Najd Energy" ? "energy_logo" :
+                                   company.fakeName == "Desert Bank" ? "bank_logo" :
+                                   company.fakeName == "Najd Telecom" ? "telecom_logo" :
+                                   company.fakeName == "Souq Arabia" ? "retail_logo" :
+                                   company.fakeName == "NeoTech KSA" ? "tech_logo" :
+                                   company.fakeName == "Palm Foods" ? "food_logo" :
+                                   company.fakeName == "Golden Cement" ? "construction_logo" :
+                                   company.fakeName == "Sky Airlines" ? "travel_logo" :
+                                   company.fakeName == "Future Health" ? "health_logo" :
+                                   "logistics_logo"
+                               )
+                               .resizable()
+                               .scaledToFit()
+                               .frame(width: 40, height: 44)
+                           }
                 
-                ZStack {
-                    
-                    Circle()
-                        .fill(Color.white.opacity(0.08))
-                        .frame(width: 40, height: 44)
-                    Image(
-                        company.fakeName == "Najd Energy" ? "energy_logo" :
-                        company.fakeName == "Desert Bank" ? "bank_logo" :
-                        company.fakeName == "Najd Telecom" ? "telecom_logo" :
-                        company.fakeName == "Souq Arabia" ? "retail_logo" :
-                        company.fakeName == "NeoTech KSA" ? "tech_logo" :
-                        company.fakeName == "Palm Foods" ? "food_logo" :
-                        company.fakeName == "Golden Cement" ? "construction_logo" :
-                        company.fakeName == "Sky Airlines" ? "travel_logo" :
-                        company.fakeName == "Future Health" ? "health_logo" :
-                        "logistics_logo"
-                    )
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 40, height: 44)
-                }
-                
-                VStack(alignment: .trailing, spacing: 4) {
+                VStack(spacing: 8) {
                     
                     Text(company.fakeName)
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.white)
+                        .frame(width: 120,height: 18,alignment: .leading)
                     
                     Text(sectorArabicNew(company.sector))
-                        .font(.caption)
+                        .font(.system(size: 12))
                         .foregroundColor(.gray)
+                        .frame(width: 120,height: 11,alignment: .leading)
                 }
                 
-                Spacer()
+                Spacer().frame(width: 20)
+                
 //                هذا الشارت حق الاسهم
 //                MiniSparklineNew(
 //                    points: company.chartData.timeframes.oneDay.map { $0.price },
 //                    trend: company.stock.trend
-//                )
+//                ).frame(width: 75, height: 22)
+                
                 Image(systemName:
                     company.stock.changePercent >= 0
                     ? "arrowtriangle.up.fill"
                     : "arrowtriangle.down.fill"
                 )
-                .font(.system(size: 24))
+                .font(.system(size: 20))
                 .foregroundColor(
                     company.stock.changePercent >= 0
                     ? .green
                     : .red
-                )
-                .frame(width: 75, height: 22)
+                                ) .frame(width: 75, height: 22)
                 
                 Spacer()
                 
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .center, spacing: 4) {
                     
                     Text("\(Int(company.stock.currentPrice))")
-                        .font(.system(size: 20, weight: .bold))
+                        .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.white)
+                    + Text(" سنام")
+                        .font(.system(size: 12,weight: .bold))
                     
                     Text(
                         company.stock.changePercent >= 0
                         ? "+\(String(format: "%.2f", company.stock.changePercent))%"
                         : "\(String(format: "%.2f", company.stock.changePercent))%"
                     )
-                    .font(.system(size: 13, weight: .semibold))
+                    .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(
                         company.stock.changePercent >= 0 ? .green : .red
                     )
                 }
             }
             .environment(\.layoutDirection, .rightToLeft)
-            .padding(.horizontal, 18)
-            .padding(.vertical, 10)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 20)
             .overlay(
                 Rectangle()
-                    .fill(Color(red: 89/255,
-                                green: 89/255,
-                                blue: 89/255))
-                    .frame(height: 0.6),
-                alignment: .bottom
-            )
+                    .fill(.gray)
+                    .frame(height: 0.2),alignment: .bottom)
         }
-        
-        
-        
         
         struct FilterItem: View {
             
