@@ -46,7 +46,7 @@ struct ContentView: View {
             VStack(spacing: 0) {
 
                 // Header باستخدام NavigationHeader الموحد والرجوع لصفحة اللفلز
-                NavigationHeader(title: "المستثمر الطموح", onBack: { dismiss() })
+                NavigationHeader(title: "المستثمر المبتدئ", onBack: { dismiss() })
                     .padding(.horizontal, 24)
                     .padding(.top, 16)
 

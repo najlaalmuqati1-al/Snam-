@@ -27,7 +27,7 @@ struct NavigationHeader: View {
         ZStack {
             // العنوان في المنتصف
             Text(title)
-                .font(.custom("SVArabic-Bold", size: 17, relativeTo: .body))
+                .font(.custom("SVArabic-Bold", size: 22, relativeTo: .body))
                 .foregroundColor(.primary) // يتبع النظام: أبيض في الداكن، أسود في الفاتح
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)

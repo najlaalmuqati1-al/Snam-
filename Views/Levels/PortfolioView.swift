@@ -58,7 +58,7 @@ struct PortfolioMainView: View {
             
                 VStack(spacing: 0) {
                     // هيدر موحّد مع رجوع لصفحة اللفلز
-                    NavigationHeader(title: "تحدي التنويع", onBack: { dismiss() })
+                    NavigationHeader(title: "المحافظ", onBack: { dismiss() })
                         .padding(.bottom, 20)
                     
                     Text("وزع المبلغ التالي كحد ادنى على قطاعين مختلفين")

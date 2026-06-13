@@ -37,6 +37,7 @@ struct SettingsView: View {
                     title: "الإعدادات",
                     onBack: { walletState.requestDismissToMain = true }
                 )
+                .environment(\.layoutDirection, .rightToLeft)
                 .padding(.horizontal, 22)
                 .padding(.top, 18)
                 .padding(.bottom, 10)

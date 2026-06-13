@@ -37,6 +37,13 @@ struct InvestmentLevelView: View {
             }
             
             VStack(spacing: 0) {
+                // الهيدر الموحد
+                NavigationHeader(title: "متداول السوق", onBack: { dismiss() })
+                    .environment(\.layoutDirection, .rightToLeft)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 8)
+                    .padding(.bottom, 8)
+
                 chartCard
                     .frame(width: 358, height: 320)
                 
@@ -75,7 +82,7 @@ struct InvestmentLevelView: View {
                 Spacer().frame(height: 12)
             }
             .padding(.horizontal, 16)
-            .padding(.top, 16)
+            .padding(.top, 8)
             
             if showReward {
                 PortfolioCongratsView(vm: rewardVM, onFinished: {
