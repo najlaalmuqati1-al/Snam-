@@ -29,13 +29,6 @@ struct RumorGameView: View {
                 )
 
             VStack(spacing: 0) {
-                // الهيدر الموحد
-                NavigationHeader(title: "متداول السوق", onBack: { dismiss() })
-                    .environment(\.layoutDirection, .rightToLeft)
-                    .padding(.horizontal, 16)
-                    .padding(.top, 8)
-                    .padding(.bottom, 8)
-
                 // المحتوى
                 content
                     .padding(.top, 8)
@@ -45,6 +38,8 @@ struct RumorGameView: View {
         .onAppear {
             company = vm.marketData?.companies.randomElement()
         }
+        .navigationTitle("صائد الفرص")
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     @ViewBuilder
@@ -476,7 +471,9 @@ struct RumorGameView: View {
 
 #Preview {
     AppContainerView {
-        RumorGameView()
-            .environmentObject(WalletState())
+        NavigationStack {
+            RumorGameView()
+                .environmentObject(WalletState())
+        }
     }
 }

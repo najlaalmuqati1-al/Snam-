@@ -37,12 +37,7 @@ struct InvestmentLevelView: View {
             }
             
             VStack(spacing: 0) {
-                // الهيدر الموحد
-                NavigationHeader(title: "متداول السوق", onBack: { dismiss() })
-                    .environment(\.layoutDirection, .rightToLeft)
-                    .padding(.horizontal, 16)
-                    .padding(.top, 8)
-                    .padding(.bottom, 8)
+                // --- تمت إزالة الهيدر المخصص هنا ---
 
                 chartCard
                     .frame(width: 358, height: 320)
@@ -93,6 +88,8 @@ struct InvestmentLevelView: View {
             }
         }
         .animation(.easeInOut(duration: 0.4), value: showReward)
+        .environment(\.layoutDirection, .rightToLeft)
+        .navigationTitle("متداول السوق") // ← العنوان يظهر مع زر الرجوع النظامي
     }
     // MARK: - Chart Card
 
@@ -314,3 +311,4 @@ struct CustomGradientSlider: View {
     InvestmentLevelView()
         .environmentObject(WalletState())
 }
+

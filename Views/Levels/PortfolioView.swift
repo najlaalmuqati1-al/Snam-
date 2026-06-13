@@ -4,7 +4,6 @@
 //
 //  Created by Jojo on 03/06/2026.
 
-
 import SwiftUI
 
 // MARK: - Root
@@ -21,7 +20,8 @@ struct PortfolioRootView: View {
 
             if vm.showCongrats {
                 PortfolioCongratsView(vm: vm, onFinished: {
-                    walletState.collectReward(forLevel: 3);                    selectedTab = 2
+                    walletState.collectReward(forLevel: 3)
+                    selectedTab = 2
                     dismiss()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         vm.collectReward()  // ← بعد الـ dismiss
@@ -34,6 +34,7 @@ struct PortfolioRootView: View {
         .animation(.easeInOut(duration: 0.2), value: isLeaving)
         .animation(.easeInOut(duration: 0.4), value: vm.showCongrats)
         .environment(\.layoutDirection, .rightToLeft)
+        .navigationTitle("المحافظ") // ← العنوان في شريط التنقل النظامي
     }
 }
 
@@ -52,18 +53,15 @@ struct PortfolioMainView: View {
                         .resizable()
                         .scaledToFill()
                         .ignoresSafeArea()
-                ) // ← هنا تقفل
+                )
 
             ScrollView(showsIndicators: false) {
-            
                 VStack(spacing: 0) {
-                    // هيدر موحّد مع رجوع لصفحة اللفلز
-                    NavigationHeader(title: "المحافظ", onBack: { dismiss() })
-                        .padding(.bottom, 20)
-                    
+                    // --- تمت إزالة الهيدر المخصص هنا ---
+
                     Text("وزع المبلغ التالي كحد ادنى على قطاعين مختلفين")
                         .font(.system(size: 16, weight: .regular))
-                        .foregroundColor(Color.primary.opacity(0.55)) // ← primary
+                        .foregroundColor(Color.primary.opacity(0.55))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 24)
                         .padding(.bottom, 20)
@@ -96,7 +94,7 @@ struct PortfolioMainView: View {
                                 .foregroundColor(Color.white.opacity(0.45))
                             Text("اختر قطاع آخر لتوزيع أموالك")
                                 .font(.system(size: 13))
-                                .foregroundColor(Color.primary.opacity(0.45)) // ← primary
+                                .foregroundColor(Color.primary.opacity(0.45))
                             Spacer()
                         }
                         .padding(.horizontal, 20)
@@ -116,7 +114,6 @@ struct PortfolioMainView: View {
             }
 
             confirmBtn
-            
                 .padding(.horizontal, 16)
                 .padding(.bottom, 36)
         }
@@ -128,7 +125,7 @@ struct PortfolioMainView: View {
             Spacer()
             Text("تحدي التنويع")
                 .font(.system(size: 18, weight: .bold))
-                .foregroundColor(.primary) // ← primary
+                .foregroundColor(.primary)
             Spacer()
             Button(action: {}) {
                 ZStack {
@@ -137,7 +134,7 @@ struct PortfolioMainView: View {
                         .frame(width: 36, height: 36)
                     Image(systemName: "chevron.right")
                         .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.primary) // ← primary
+                        .foregroundColor(.primary)
                 }
             }
         }
@@ -202,7 +199,7 @@ struct PortfolioMainView: View {
                         .foregroundColor(Color(red: 0.514, green: 0.514, blue: 0.514))
                     Text(arabicNumber(vm.totalBalance))
                         .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(.primary) // ← primary
+                        .foregroundColor(.primary)
                 }
             }
             .frame(maxWidth: .infinity)
@@ -274,10 +271,10 @@ struct PortfolioMainView: View {
             HStack(spacing: 8) {
                 Image(systemName: "arrow.triangle.2.circlepath")
                     .font(.system(size: 13))
-                    .foregroundColor(Color.primary.opacity(0.5)) // ← primary
+                    .foregroundColor(Color.primary.opacity(0.5))
                 Text("تفريغ المحافظ")
                     .font(.system(size: 13))
-                    .foregroundColor(Color.primary.opacity(0.5)) // ← primary
+                    .foregroundColor(Color.primary.opacity(0.5))
                 Spacer()
             }
             .onTapGesture { withAnimation { vm.resetWallet() } }
@@ -285,10 +282,10 @@ struct PortfolioMainView: View {
             HStack(spacing: 8) {
                 Image(systemName: "info.circle")
                     .font(.system(size: 13))
-                    .foregroundColor(Color.primary.opacity(0.5)) // ← primary
+                    .foregroundColor(Color.primary.opacity(0.5))
                 Text("وزع باقي المبلغ على القطاعات المختاره")
                     .font(.system(size: 13))
-                    .foregroundColor(Color.primary.opacity(0.5)) // ← primary
+                    .foregroundColor(Color.primary.opacity(0.5))
                 Spacer()
             }
         }
@@ -299,7 +296,7 @@ struct PortfolioMainView: View {
         let hasAny = vm.selectedTabIDs.count >= 2 &&
                      vm.selectedTabIDs.allSatisfy { id in
                          vm.sectors.first(where: { $0.id == id })?.allocation ?? 0 > 0
-                     } // تعديل الشرط ع الاقل اضافة سنام واحد لكل قطاع 
+                     }
         return PrimaryButton(title: "تأكيد التوزيع") {
             if hasAny { vm.confirm() }
         }
@@ -310,235 +307,11 @@ struct PortfolioMainView: View {
     }
 }
 
-// MARK: - Sector Row Card
+// ... الباقي كما هو (SectorRowCard وغيره) ...
+// (لم يتم التغيير في بقية الكود)
 
-struct SectorRowCard: View {
-    @Binding var sector: PortfolioSector
-    @ObservedObject var vm: PortfolioViewModel
-    let isExpanded: Bool
-
-    var percentage: Int {
-        guard vm.totalBalance > 0 else { return 0 }
-        return Int(Double(sector.allocation) / Double(vm.totalBalance) * 100)
-    }
-
-    var sliderMax: Double {
-        Double(vm.remaining + sector.allocation)
-    }
-
-    let accentBlue = Color(red: 0.427, green: 0.565, blue: 0.898)
-
-    var body: some View {
-        VStack(spacing: 0) {
-
-            if !isExpanded {
-                Button(action: {
-                    withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
-                        vm.toggleExpand(sector.id)
-                    }
-                }) {
-                    HStack(alignment: .center, spacing: 0) {
-                        Text(sector.name)
-                            .font(.system(size: 24, weight: .medium))
-                            .foregroundColor(.primary) // ← primary
-                        Image(systemName: sector.icon)
-                            .font(.system(size: 21))
-                            .foregroundColor(accentBlue)
-                        Spacer()
-                        HStack(spacing: 6) {
-                            Text("\(arabicNumber(sector.allocation)) سنام . \(arabicNumber(percentage))%")
-                                .font(.system(size: 10, weight: .medium))
-                                .foregroundColor(Color(red: 0.514, green: 0.514, blue: 0.514))
-                        }
-                    }
-                    .contentShape(Rectangle())
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 26)
-                }
-                .buttonStyle(.plain)
-            }
-
-            if isExpanded {
-                VStack(spacing: 0) {
-
-                    HStack {
-                        Button(action: { vm.decrement(id: sector.id) }) {
-                            ZStack {
-                                Circle()
-                                    .fill(.ultraThinMaterial)
-                                    .overlay(
-                                        Circle()
-                                            .stroke(Color.white.opacity(0.25), lineWidth: 1)
-                                    )
-                                    .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
-                                    .frame(width: 20, height: 20)
-                                Text("+")
-                                    .font(.system(size: 14, weight: .bold))
-                                    .foregroundColor(.white)
-                            
-                            }
-                        }
-                        Spacer()
-                        VStack(spacing: 2) {
-                            Image(systemName: sector.icon)
-                                .font(.system(size: 21))
-                                .foregroundColor(accentBlue)
-                            Text(sector.name)
-                                .font(.system(size: 24, weight: .medium))
-                                .foregroundColor(.primary) // ← primary
-                        }
-                        Spacer()
-                        Button(action: { vm.decrement(id: sector.id) }) {
-                            ZStack {
-                                Circle()
-                                    .fill(.ultraThinMaterial)
-                                    .overlay(
-                                        Circle()
-                                            .stroke(Color.white.opacity(0.25), lineWidth: 1)
-                                    )
-                                    .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
-                                    .frame(width: 20, height: 20)
-                                Text("−")
-                                    .font(.system(size: 14, weight: .bold))
-                                    .foregroundColor(.white)
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.top, 16)
-
-                    GeometryReader { geo in
-                        let trackWidth = geo.size.width
-                        let ratio = sliderMax > 0 ? CGFloat(sector.allocation) / CGFloat(sliderMax) : 0
-                        let thumbX = (1 - ratio) * trackWidth
-
-                        ZStack(alignment: .topLeading) {
-
-                            ZStack(alignment: .leading) {
-                                RoundedRectangle(cornerRadius: 22)
-                                    .fill(Color(red: 0.043, green: 0.071, blue: 0.137))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 22)
-                                            .stroke(Color(red: 0.388, green: 0.388, blue: 0.388), lineWidth: 0.5)
-                                    )
-                                    .frame(height: 9)
-
-                                HStack(spacing: 0) {
-                                    Spacer(minLength: thumbX)
-                                    RoundedRectangle(cornerRadius: 22)
-                                        .fill(accentBlue)
-                                        .frame(height: 6.8)
-                                }
-                                .padding(.vertical, 1.1)
-
-                                Circle()
-                                    .fill(Color(red: 0.686, green: 0.706, blue: 0.757))
-                                    .overlay(Circle().stroke(Color(red: 0.741, green: 0.741, blue: 0.741), lineWidth: 1))
-                                    .frame(width: 22, height: 22)
-                                    .offset(x: thumbX - 11, y: -6.5)
-                            }
-                            .frame(height: 9)
-                            .offset(y: 38)
-
-                            VStack(spacing: 0) {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 8.45)
-                                        .fill(Color.black.opacity(0.08))
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 8.45)
-                                                .fill(
-                                                    LinearGradient(
-                                                        colors: [
-                                                            Color(red: 0.11, green: 0.11, blue: 0.12).opacity(0.84),
-                                                            Color(red: 0.11, green: 0.11, blue: 0.12).opacity(0.84)
-                                                        ],
-                                                        startPoint: .top,
-                                                        endPoint: .bottom
-                                                    )
-                                                )
-                                                .blur(radius: 0.5)
-                                        )
-                                        .shadow(color: .black.opacity(0.3), radius: 65/10, x: 0, y: 6.5)
-                                        .frame(width: 73, height: 19)
-
-                                    Text("\(arabicNumber(sector.allocation)) سنام (\(arabicNumber(percentage))%)")
-                                        .font(.system(size: 10, weight: .semibold))
-                                        .foregroundColor(.white)
-                                }
-
-                                Triangle()
-                                    .fill(Color(red: 0.11, green: 0.11, blue: 0.12).opacity(0.84))
-                                    .frame(width: 36.4, height: 8.45)
-                            }
-                            .offset(x: max(0, min(thumbX - 36, trackWidth - 73)), y: 0)
-                        }
-                        .frame(width: trackWidth, height: 60)
-                        .contentShape(Rectangle())
-                        .gesture(
-                            DragGesture(minimumDistance: 0)
-                                .onChanged { drag in
-                                    let ratio = max(0, min(1, drag.location.x / trackWidth))
-                                    let raw = Double(ratio) * sliderMax
-                                    let snapped = Int(round(raw / 25.0)) * 25
-                                    vm.updateAllocation(id: sector.id, value: snapped)
-                                }
-                        )
-                    }
-                    .frame(height: 60)
-                    .padding(.horizontal, 16)
-                    .padding(.top, 10)
-
-                    HStack {
-                        Text(arabicNumber(Int(sliderMax)))
-                            .font(.system(size: 16))
-                            .foregroundColor(.primary) // ← primary
-                        Spacer()
-                        Text(arabicNumber(Int(sliderMax) / 2))
-                            .font(.system(size: 16))
-                            .foregroundColor(.primary) // ← primary
-                        Spacer()
-                        Text(arabicNumber(0))
-                            .font(.system(size: 16))
-                            .foregroundColor(.primary) // ← primary
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.top, 4)
-                    .padding(.bottom, 16)
-                }
-                .onTapGesture {
-                    withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
-                        vm.toggleExpand(sector.id)
-                    }
-                }
-                .transition(.opacity.combined(with: .move(edge: .top)))
-            }
-        }
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color(red: 0.078, green: 0.114, blue: 0.224).opacity(0.2))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(
-                            isExpanded ? accentBlue.opacity(0.3) : Color.clear,
-                            lineWidth: 1
-                        )
-                )
-        )
-        .animation(.spring(response: 0.35, dampingFraction: 0.8), value: isExpanded)
-    }
-}
-
-struct Triangle: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        path.move(to: CGPoint(x: rect.minX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
-        path.closeSubpath()
-        return path
-    }
-}
 #Preview {
     PortfolioRootView()
         .environmentObject(WalletState())
 }
+

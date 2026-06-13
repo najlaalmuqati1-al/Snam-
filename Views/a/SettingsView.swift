@@ -32,16 +32,6 @@ struct SettingsView: View {
                 )
 
             VStack(spacing: 0) {
-                // ── Navigation Header ────────────────────────────────
-                NavigationHeader(
-                    title: "الإعدادات",
-                    onBack: { walletState.requestDismissToMain = true }
-                )
-                .environment(\.layoutDirection, .rightToLeft)
-                .padding(.horizontal, 22)
-                .padding(.top, 18)
-                .padding(.bottom, 10)
-
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .trailing, spacing: 34) {
 
@@ -56,6 +46,7 @@ struct SettingsView: View {
                                     destination: AnyView(
                                         WalletAppearanceView(walletState: walletState)
                                             .environmentObject(walletState)
+                                            // العنوان مضبوط داخل WalletAppearanceView
                                     )
                                 )
                             ]
@@ -69,19 +60,28 @@ struct SettingsView: View {
                                     icon: "globe",
                                     iconColor: .gray,
                                     title: "اللغة",
-                                    destination: AnyView(LanguageSettingsHelperView().environmentObject(walletState))
+                                    destination: AnyView(
+                                        LanguageSettingsHelperView()
+                                            .environmentObject(walletState)
+                                    )
                                 ),
                                 SettingsItem(
                                     icon: "sun.max.fill",
                                     iconColor: .gray,
                                     title: "شكل التطبيق",
-                                    destination: AnyView(AppearanceSettingsHelperView().environmentObject(walletState))
+                                    destination: AnyView(
+                                        AppearanceSettingsHelperView()
+                                            .environmentObject(walletState)
+                                    )
                                 ),
                                 SettingsItem(
                                     icon: "shield.fill",
                                     iconColor: .gray,
                                     title: "الخصوصية والأمان",
-                                    destination: AnyView(PrivacySecurityView().environmentObject(walletState))
+                                    destination: AnyView(
+                                        PrivacySecurityView()
+                                            .environmentObject(walletState)
+                                    )
                                 ),
                             ]
                         )
@@ -93,8 +93,9 @@ struct SettingsView: View {
                 }
             }
         }
-        .navigationBarHidden(true)
         .environment(\.layoutDirection, .leftToRight)
+        .navigationTitle("الإعدادات")
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     // MARK: - Settings Group Builder
@@ -140,10 +141,7 @@ struct SettingsView: View {
     @ViewBuilder
     private func settingsRow(item: SettingsItem) -> some View {
         HStack(spacing: 16) {
-            Image(systemName: "chevron.left")
-                .font(.system(size: 15, weight: .semibold))
-                .foregroundColor(.secondary)
-
+            // تمت إزالة سهم chevron.left من الصف لتجنب تكرار زر الرجوع
             Spacer()
 
             Text(item.title)
@@ -188,14 +186,6 @@ struct LanguageSettingsHelperView: View {
                         .ignoresSafeArea()
                 )
             VStack(spacing: 22) {
-                NavigationHeader(
-                    title: "اللغة",
-                    onBack: { walletState.requestDismissToMain = true }
-                )
-                .padding(.horizontal, 22)
-                .padding(.top, 18)
-                .padding(.bottom, 10)
-
                 Text("لتغيير لغة التطبيق، افتح إعدادات النظام، ثم ابحث عن تطبيق سنام واختر اللغة المفضّلة.")
                     .font(svArabic("Regular", size: 18))
                     .foregroundColor(.primary)
@@ -216,7 +206,6 @@ struct LanguageSettingsHelperView: View {
                 Spacer()
             }
         }
-        .navigationBarHidden(true)
         .environment(\.layoutDirection, .leftToRight)
     }
 
@@ -246,14 +235,6 @@ struct AppearanceSettingsHelperView: View {
                         .ignoresSafeArea()
                 )
             VStack(spacing: 22) {
-                NavigationHeader(
-                    title: "شكل التطبيق",
-                    onBack: { walletState.requestDismissToMain = true }
-                )
-                .padding(.horizontal, 22)
-                .padding(.top, 18)
-                .padding(.bottom, 10)
-
                 Text("لتغيير المظهر (فاتح/داكن) أو الاعتماد على مظهر النظام، افتح إعدادات التطبيق من إعدادات النظام.")
                     .font(svArabic("Regular", size: 18))
                     .foregroundColor(.primary)
@@ -274,7 +255,6 @@ struct AppearanceSettingsHelperView: View {
                 Spacer()
             }
         }
-        .navigationBarHidden(true)
         .environment(\.layoutDirection, .leftToRight)
     }
 
@@ -305,15 +285,6 @@ struct PrivacySecurityView: View {
                 )
 
             VStack(spacing: 0) {
-                // Header (using unified NavigationHeader)
-                NavigationHeader(
-                    title: "الخصوصية والأمان",
-                    onBack: { walletState.requestDismissToMain = true }
-                )
-                .padding(.horizontal, 22)
-                .padding(.top, 18)
-                .padding(.bottom, 10)
-
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .trailing, spacing: 28) {
                         // Title block
@@ -364,10 +335,7 @@ struct PrivacySecurityView: View {
                 }
             }
         }
-        .navigationBarHidden(true)
         .environment(\.layoutDirection, .leftToRight)
-        // يمكنك إزالة هذا السطر إذا أردت أن تتبع هذه الشاشة مظهر النظام تلقائياً
-        //.preferredColorScheme(.dark)
     }
 
     // فقرة بتعداد رقمي والرقم في الجهة اليسار

@@ -19,13 +19,6 @@ struct StockTypeLevelView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // الهيدر الموحّد مع رجوع لصفحة المراحل
-            NavigationHeader(title: "صائد الفرص", onBack: { dismiss() })
-                .environment(\.layoutDirection, .rightToLeft)
-                .padding(.horizontal, 16)
-                .padding(.top, 8)
-                .padding(.bottom, 8)
-
             if currentStep == 1 {
 
                 VStack(spacing: 32) {
@@ -426,11 +419,15 @@ struct StockTypeLevelView: View {
                 
         }
         }
+        .navigationTitle("المستثمر الذكي")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
     AppContainerView {
-        StockTypeLevelView()
+        NavigationStack {
+            StockTypeLevelView()
+        }
     }
 }

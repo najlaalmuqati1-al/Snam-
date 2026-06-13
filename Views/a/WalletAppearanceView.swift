@@ -39,55 +39,6 @@ struct WalletAppearanceView: View {
             Color(.systemBackground).ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // ---- Navigation Header (موحد) --- //
-                HStack(spacing: 0) {
-                    // زر الحفظ على اليسار (إن وجد تغييرات)
-                    if hasChanges {
-                        Button(action: saveChangesAndClose) {
-                            ZStack {
-                                Circle()
-                                    .fill(Color.blue)
-                                    .frame(width: 36, height: 36)
-                                    .overlay(Circle().stroke(Color.primary.opacity(0.25), lineWidth: 1))
-                                    .shadow(color: .black.opacity(0.25), radius: 6, x: 0, y: 2)
-                                Image(systemName: "checkmark")
-                                    .font(.system(size: 15, weight: .bold))
-                                    .foregroundColor(.white)
-                            }
-                        }
-                        .transition(.opacity.combined(with: .scale))
-                        .padding(.leading, 6)
-                    } else {
-                        // للحفاظ على نفس المحاذاة دائماً
-                        Color.clear.frame(width: 36, height: 36).padding(.leading, 6)
-                    }
-
-                    Spacer(minLength: 0)
-
-                    NavigationHeader(
-                        title: "شكل محفظتك",
-                        onBack: {
-                            if hasChanges {
-                                withAnimation(.easeInOut(duration: 0.2)) { showUnsavedAlert = true }
-                            } else {
-                                walletState.requestDismissToMain = true
-                            }
-                        }
-                    )
-                    .environment(\.layoutDirection, .rightToLeft)
-                    .frame(height: 54)
-                    .padding(.vertical, 0)
-                    
-                    Spacer(minLength: 0)
-                    
-                    // للموازنة، لا شيء في اليمين
-                    Color.clear.frame(width: 36, height: 36).padding(.trailing, 6)
-                }
-                .padding(.horizontal, 12)
-                .padding(.top, 18)
-                .padding(.bottom, 8)
-                .animation(.easeInOut(duration: 0.2), value: hasChanges)
-
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 0) {
                         currentWalletSection
@@ -98,7 +49,35 @@ struct WalletAppearanceView: View {
                 }
             }
         }
-        .navigationBarHidden(true)
+        .navigationTitle("شكل محفظتك")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            // زر رجوع واحد "يشبه" النظامي لكنه يتحكم في التنبيه عند وجود تغييرات
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    if hasChanges {
+                        withAnimation(.easeInOut(duration: 0.2)) { showUnsavedAlert = true }
+                    } else {
+                        dismiss()
+                    }
+                } label: {
+                    Image(systemName: "chevron.backward")
+                }
+            }
+
+            // زر الصح النظامي (يظهر فقط عند وجود تغييرات)
+            ToolbarItem(placement: .topBarTrailing) {
+                if hasChanges {
+                    Button {
+                        saveChangesAndClose()
+                    } label: {
+                        Image(systemName: "checkmark")
+                            .font(.system(size: 17, weight: .semibold))
+                    }
+                    .transition(.opacity.combined(with: .scale))
+                }
+            }
+        }
         .environment(\.layoutDirection, .leftToRight)
         .onAppear {
             draftName    = walletState.holderName
@@ -108,8 +87,8 @@ struct WalletAppearanceView: View {
         .alert("تبي تطلع بدون حفظ؟", isPresented: $showUnsavedAlert) {
             Button("تراجع", role: .cancel) {}
             Button("اطلع", role: .destructive) {
-                // Exit without saving → go back to MainView
-                walletState.requestDismissToMain = true
+                // Exit without saving → pop this screen
+                dismiss()
             }
         } message: {
             Text("التعديلات اللي سويتها على المحفظة ما انحفظت، متأكد تبي تطلع؟")
@@ -131,8 +110,8 @@ struct WalletAppearanceView: View {
         withAnimation(.spring(response: 0.45, dampingFraction: 0.9)) {
             walletState.showWalletSavedToast = true
         }
-        // Ask MainView to dismiss Settings stack → back to MainView
-        walletState.requestDismissToMain = true
+        // Pop back to Settings (ثم MainView تلتقط التوست)
+        dismiss()
     }
 
     // MARK: - Preview Card

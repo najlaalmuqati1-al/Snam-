@@ -8,7 +8,6 @@
 import SwiftUI
 import SceneKit
 
-
 // MARK: - ContentView
 
 struct ContentView: View {
@@ -44,11 +43,7 @@ struct ContentView: View {
 
             // المحتوى الرئيسي
             VStack(spacing: 0) {
-
-                // Header باستخدام NavigationHeader الموحد والرجوع لصفحة اللفلز
-                NavigationHeader(title: "المستثمر المبتدئ", onBack: { dismiss() })
-                    .padding(.horizontal, 24)
-                    .padding(.top, 16)
+                // --- تمت إزالة الهيدر المخصص هنا ---
 
                 Spacer()
                     .frame(maxHeight: 150)
@@ -77,10 +72,6 @@ struct ContentView: View {
 
             // Congrats overlay
             if showCongrats {
-             /*   PortfolioCongratsView(vm: portfolioVM, onFinished: {
-                    
-                    dismiss()
-                })*/
                 PortfolioCongratsView(vm: portfolioVM, onFinished: {
                     walletState.collectReward(forLevel: 1)
                     selectedTab = 2
@@ -92,9 +83,9 @@ struct ContentView: View {
         .animation(.easeInOut(duration: 0.4), value: showCongrats)
         .environment(\.layoutDirection, .rightToLeft)
         .animation(.easeInOut(duration: 0.3), value: vm.currentFace)
+        .navigationTitle("المستثمر المبتدئ") // ← العنوان في شريط التنقل النظامي
     }
 }
-
 
 // MARK: - CubeView
 
