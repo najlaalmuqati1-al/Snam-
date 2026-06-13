@@ -15,7 +15,7 @@ struct StockTypeLevelView: View {
     @State private var visitedSpeculative = false
     @State private var visitedSafe = false
     @Environment(\.dismiss) private var dismiss
-
+    @AppStorage("selectedTab") private var selectedTab: Int = 2
     // مكافأة
     @State private var showReward = false
     @StateObject private var rewardVM = PortfolioViewModel()
@@ -150,9 +150,7 @@ struct StockTypeLevelView: View {
                                 vm: rewardVM,
                                 onFinished: {
                                     walletState.collectReward(forLevel: 4)
-                                    // اطلب من MainView الرجوع للجذر
-                                    walletState.requestDismissToMain = true
-                                    // أغلق شاشة الليفل الحالية
+                                    selectedTab = 2
                                     dismiss()
                                 }
                             )
