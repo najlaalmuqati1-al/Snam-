@@ -14,3 +14,12 @@ func arabicNumber(_ n: Int) -> String {
 }
 
 //
+func arabicNumerals(_ text: String) -> String {
+    let arabic = ["٠","١","٢","٣","٤","٥","٦","٧","٨","٩"]
+    return text.map { c in
+        if let digit = c.wholeNumberValue {
+            return arabic[digit]
+        }
+        return String(c)
+    }.joined()
+}

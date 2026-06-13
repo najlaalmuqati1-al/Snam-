@@ -214,8 +214,7 @@ struct CompanyDetailViewV2: View {
                                     .scaledToFit()
                                     .frame(width: 30, height: 30,alignment: .leading)
                                 
-                                Text("\(Int(walletState.balance))")
-                                    .font(.system(size: 17, weight: .semibold))
+                                Text(arabicNumber(Int(walletState.balance)))                                    .font(.system(size: 17, weight: .semibold))
                                     .foregroundColor(.white)
                                     .frame(alignment: .center)
                             }
@@ -252,7 +251,7 @@ struct CompanyDetailViewV2: View {
                     
                     VStack(alignment: .trailing, spacing: 4) {
                         
-                        Text(company.fakeName)
+                        Text(companyNameArabic(company.fakeName))
                             .font(.system(size: 14,weight: .bold))
                             .fontWeight(.bold)
                             .foregroundColor(.white)
@@ -288,18 +287,16 @@ struct CompanyDetailViewV2: View {
                 
                 HStack {
                     
-                        Text(
-                            company.stock.changePercent >= 0
-                            ? "+\(String(format: "%.2f", company.stock.changePercent))%"
-                            : "\(String(format: "%.2f", company.stock.changePercent))%"
-                        )
+                    Text(arabicNumerals(company.stock.changePercent >= 0
+                        ? "+\(String(format: "%.2f", company.stock.changePercent))%"
+                        : "\(String(format: "%.2f", company.stock.changePercent))%"))
                     .foregroundColor(
                         company.stock.changePercent >= 0
                         ? .green
                         : .red
                                     ).font(.system(size: 12,weight: .semibold))
                     
-                    Text("\(Int(company.stock.currentPrice))")
+                    Text(arabicNumerals("\(Int(company.stock.currentPrice))"))
                         .font(.system(size: 34, weight: .bold))
                         .foregroundColor(.white)
                         .padding(.bottom)
@@ -771,7 +768,7 @@ struct StockChartContainer: View {
                         
                         Spacer()
                         
-                        Text(String(format: "%.0f", max - step * Double(i)))
+                        Text(arabicNumerals(String(format: "%.0f", max - step * Double(i))))
                             .font(.caption2)
                             .foregroundColor(.gray)
                     }

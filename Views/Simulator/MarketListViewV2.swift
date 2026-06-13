@@ -5,7 +5,7 @@ import SwiftUI
 
 struct MarketListViewV2: View {
     
-    @StateObject private var vm = MarketViewModelNew()
+    @EnvironmentObject var vm: MarketViewModelNew
     @State private var showFilterMenu = false
     @State private var selectedSector = "الكل"
 //    @AppStorage("hasSeenTutorial") var hasSeenTutorial = false
@@ -260,7 +260,7 @@ struct MarketListViewV2: View {
                 
                 VStack(spacing: 8) {
                     
-                    Text(company.fakeName)
+                    Text(companyNameArabic(company.fakeName))
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.white)
                         .frame(width: 120,height: 18,alignment: .leading)
@@ -270,6 +270,7 @@ struct MarketListViewV2: View {
                         .foregroundColor(.gray)
                         .frame(width: 120,height: 11,alignment: .leading)
                 }
+                
                 
                 Spacer().frame(width: 20)
                 
@@ -295,17 +296,18 @@ struct MarketListViewV2: View {
                 
                 VStack(alignment: .center, spacing: 4) {
                     
-                    Text("\(Int(company.stock.currentPrice))")
+                    Text(arabicNumerals("\(Int(company.stock.currentPrice))"))
+
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.white)
                     + Text(" سنام")
                         .font(.system(size: 12,weight: .bold))
                     
-                    Text(
-                        company.stock.changePercent >= 0
-                        ? "+\(String(format: "%.2f", company.stock.changePercent))%"
-                        : "\(String(format: "%.2f", company.stock.changePercent))%"
-                    )
+                    
+                    Text(arabicNumerals(company.stock.changePercent >= 0
+                            ? "+\(String(format: "%.2f", company.stock.changePercent))%"
+                            : "\(String(format: "%.2f", company.stock.changePercent))%"))
+                    
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(
                         company.stock.changePercent >= 0 ? .green : .red
@@ -408,7 +410,27 @@ func sectorArabicNew(_ sector: String) -> String {
     case "Telecom":      return "قطاع الاتصالات"
     case "Retail":       return "قطاع التجزئة"
     case "Technology":   return "قطاع التقنية"
+    case "Food":         return "الأغذية"
+    case "Construction": return "البناء"
+    case "Travel":       return "السفر"
+    case "Healthcare":   return "الرعاية الصحية"
+    case "Logistics":    return "اللوجستيات"
     default:              return sector
+    }
+}
+func companyNameArabic(_ fakeName: String) -> String {
+    switch fakeName {
+    case "Najd Energy":    return "طاقة نجد"
+    case "Desert Bank":    return "بنك الصحراء"
+    case "Najd Telecom":   return "اتصالات نجد"
+    case "Souq Arabia":    return "سوق العربية"
+    case "NeoTech KSA":    return "نيوتك السعودية"
+    case "Palm Foods":     return "النخلة للأغذية"
+    case "Golden Cement":  return "الأسمنت الذهبي"
+    case "Sky Airlines":   return "سكاي للطيران"
+    case "Future Health":  return "مستقبل الصحة"
+    case "Smart Logistics": return " خدمات لوجستيه"
+    default:               return fakeName
     }
 }
 

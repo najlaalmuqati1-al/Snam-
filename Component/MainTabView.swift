@@ -37,6 +37,7 @@ struct MainTabView: View {
     @AppStorage("selectedTab") private var selectedTab: Int = 2
     @StateObject private var walletState = WalletState()
     @StateObject private var marketVM = MarketViewModelNew()
+    
     var body: some View {
         // ...
       //  MainView()

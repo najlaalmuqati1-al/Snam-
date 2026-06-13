@@ -74,8 +74,7 @@ struct WalletCardView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
 
               //  Text("00.00")
-                Text(String(format: "%.2f", walletState.balance))
-                    .font(svArabic("Black", size: isPreview ? 42 : 54))
+                Text(arabicNumber(Int(walletState.balance)))                    .font(svArabic("Black", size: isPreview ? 42 : 54))
                     .foregroundColor(.primary)
                     .frame(maxWidth: .infinity, alignment: .center)
             }

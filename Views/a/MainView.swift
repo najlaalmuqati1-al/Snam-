@@ -279,11 +279,9 @@ struct CompanyRowView: View {
     var body: some View {
         HStack(spacing: 10) {
             VStack(alignment: .leading, spacing: 3) {
-                Text("\(Int(company.stock.currentPrice))")
-                    .font(svArabic("Bold", size: 17))
+                Text(arabicNumber(Int(company.stock.currentPrice)))                    .font(svArabic("Bold", size: 17))
                     .foregroundColor(.primary)
-                Text("\(shares) أسهم")
-                    .font(svArabic("Medium", size: 13))
+                Text("\(arabicNumber(shares)) أسهم")                    .font(svArabic("Medium", size: 13))
                     .foregroundColor(.secondary)
             }
             .frame(width: 70, alignment: .leading)

@@ -69,7 +69,7 @@ struct TradeSheetView: View {
                     .foregroundColor(.white)
                     .padding(.top, 20)
 
-                Text(String(format: "%.2f", company.stock.currentPrice * Double(quantity)))
+                Text(arabicNumber(Int(company.stock.currentPrice * Double(quantity))))
                     .font(.system(size: 64, weight: .black))
                     .foregroundColor(.white)
                     .padding(.top, 35)
@@ -97,8 +97,7 @@ struct TradeSheetView: View {
 
                     VStack(spacing: 40) {
 
-                        Text("\(vm.ownedShares[company.id, default: 0]) من أسهم")
-                            .foregroundColor(.white)
+                        Text("\(arabicNumber(vm.ownedShares[company.id, default: 0])) من أسهم")                            .foregroundColor(.white)
 
                         HStack(spacing: 0) {
 
@@ -131,7 +130,7 @@ struct TradeSheetView: View {
                                 Image(systemName: "minus")
                             }
 
-                            Text("\(quantity)")
+                            Text(arabicNumber(quantity))
                                 .font(.title2.bold())
 
                             Button {
