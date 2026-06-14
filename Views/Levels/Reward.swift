@@ -37,13 +37,13 @@ struct PortfolioCongratsView: View {
             VStack(spacing: 0) {
 
                 // تهانينا!!
-                Text("تهانينا!!")
+                Text("مبروك!")
                     .font(.system(size: 48, weight: .black))
                     .foregroundColor(.white)
                     .padding(.top, 24)
 
                 // لقد حصلت على
-                Text("لقد حصلت على")
+                Text("لإنك كفو تستاهل")
                     .font(.system(size: 22, weight: .medium))
                     .foregroundColor(Color(red: 0.412, green: 0.467, blue: 0.569))
                     .padding(.top, 4)
@@ -73,7 +73,7 @@ struct PortfolioCongratsView: View {
                     .foregroundColor(.white)
 
                 // نقاط مكافأة
-                Text("نقاط مكافأة")
+                Text("سنام مكافأة لك")
                     .font(.system(size: 16, weight: .regular))
                     .foregroundColor(Color(red: 0.412, green: 0.467, blue: 0.569))
                     .padding(.top, 2)
@@ -93,7 +93,7 @@ struct PortfolioCongratsView: View {
                          onFinished()
                      }
                 }) {
-                    Text("اجمع")
+                    Text("جمع")
                         .font(.system(size: 22, weight: .bold))
                         .foregroundColor(.white)
                         .frame(width: 300, height: 44)

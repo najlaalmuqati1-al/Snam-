@@ -69,7 +69,7 @@ struct InvestmentLevelView: View {
                 
                 Spacer().frame(height: 32)
                 
-                PrimaryButton(title: "اكمل") {
+                PrimaryButton(title: "كمل") {
                     showReward = true
                 }
                 .frame(width: 358)
@@ -89,7 +89,7 @@ struct InvestmentLevelView: View {
         }
         .animation(.easeInOut(duration: 0.4), value: showReward)
         .environment(\.layoutDirection, .rightToLeft)
-        .navigationTitle("متداول السوق") // ← العنوان يظهر مع زر الرجوع النظامي
+        .navigationTitle("فاهم اللعبه") // ← العنوان يظهر مع زر الرجوع النظامي
     }
     // MARK: - Chart Card
 

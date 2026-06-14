@@ -68,7 +68,7 @@ struct WalletCardView: View {
                 .clipped()
 
             VStack(spacing: isPreview ? 4 : 8) {
-                Text("فلوسك الافتراضية")
+                Text("دراهمك الافتراضية")
                     //.font(svArabic("Bold", size: isPreview ? 14 : 14))
                     .font(.system(size: isPreview ? 14 : 14,weight: .bold))
                     .foregroundColor(.primary.opacity(0.95))

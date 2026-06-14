@@ -141,7 +141,7 @@ struct StockTypeLevelView: View {
                     }
 
                     if visitedSpeculative && visitedSafe {
-                        PrimaryButton(title: "انتهيت") {
+                        PrimaryButton(title: "خلصت") {
                             showReward = true
                         }
                         .padding(.top, 8)

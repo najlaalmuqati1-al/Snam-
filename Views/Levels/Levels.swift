@@ -29,11 +29,11 @@ struct Level {
 // MARK: - Data
 
 let levels: [Level] = [
-    Level(id: 1, label: "المستوى الأول",  title: "المستثمر المبتدئ", description: "ابدأ رحلتك وتعلم أساسيات الاستثمار",        badge: "مبتدئ"),
-    Level(id: 2, label: "المستوى الثاني", title: "متداول السوق",      description: "تعلم تحليل السوق واتخاذ قراراتك الأولى",    badge: "متمكن"),
-    Level(id: 3, label: "المستوى الثالث", title: "صائد الفرص",        description: "استثمر بذكاء واغتنم الفرص",                 badge: "محترف"),
-    Level(id: 4, label: "المستوى الرابع", title: "المستثمر الذكي",    description: "تعلم استراتيجيات متقدمة للمحترفين",         badge: "خبير"),
-    Level(id: 5, label: "المستوى الخامس", title: "المحافظ",           description: "وزع أموالك وتعلم فن إدارة المحافظ",         badge: "محافظ"),
+    Level(id: 1, label: "المستوى الأول",  title: "مستكشف الأسهم", description: "بنعلمك أساسيات الاستثمار في الأسهم",        badge: "مستكشف"),
+    Level(id: 2, label: "المستوى الثاني", title: "فاهم اللعبه",      description: "بنعلمك كيف تحلل السوق و تتخذ قراراتك الاولى",    badge: "جامد"),
+    Level(id: 3, label: "المستوى الثالث", title: "أسطورة الأسهم",        description: "استثمر بذكاء وتعلم شلون تختار السهم الصح",                 badge: "أسطوري"),
+    Level(id: 4, label: "المستوى الرابع", title: "هامور الأسهم",    description: "بنعلمك استراتيجيات متقدمة للمحترفين",         badge: "هامور"),
+    Level(id: 5, label: "المستوى الخامس", title: "مايسترو المحافظ",           description: "وزع أموالك وتعلم فن إدارة المحافظ",         badge: "مايسترو"),
 ]
 
 // MARK: - Constants
@@ -56,12 +56,12 @@ struct LevelsView: View {
             VStack(alignment: .trailing, spacing: 0) {
 
                 VStack(alignment: .trailing, spacing: 21) {
-                    Text("المراحل")
+                    Text("مراحلك")
                         .font(.system(size: 34, weight: .black))
                         .foregroundColor(.primary)
                         .frame(maxWidth: .infinity, alignment: .leading)
 
-                    Text("تقدم في رحلتك وتعلم لتنتهي من جميع المراحل")
+                    Text("كمل كل المراحل وتقدم في رحلة تعلمك")
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color(hex: "#9B978D"))
                         .frame(maxWidth: .infinity, alignment: .leading)

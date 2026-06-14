@@ -38,7 +38,7 @@ struct RumorGameView: View {
         .onAppear {
             company = vm.marketData?.companies.randomElement()
         }
-        .navigationTitle("صائد الفرص")
+        .navigationTitle("أسطورة الأسهم")
         .navigationBarTitleDisplayMode(.inline)
     }
 

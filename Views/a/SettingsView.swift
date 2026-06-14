@@ -139,7 +139,7 @@ struct SettingsView: View {
                 }
             } label: {
                 HStack(spacing: 8) {
-                    Text("شكل التطبيق")
+                    Text("نمط الظهور")
                         .font(svArabic("Medium", size: 18))
                         .foregroundColor(.primary)
                     Text("(\(walletState.appAppearance.title))")

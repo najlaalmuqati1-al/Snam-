@@ -22,8 +22,8 @@ struct CubeFace {
 
 struct CubeModel {
     let faces: [CubeFace] = [
-        CubeFace(title: "ما معنى ان تشتري سهم؟",
-                 subtitle: "انك اصبحت جزء من الشركة",
+        CubeFace(title: "وش يعنى انك تشتري",
+                 subtitle: "انك صرت شريك من الشركة",
                  icon: .pieChart),
         CubeFace(title: "",          
                        subtitle: "",
@@ -31,7 +31,7 @@ struct CubeModel {
         CubeFace(title: "شريك معها",
                  subtitle: "في الخسارة",
                  icon: .trendingDown),
-        CubeFace(title: "انك اصبحت شريك معها",
+        CubeFace(title: "شريك معها",
                  subtitle: "في الربح",
                  icon: .trendingUp),
     ]
