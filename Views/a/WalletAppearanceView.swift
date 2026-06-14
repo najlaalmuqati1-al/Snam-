@@ -20,6 +20,7 @@ struct WalletAppearanceView: View {
     @FocusState private var isNameFocused: Bool
 
     @State private var showUnsavedAlert: Bool = false
+    @AppStorage("selectedTab") private var selectedTab: Int = 2
 
     private var hasChanges: Bool {
         draftName != walletState.holderName || draftThemeID != walletState.selectedThemeID
@@ -52,19 +53,6 @@ struct WalletAppearanceView: View {
         .navigationTitle("شكل محفظتك")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            // زر رجوع واحد "يشبه" النظامي لكنه يتحكم في التنبيه عند وجود تغييرات
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    if hasChanges {
-                        withAnimation(.easeInOut(duration: 0.2)) { showUnsavedAlert = true }
-                    } else {
-                        dismiss()
-                    }
-                } label: {
-                    Image(systemName: "chevron.backward")
-                }
-            }
-
             // زر الصح النظامي (يظهر فقط عند وجود تغييرات)
             ToolbarItem(placement: .topBarTrailing) {
                 if hasChanges {
@@ -110,8 +98,9 @@ struct WalletAppearanceView: View {
         withAnimation(.spring(response: 0.45, dampingFraction: 0.9)) {
             walletState.showWalletSavedToast = true
         }
-        // Pop back to Settings (ثم MainView تلتقط التوست)
-        dismiss()
+        // خله يرجع إلى MainView عبر MainView.onChange
+        selectedTab = 2 // يضمن تبويب "المحفظة" إذا احتجت
+        walletState.requestDismissToMain = true
     }
 
     // MARK: - Preview Card
