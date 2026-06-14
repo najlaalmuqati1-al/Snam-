@@ -289,21 +289,19 @@ struct RumorGameView: View {
                                     .font(.system(size: 10))
                                     .foregroundColor(.gray)
                             }
-                            Image(
-                                company.fakeName == "Najd Energy" ? "energy_logo" :
-                                company.fakeName == "Desert Bank" ? "bank_logo" :
-                                company.fakeName == "Najd Telecom" ? "telecom_logo" :
-                                company.fakeName == "Souq Arabia" ? "retail_logo" :
-                                company.fakeName == "NeoTech KSA" ? "tech_logo" :
-                                company.fakeName == "Palm Foods" ? "food_logo" :
-                                company.fakeName == "Golden Cement" ? "construction_logo" :
-                                company.fakeName == "Sky Airlines" ? "travel_logo" :
-                                company.fakeName == "Future Health" ? "health_logo" :
-                                "logistics_logo"
+                            Text(
+                                company.fakeName == "Najd Energy" ? "⚡️" :
+                                company.fakeName == "Desert Bank" ? "🏦" :
+                                company.fakeName == "Najd Telecom" ? "📡" :
+                                company.fakeName == "Souq Arabia" ? "🛍️" :
+                                company.fakeName == "NeoTech KSA" ? "💻" :
+                                company.fakeName == "Palm Foods" ? "🌴" :
+                                company.fakeName == "Golden Cement" ? "🏗️" :
+                                company.fakeName == "Sky Airlines" ? "✈️" :
+                                company.fakeName == "Future Health" ? "🏥" :
+                                "🚚"
                             )
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40)
+                            .font(.system(size: 24))
                         }
                         .environment(\.layoutDirection, .leftToRight)
                         
@@ -328,12 +326,12 @@ struct RumorGameView: View {
                             .environment(\.layoutDirection, .leftToRight)
                         }
                         
-                        MarketBigChartView(
-                            prices: company.chartData.timeframes.oneDay.map { $0.price }
+                        StockChartContainer(
+                            prices: company.chartData.timeframes.oneDay.map { $0.price },
+                            selectedPeriod: "يوم"
                         )
-                        .frame(height: 140)
-                        .padding(.top, 8)
-                    }
+                        .frame(height: 180)
+                        .padding(.top, 8)                    }
                     .padding(16)
                 }
             }

@@ -237,27 +237,25 @@ struct MarketListViewV2: View {
             
             
             HStack {
-                      ZStack {
-                               Circle()
-                                   .fill(Color.white.opacity(0.08))
-                                   .frame(width: 40, height: 44)
-                               Image(
-                                   company.fakeName == "Najd Energy" ? "energy_logo" :
-                                   company.fakeName == "Desert Bank" ? "bank_logo" :
-                                   company.fakeName == "Najd Telecom" ? "telecom_logo" :
-                                   company.fakeName == "Souq Arabia" ? "retail_logo" :
-                                   company.fakeName == "NeoTech KSA" ? "tech_logo" :
-                                   company.fakeName == "Palm Foods" ? "food_logo" :
-                                   company.fakeName == "Golden Cement" ? "construction_logo" :
-                                   company.fakeName == "Sky Airlines" ? "travel_logo" :
-                                   company.fakeName == "Future Health" ? "health_logo" :
-                                   "logistics_logo"
-                               )
-                               .resizable()
-                               .scaledToFit()
-                               .frame(width: 40, height: 44)
-                           }
-                
+                ZStack {
+                    Circle()
+                        .fill(Color.white.opacity(0.08))
+                        .frame(width: 40, height: 44)
+
+                    Text(
+                        company.fakeName == "Najd Energy" ? "⚡️" :
+                        company.fakeName == "Desert Bank" ? "🏦" :
+                        company.fakeName == "Najd Telecom" ? "📡" :
+                        company.fakeName == "Souq Arabia" ? "🛍️" :
+                        company.fakeName == "NeoTech KSA" ? "💻" :
+                        company.fakeName == "Palm Foods" ? "🌴" :
+                        company.fakeName == "Golden Cement" ? "🏗️" :
+                        company.fakeName == "Sky Airlines" ? "✈️" :
+                        company.fakeName == "Future Health" ? "🏥" :
+                        "🚚"
+                    )
+                    .font(.system(size: 24))
+                }
                 VStack(spacing: 8) {
                     
                     Text(companyNameArabic(company.fakeName))
