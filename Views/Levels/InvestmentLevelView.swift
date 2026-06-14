@@ -106,7 +106,6 @@ struct InvestmentLevelView: View {
 
     private var companyHeader: some View {
         HStack {
-            Spacer()
             VStack(alignment: .trailing, spacing: 2) {
                 Text("بيرن اكس")
                     .font(.headline).foregroundStyle(.primary)
@@ -118,21 +117,21 @@ struct InvestmentLevelView: View {
                 .frame(width: 44, height: 44)
                 .clipShape(Circle())
                 .overlay(Circle().stroke(Color.primary.opacity(0.15), lineWidth: 1))
-        }
+            
+            Spacer()          }
     }
 
     private var priceHeader: some View {
         HStack {
-            Spacer()
-            VStack(alignment: .trailing, spacing: 2) {
-                Text(String(format: "%.2f", vm.displayedPrice))
-                    .font(.system(size: 40, weight: .bold))
+            VStack(alignment: .leading, spacing: 2) {
+                Text(arabicNumber(Int(vm.displayedPrice)))                .font(.system(size: 40, weight: .bold))
                     .foregroundStyle(.primary)
                     .contentTransition(.numericText())
-                Text(String(format: "%+.1f%%", vm.percentage))
+                Text("\(vm.isPositive ? "+" : "-")\(arabicNumber(Int(abs(vm.percentage))))%")
                     .font(.subheadline)
                     .foregroundStyle(vm.isPositive ? .green : .red)
             }
+            Spacer()
         }
     }
 
@@ -229,12 +228,13 @@ struct InvestmentLevelView: View {
         VStack(spacing: 2) {
             HStack(spacing: 4) {
                 Image(systemName: "person.2.fill").font(.system(size: 13)).foregroundStyle(color)
-                Text("\(count)").font(.system(size: 15, weight: .semibold)).foregroundStyle(.primary)
+                Text(arabicNumber(count))
+                    .font(.system(size: 15, weight: .semibold)).foregroundStyle(.primary)
             }
             Text(label).font(.system(size: 11)).foregroundStyle(.secondary)
             Text(sublabel).font(.system(size: 10, weight: .medium)).foregroundStyle(color)
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     // MARK: - Glass Card Helper
@@ -293,15 +293,18 @@ struct CustomGradientSlider: View {
                     .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
                     .overlay(Circle().stroke(Color.primary.opacity(0.2), lineWidth: 0.5))
                     .position(x: max(padding, min(xPos, geo.size.width - padding)), y: height / 2)
-                    .gesture(DragGesture(minimumDistance: 0).onChanged { gesture in
-                        let localX   = max(padding, min(gesture.location.x, geo.size.width - padding))
-                        let newValue = Double((localX - padding) / width) * (range.upperBound - range.lowerBound) + range.lowerBound
-                        withAnimation(.interactiveSpring(response: 0.25, dampingFraction: 0.85)) {
-                            value = min(range.upperBound, max(range.lowerBound, newValue))
-                        }
-                    })
+                    // ← احذف الـ gesture من هنا
             }
             .frame(height: height)
+            .contentShape(Rectangle())  // ← أضيف
+            .environment(\.layoutDirection, .leftToRight)  // ← أضيف هذا
+            .gesture(DragGesture(minimumDistance: 0)  // ← حط الـ gesture هنا
+                .onChanged { gesture in
+                    let localX = max(padding, min(gesture.location.x, geo.size.width - padding))
+                    let newValue = Double((localX - padding) / width) * (range.upperBound - range.lowerBound) + range.lowerBound
+                    value = min(range.upperBound, max(range.lowerBound, newValue))
+                }
+            )
         }
         .frame(height: height)
     }
