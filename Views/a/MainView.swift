@@ -286,39 +286,30 @@ struct CompanyRowView: View {
     var body: some View {
         HStack(spacing: 10) {
             VStack(alignment: .leading, spacing: 3) {
-                Text(arabicNumber(Int(company.stock.currentPrice)))                    .font(svArabic("Bold", size: 17))
+                Text(arabicNumber(Int(company.stock.currentPrice)))
+                    .font(svArabic("Bold", size: 17))
                     .foregroundColor(.primary)
-                Text("\(arabicNumber(shares)) أسهم")                    .font(svArabic("Medium", size: 13))
+                Text("\(arabicNumber(shares)) أسهم")
+                    .font(svArabic("Medium", size: 13))
                     .foregroundColor(.secondary)
             }
             .frame(width: 70, alignment: .leading)
 
             HStack(spacing: 10) {
                 VStack(alignment: .trailing, spacing: 3) {
-                    Text(company.fakeName)
+                    Text(companyNameArabic(company.fakeName))
                         .font(svArabic("Bold", size: 16))
                         .foregroundColor(.primary)
                     Text(sectorArabicNew(company.sector))
                         .font(svArabic("Regular", size: 12))
                         .foregroundColor(.secondary)
                 }
-                Image(
-                    company.fakeName == "Najd Energy" ? "energy_logo" :
-                    company.fakeName == "Desert Bank" ? "bank_logo" :
-                    company.fakeName == "Najd Telecom" ? "telecom_logo" :
-                    company.fakeName == "Souq Arabia" ? "retail_logo" :
-                    company.fakeName == "NeoTech KSA" ? "tech_logo" :
-                    company.fakeName == "Palm Foods" ? "food_logo" :
-                    company.fakeName == "Golden Cement" ? "construction_logo" :
-                    company.fakeName == "Sky Airlines" ? "travel_logo" :
-                    company.fakeName == "Future Health" ? "health_logo" :
-                    "logistics_logo"
-                )
-                .resizable()
-                .scaledToFit()
-                .frame(width: 30, height: 30)
-                
-                .clipShape(Circle())
+
+                Image(company.imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30)
+                    .clipShape(Circle())
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
         }
