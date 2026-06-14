@@ -160,7 +160,9 @@ struct StockTypeLevelView: View {
                 .padding(.horizontal, 16)
                 .padding(.top, 8)
             }
-            .onAppear { company = vm.marketData?.companies.first }
+            .onAppear {
+                company = vm.marketData?.companies.randomElement()
+            }
 
             // Overlay: خلفية معتمة خفيفة + الـ Popup
             if let selected = selectedCard {
@@ -185,6 +187,28 @@ struct StockTypeLevelView: View {
     // MARK: - Popup Content
     @ViewBuilder
     private func popupContent(for card: Int) -> some View {
+        // Precompute small values to reduce type-checking complexity
+        let isSpeculative = (card == 1)
+        let timeText = isSpeculative ? "بعد ساعتين" : "بعد ٦ أشهر"
+        let titleText = isSpeculative ? "السهم المضارب" : "السهم الامن"
+        let showDescription: Bool = {
+            if isSpeculative { return !isSimulatingSpeculative && ticksRemaining == 0 }
+            return !isSimulatingSafe && safeTicksRemaining == 0
+        }()
+        let descriptionText: String = isSpeculative
+        ? "هنا تشتري وتبيع في نفس اليوم أو الأسبوع عشان تطلع بربح سريع من حركة السعر. في المضاربة، أنت ما يهمك وش تسوي الشركة أو وش قيمتها، المهم عندك إذا السعر بيرتفع أو ينخفض."
+        : "هذا السهم حق المدى الطويل.\n تشتري فيه وتخليه سنين عشان فلوسك تكبر بهدوء وأمان. الشركات هنا تكون عملاقة وراسخة بالسوق، وما تهزها الأزمات بسهولة."
+        let livePrice = currentDisplayedPrice(for: card)
+        let displayedPrices: [Double] = {
+            guard let company else { return [] }
+            let base = company.chartData.timeframes.oneDay.map { $0.price }
+            if isSpeculative {
+                return (isSimulatingSpeculative || !pricesForChart.isEmpty) ? pricesForChart : base
+            } else {
+                return (isSimulatingSafe || !pricesForSafeChart.isEmpty) ? pricesForSafeChart : base
+            }
+        }()
+
         VStack(spacing: 0) {
             HStack {
                 Spacer()
@@ -205,58 +229,24 @@ struct StockTypeLevelView: View {
             .padding(.top, 12)
 
             VStack(spacing: 20) {
-                HStack(alignment: .top) {
-                    VStack(spacing: 8) {
-                        Image(systemName: "clock")
-                            .font(.system(size: 15))
-                            .foregroundColor(Color(red: 157/255, green: 181/255, blue: 239/255))
-                        Text("").font(.system(size: 15)).foregroundColor(.white)
-                    }
+                PopupHeaderView(
+                    timeText: timeText,
+                    livePrice: livePrice,
+                    company: company
+                )
 
-                    Spacer()
-
-                    VStack(alignment: .trailing, spacing: 4) {
-                        HStack(spacing: 12) {
-                            VStack(alignment: .trailing, spacing: 4) {
-                                Text("بيرن اكس")
-                                    .font(.system(size: 20, weight: .bold))
-                                    .foregroundColor(.white)
-
-                                Text("قطاع الأعمال")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(.gray)
-                            }
-
-                            Image("bx")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40, height: 40)
-                        }
-                    }
+                if !displayedPrices.isEmpty {
+                    MarketBigChartView(prices: displayedPrices)
+                        .frame(height: 180)
                 }
 
-                if let company {
-                    MarketBigChartView(
-                        prices: card == 1
-                        ? ((isSimulatingSpeculative || !pricesForChart.isEmpty) ? pricesForChart : company.chartData.timeframes.oneDay.map { $0.price })
-                        : ((isSimulatingSafe || !pricesForSafeChart.isEmpty) ? pricesForSafeChart : company.chartData.timeframes.oneDay.map { $0.price })
-                    )
-                    .frame(height: 180)
-                }
-
-                Text(card == 1 ? "السهم المضارب" : "السهم الامن")
+                Text(titleText)
                     .font(.system(size: 28, weight: .bold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, alignment: .trailing)
 
-                if (card == 1 && !isSimulatingSpeculative && ticksRemaining == 0) ||
-                    (card == 2 && !isSimulatingSafe && safeTicksRemaining == 0) {
-                    Text(card == 1
-                         ? "هنا تشتري وتبيع في نفس اليوم أو الأسبوع عشان تطلع بربح سريع من حركة السعر. في المضاربة، أنت ما يهمك وش تسوي الشركة أو وش قيمتها، المهم عندك إذا السعر بيرتفع أو ينخفض."
-                         : "هذا السهم حق المدى الطويل.\n تشتري فيه وتخليه سنين عشان فلوسك تكبر بهدوء وأمان. الشركات هنا تكون عملاقة وراسخة بالسوق، وما تهزها الأزمات بسهولة.")
-                        .font(.system(size: 18))
-                        .foregroundColor(.white.opacity(0.5))
-                        .multilineTextAlignment(.trailing)
+                if showDescription {
+                    PopupDescriptionView(text: descriptionText)
                         .transition(.opacity.combined(with: .move(edge: .bottom)))
                 }
             }
@@ -273,6 +263,17 @@ struct StockTypeLevelView: View {
             .padding(.bottom, 16)
         }
         .padding(.horizontal, 16)
+    }
+
+    private func currentDisplayedPrice(for card: Int) -> Double? {
+        if card == 1 {
+            if let last = pricesForChart.last { return last }
+            if let company { return company.stock.currentPrice }
+        } else {
+            if let last = pricesForSafeChart.last { return last }
+            if let company { return company.stock.currentPrice }
+        }
+        return nil
     }
 
     private func closePopup() {
@@ -355,6 +356,82 @@ struct StockTypeLevelView: View {
         safeTimer?.invalidate()
         safeTimer = nil
         isSimulatingSafe = false
+    }
+}
+
+// MARK: - Small extracted views to help the type-checker
+
+private struct PopupHeaderView: View {
+    let timeText: String
+    let livePrice: Double?
+    let company: Company?
+
+    var body: some View {
+        HStack(alignment: .top) {
+            // Time
+            VStack(spacing: 8) {
+                Image(systemName: "clock")
+                    .font(.system(size: 15))
+                    .foregroundColor(Color(red: 157/255, green: 181/255, blue: 239/255))
+                Text(timeText)
+                    .font(.system(size: 15))
+                    .foregroundColor(.white.opacity(0.8))
+            }
+
+            Spacer()
+
+            // Company name + change
+            VStack(alignment: .trailing, spacing: 6) {
+                HStack(spacing: 12) {
+                    VStack(alignment: .trailing, spacing: 4) {
+                        Text("بيرن اكس")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.white)
+
+                        Text("قطاع الأعمال")
+                            .font(.system(size: 16))
+                            .foregroundColor(.gray)
+
+                        HStack(spacing: 8) {
+                            if let livePrice {
+                                let livePriceText = arabicNumerals(String(format: "%.2f", livePrice))
+                                Text(livePriceText)
+                                    .font(.system(size: 18, weight: .bold))
+                                    .foregroundColor(.white)
+                            }
+
+                            if let company {
+                                let change = company.stock.changePercent
+                                let changeAbs = String(format: "%.2f", change)
+                                let changePrefix = change >= 0 ? "+" : ""
+                                let changeText = arabicNumerals("\(changePrefix)\(changeAbs)%")
+                                let changeColor: Color = change >= 0 ? .green : .red
+
+                                Text(changeText)
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(changeColor)
+                            }
+                        }
+                    }
+
+                    Image("bx")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
+                }
+            }
+        }
+    }
+}
+
+private struct PopupDescriptionView: View {
+    let text: String
+
+    var body: some View {
+        Text(text)
+            .font(.system(size: 18))
+            .foregroundColor(.white.opacity(0.5))
+            .multilineTextAlignment(.trailing)
     }
 }
 
