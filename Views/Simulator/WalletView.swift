@@ -31,149 +31,108 @@ struct WalletView: View {
                 .scaledToFill()
                 .ignoresSafeArea()
             
-            ScrollView {
+           
                 
                 
-                VStack(spacing: 24) {
+                VStack(spacing: 32){ //main
+                  
+                //MARK: - shareRectangle
                     
-                    ZStack {
-
-                        Text("المال الحلال")
-                            .font(.system(size: 22, weight: .semibold))
-                            .foregroundColor(.white)
-
-                        HStack {
-
-                            Spacer()
-
-                            Button {
-                                dismiss()
-                            } label: {
-
-                                Circle()
-                                    .fill(Color.black.opacity(0.2))
-                                    .frame(width: 44, height: 44)
-                                    .overlay(
-                                        Circle()
-                                            .stroke(Color.white.opacity(0.08), lineWidth: 1)
-                                    )
-                                    .overlay(
-                                        Image(systemName: "chevron.right")
-                                            .foregroundColor(.white)
-                                            .font(.system(size: 22, weight: .regular))
-                                    )
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 24)
-                    .padding(.top, 52)
-                    
-                    Color.clear
-                        .frame(height: 50)
-                    
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.black.opacity(0.2))
-                        .frame(height: 85)
-                        .overlay {
+                    ZStack{
+                        Rectangle()
+                            .cornerRadius(20)
+                            .frame(width: 360,height: 80)
+                            .foregroundStyle(.black)
+                            .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0, y: 0.1)
+                            .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.1)
+                        
+                        HStack{
                             
-                            HStack {
+                            Button{}label: {
+                                ZStack{
+                           
+                                Circle()
+                                .frame(width: 44,height: 44)
+                                .foregroundStyle(.brandPrimary)
+                                .shadow(color: .black.opacity(0.1), radius: 1)
+                                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 1)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 100)
+                                        .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                                                                       )
+                           
+                                Image(systemName:"square.and.arrow.up")
+                                    .font(.system(size: 20))
+                                    .foregroundStyle(.white)
+                                                               }//z
+                                                           }//b
+                            
+                            Spacer().frame(width: 80)
+                            
+                            VStack{
+                                Text("شارك مع صديق واحصل")
+                                    .font(.system(size: 18,weight: .semibold))
+
                                 
-                                ZStack {
-                                    
-                                    Circle()
-                                        .fill(Color(red: 0.137, green: 0.235, blue: 0.455))
-                                        .frame(width: 44, height: 44)
-                                    
-                                    Image(systemName: "square.and.arrow.up")
-                                        .foregroundColor(.white)
-                                        .font(.system(size: 20))
-                                }
+                                Text("على ١٠٠ سنام في محفظتك")
+                                    .font(.system(size: 18,weight: .semibold))
                                 
-                                Spacer()
-                                
-                                HStack(alignment: .top, spacing: 8) {
-                                    
-                                    VStack(spacing: 0) {
-                                        
-                                        Text("\(Int(walletState.balance))")
-                                            .font(.system(size: 22, weight: .medium))
-                                            .foregroundColor(.white)
-                                        
-                                        Text("سنام")
-                                            .font(.system(size: 9))
-                                            .foregroundColor(.gray)
-                                    }
-                                    
-                                    Text("شارك سهم مع ربعك وتبرع\nفي محفظتك")
-                                        .font(.system(size: 18, weight: .semibold))
-                                        .multilineTextAlignment(.trailing)
-                                        .foregroundColor(.white)
-                                }
-                            }
-                            .padding(.horizontal, 20)
-                        }
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.white.opacity(0.15))
-                        )
-                        .padding(.horizontal)
-                    Color.clear
-                        .frame(height: 12)
+                            }//v
+                            .frame(width: 200,height: 48,alignment: .trailing)
+                            
+                        }//h
+                    }//z
                     
+                   // Spacer().frame(height: 32)
+                    
+                    
+                    //MARK: - moneyyyy
                     
                     LazyVGrid(columns: columns, spacing: 20) {
                         
                         ForEach(items, id: \.0) { item in
                             
-                            VStack(spacing: 20) {
+                            VStack(spacing: 32) {
                                 
-                                VStack(spacing: 0) {
+                                HStack(spacing: 0) {
+                                    
+                                    Text("سنام")
+                                        .font(.system(size: 10))
+                                        .foregroundColor(.gray)
                                     
                                     Text(item.0)
                                         .font(.system(size: 22, weight: .medium))
                                         .foregroundColor(.white)
-                                    
-                                    Text("سنام")
-                                        .font(.system(size: 9))
-                                        .foregroundColor(.gray)
                                 }
                                 
                                 Image("wallet")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 120)
+                                    .frame(width: 80,height: 80)
                                 
                                 WalletButton(title: item.1) {
                                     
                                 }
                                 
                             }
-                            .scaleEffect(0.85)
+                            //.scaleEffect(0.85)
                         }
-                        .padding()
-                        .frame(height: 209)
+                        .frame(width: 175, height: 209)
                         .background(
                             RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.black.opacity(0.2))
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.white.opacity(0.15))
-                            
+                                .fill(Color.black)
+                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0, y: 0.1)
+                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.1)
                         )
                     }
-                }
-                
-                .padding(.horizontal)
-            }
-            .padding(.top, 20)
-            .padding(.bottom, 40)
-            .navigationBarBackButtonHidden(true)
+                }//vMain
+                .padding(.horizontal,16)
+                .padding(.bottom,120)
+          
+        //.padding(.bottom, 40)
         }
+        .navigationTitle("سوق سنام")
         
     }
-    
-    
-    
-    
 }
+
