@@ -54,7 +54,7 @@ struct LevelsView: View {
 
                 VStack(alignment: .trailing, spacing: 21) {
                     Text("المراحل")
-                        .font(.system(size: 34, weight: .heavy))
+                        .font(.system(size: 34, weight: .black))
                         .foregroundColor(.primary)
                         .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -64,8 +64,8 @@ struct LevelsView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .padding(.leading, 24)
-                .padding(.horizontal, 24)
-                .padding(.top, 90)
+                //.padding(.horizontal, 24)
+                .padding(.top, 24)
                 .padding(.bottom, 20)
 
                 LevelsListView(levels: levels, currentLevel: currentLevel)

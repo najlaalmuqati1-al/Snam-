@@ -19,6 +19,7 @@ struct CompanyDetailViewV2: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var walletState: WalletState
     @State private var isSuccessToast: Bool = true
+    let periods = ["سنه", "شهر", "اسبوع", "يوم"]
     func tutorialBubble(_ text: String) -> some View {
         
         VStack(spacing: 0) {
@@ -204,7 +205,7 @@ struct CompanyDetailViewV2: View {
                             RoundedRectangle(cornerRadius: 900)
                                 .fill(.black)
                                 .frame(width: 100, height: 44)
-                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.2, y: 0.2)
+                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0, y: 0.1)
                                 .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.1)
                             
                             HStack(spacing: 8) {
@@ -231,8 +232,8 @@ struct CompanyDetailViewV2: View {
                             Circle()
                                 .fill(Color.black)
                                 .frame(width: 44, height: 44)
-                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.2)
-                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.2)
+                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0, y: 0.1)
+                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.1)
                                 
                                     Image(systemName: "chevron.right")
                                         .foregroundColor(.white)
@@ -240,7 +241,7 @@ struct CompanyDetailViewV2: View {
                         }
                     }
                 }
-                .padding(.horizontal, 24)
+                .padding(.horizontal, 16)
                 .padding(.top, 10)
                 
                 Spacer().frame(height: 42)
@@ -306,22 +307,48 @@ struct CompanyDetailViewV2: View {
                     //MARK: - picker
                     
                 VStack(alignment: .center,spacing: 16) {
-                
-                    HStack(spacing: 16) {
+
+                    HStack(spacing: 0) {
                         
-                        Picker("", selection: $selectedPeriod) {
-                            Text("سنه").tag("سنه")
-                            Text("شهر").tag("شهر")
-                            Text("اسبوع").tag("اسبوع")
-                            Text("يوم").tag("يوم")
-                        }//p
-                        .pickerStyle(.segmented)
-                        .tint(.black)
-                        .glassEffect(in: .rect(cornerRadius: 100))
+                        ForEach(periods, id: \.self) { item in
+                            
+                            Button {
+                                selectedPeriod = item
+                            } label: {
+                                
+                                Text(item)
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(selectedPeriod == item ? .white : .white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 6)
+                            }
+                        }
+                    }
+                    .frame(width: 360, height: 36)
+                    .background(
                         
-                    }//h
-                    .font(.caption)
-                    .foregroundColor(.white)
+                        ZStack {
+                            // الخلفية الأساسية
+                            RoundedRectangle(cornerRadius: 900)
+                                .fill(Color.black.opacity(0.1))
+                            
+                            // الـ indicator المتحرك
+                            GeometryReader { geo in
+                                
+                                RoundedRectangle(cornerRadius: 18)
+                                    .fill(Color.black.opacity(1))
+                                    .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.2, y: 0.2)
+                                    .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.1)
+                                    .frame(width: geo.size.width / 4)
+                                    .offset(
+                                        x: CGFloat(periods.firstIndex(of: selectedPeriod) ?? 0)
+                                        * (geo.size.width / 4)
+                                    )
+                                    .animation(.easeInOut(duration: 0.2), value: selectedPeriod)
+                            }.padding(.vertical,4)
+                        }
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 900))
                     
                     //MARK: - Chart
                     
@@ -413,7 +440,7 @@ struct CompanyDetailViewV2: View {
                             }
                         )
                         
-                        .presentationDetents([.height(730)])
+                        .presentationDetents([.height(650)])
                         .presentationBackground(.black)
                     }
                     
@@ -551,7 +578,7 @@ struct CompanyDetailViewV2: View {
                 }//endOfSheet
                 
             }//vMain
-            .padding(.horizontal,16)
+            .safeAreaPadding(.horizontal, 16)
             
         }//zMain
         

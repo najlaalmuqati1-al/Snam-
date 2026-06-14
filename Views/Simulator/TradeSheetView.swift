@@ -27,6 +27,7 @@ struct TradeSheetView: View {
 
             Color.black
                 .ignoresSafeArea()
+            
 //            if showSuccessToast {
 //
 //                VStack {
@@ -56,33 +57,56 @@ struct TradeSheetView: View {
 //                .zIndex(999)
 //            }
 
-            VStack(spacing: 24) {
+            VStack/*(spacing: 24)*/ {
 
 
                 Capsule()
-                    .fill(.gray.opacity(0.5))
-                    .frame(width: 50,height: 5)
+                    .fill(.gray)
+                    .frame(width: 36,height: 5)
                     .padding(.top)
 
                 Text("صفحة تداول")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(.white)
                     .padding(.top, 20)
-
-                Text(arabicNumber(Int(company.stock.currentPrice * Double(quantity))))
-                    .font(.system(size: 64, weight: .black))
-                    .foregroundColor(.white)
-                    .padding(.top, 35)
-
-                Text("سنام")
-                    .font(.system(size: 18))
-                    .foregroundColor(.gray)
-
                 
+                Spacer().frame(height: 57)
+                
+                ZStack{
+                    Rectangle()
+                        .fill(.black)
+                        .frame(width: 104,height: 24)
+                        .cornerRadius(11)
+                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.1, y: 0.1)
+                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.2, y: -0.2)
+                    
+                    Text("\(arabicNumber(vm.ownedShares[company.id, default: 0])) من أسهم")
+                        .foregroundStyle(.white)
+                        .font(.system(size: 16))
+                    
+                }//z
 
+                Spacer().frame(height: 25)
+                
+                HStack{
+                    
+                    Text("سنام")
+                        .font(.system(size: 18,weight: .light))
+                        .foregroundColor(.gray)
+                        .padding(.top)
+                    
+                    Text(arabicNumber(Int(company.stock.currentPrice * Double(quantity))))
+                        .font(.system(size: 64, weight: .semibold))
+                        .foregroundColor(.white)
+                        //.padding(.top, 35)
+                    
+                }//h
+
+                Spacer().frame(height: 100)
+                
                 HStack(alignment: .top) {
 
-                    VStack(alignment: .trailing, spacing: 50) {
+                    VStack(alignment: .leading, spacing: 40) {
 
                         Text("الكمية التي تم تداولها مسبقاً")
 
@@ -91,36 +115,67 @@ struct TradeSheetView: View {
                         Text("الكمية المرادة")
                     }
                     .foregroundColor(.white)
-                    .font(.title3)
+                    .font(.system(size: 18,weight: .medium))
 
                     Spacer()
 
                     VStack(spacing: 40) {
 
-                        Text("\(arabicNumber(vm.ownedShares[company.id, default: 0])) من أسهم")                            .foregroundColor(.white)
+                        Text("\(arabicNumber(vm.ownedShares[company.id, default: 0])) من أسهم")               .foregroundColor(.white)
+                            .font(.system(size: 16))
 
-                        HStack(spacing: 0) {
-
-                            Button("بيع") {
+                        HStack(spacing: 8) {
+                            
+                            Button {
                                 isBuy = false
+                            } label: {
+                                Text("بيع")
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(isBuy ? .white : .white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 6)
                             }
-                            .frame(width: 95, height: 48)
-                            .background(isBuy ? .clear : Color.white.opacity(0.15))
-
-                            Button("شراء") {
+                            
+                            Button {
                                 isBuy = true
+                            } label: {
+                                Text("شراء")
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(isBuy ? .white : .white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 6)
                             }
-                            .frame(width: 90,height: 44)
-                            .background(isBuy ? Color.white.opacity(0.15) : .clear)
                         }
-                        .foregroundColor(.white)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 22)
-                                .stroke(Color.white.opacity(0.15))
+                        .frame(width: 110, height: 34)
+                        .padding(.horizontal,6)
+                        .background(
+                            ZStack {
+                                // الخلفية الأساسية
+                                RoundedRectangle(cornerRadius: 90000)
+                                    .fill(Color.black)
+                                    .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.1, y: 0.2)
+                                    .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.2)
+                                
+                                // المتحرك (highlight)
+                                GeometryReader { geo in
+                                    
+                                    RoundedRectangle(cornerRadius: 18)
+                                        .fill(Color.black.opacity(0.9))
+                                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.1, y: 0.2)
+                                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.2)
+                                        .frame(width: geo.size.width / 2)
+                                        .offset(x: isBuy ? geo.size.width / 2 : 0)
+                                        .animation(.easeInOut(duration: 0.2), value: isBuy)
+                                }
+                            }
                         )
-                        .clipShape(Capsule())
-
-                        HStack(spacing: 30) {
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.1, y: 0.1)
+                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0, y: -0.1)
+                        
+                        
+                        
+                        HStack(spacing: 20) {
 
                             Button {
                                 if quantity > 1 {
@@ -128,25 +183,37 @@ struct TradeSheetView: View {
                                 }
                             } label: {
                                 Image(systemName: "minus")
+                                    .font(.system(size: 17,weight: .semibold))
+                                    .foregroundColor(.white)
                             }
 
                             Text(arabicNumber(quantity))
-                                .font(.title2.bold())
+                                .font(.system(size: 22,weight: .bold))
+                                .foregroundColor(.white)
 
                             Button {
                                 quantity += 1
                             } label: {
                                 Image(systemName: "plus")
+                                    .font(.system(size: 17,weight: .semibold))
+                                    .foregroundColor(.white)
                             }
-                        }
-                        .foregroundColor(.white)
-                    }
-                }
-                .padding(.top, 50)
-                .padding(.horizontal,24)
+                        }.padding(.horizontal,16)
+                        .background(
+                            Color.gray.opacity(0.2)
+                                .frame(width: 112,height: 44)
+                                .cornerRadius(100)
+                        )
+                        
+                    }//vLeft
+                }//hAll
+                //.padding(.top, 50)
+                .padding(.horizontal,16)
                 .environment(\.layoutDirection, .rightToLeft)
                 .foregroundColor(.white)
 
+                Spacer().frame(height: 82)
+                
                 PrimaryButton(title: isBuy ? "اشتر" : "بع") {
 
                     if isBuy {
@@ -175,7 +242,7 @@ struct TradeSheetView: View {
                 }
 
                 Spacer()
-                            }
+                            }//vMain
             
             
 
@@ -220,4 +287,3 @@ struct TradeSheetView: View {
                     }
                 }
     
-

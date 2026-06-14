@@ -94,11 +94,11 @@ struct MainView: View {
                     )
 
                 ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 0) {
+                    VStack(spacing: 32) {
 
                         // ── Top Header ──────────────────────────────────
                         headerBar
-
+                        
                         // ── Wallet Card ─────────────────────────────────
                         walletCardSection
                             .padding(.top, 20)
@@ -156,23 +156,30 @@ struct MainView: View {
         HStack(alignment: .center) {
             // Settings gear
             Button(action: { showSettings = true }) {
-                Image(systemName: "gearshape.fill")
-                    .font(.system(size: 20, weight: .medium))
-                    .foregroundColor(.primary.opacity(0.75))
-                    .padding(10)
-                    .background(Color.secondary.opacity(0.12))
-                    .clipShape(Circle())
-            }
+                
+                ZStack{
+                    Circle()
+                        .frame(width: 44,height: 44)
+                        .foregroundStyle(.black)
+                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0, y: 0.1)
+                        .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.1, y: -0.1)
+                        .glassEffect()
+                    
+                    Image(systemName: "gearshape.fill")
+                        .font(.system(size: 20, weight: .medium))
+                        .foregroundStyle(.white)
+                }//z
+            }//b
 
             Spacer()
 
             Text("محفظتك")
-                .font(svArabic("Bold", size: 26))
+                .font(.system(size: 36,weight: .black))
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
         }
         .padding(.horizontal, 24)
-        .padding(.top, 16)
+        .padding(.top, 24)
     }
 
     // MARK: - Wallet Card Section

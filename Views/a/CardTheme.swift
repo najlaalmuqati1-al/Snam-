@@ -67,14 +67,20 @@ struct WalletCardView: View {
                 .scaledToFill()
                 .clipped()
 
-            VStack(spacing: isPreview ? 4 : 6) {
+            VStack(spacing: isPreview ? 4 : 8) {
                 Text("فلوسك الافتراضية")
-                    .font(svArabic("Bold", size: isPreview ? 12 : 14))
+                    //.font(svArabic("Bold", size: isPreview ? 14 : 14))
+                    .font(.system(size: isPreview ? 14 : 14,weight: .bold))
                     .foregroundColor(.primary.opacity(0.95))
+                    .shadow(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4)
                     .frame(maxWidth: .infinity, alignment: .center)
 
+                //Spacer().frame(height: 1)
+                
               //  Text("00.00")
-                Text(arabicNumber(Int(walletState.balance)))                    .font(svArabic("Black", size: isPreview ? 42 : 54))
+                Text(arabicNumber(Int(walletState.balance)))
+                    .font(.system(size: isPreview ? 40 : 48,weight: .bold))
+                    .shadow(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4)
                     .foregroundColor(.primary)
                     .frame(maxWidth: .infinity, alignment: .center)
             }
@@ -82,10 +88,11 @@ struct WalletCardView: View {
 
             VStack {
                 Spacer()
-                HStack(spacing: isPreview ? 2 : 3) {
+                HStack(spacing: isPreview ? 2 : 4) {
                     Spacer()
                     Text(holderName)
-                        .font(svArabic("Medium", size: isPreview ? 12 : 14))
+                        .font(.system(size: isPreview ? 12 : 14,weight: .semibold))
+                        .shadow(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4)
                         .foregroundColor(.primary.opacity(0.9))
                         .padding(.trailing, isPreview ? -7 : -7)
 
