@@ -5,6 +5,9 @@
 //  Created by Jojo on 07/06/2026.
 // باقي البرقراس هنا فقط
 
+//  Levels.swift
+//  Snam
+
 import SwiftUI
 
 // MARK: - Models
@@ -64,7 +67,6 @@ struct LevelsView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .padding(.leading, 24)
-                //.padding(.horizontal, 24)
                 .padding(.top, 24)
                 .padding(.bottom, 20)
 
@@ -75,15 +77,15 @@ struct LevelsView: View {
             }
         }
         .background(
-                Color(.systemBackground)
-                    .ignoresSafeArea()
-                    .overlay(
-                        Image("Frame")
-                            .resizable()
-                            .scaledToFill()
-                            .ignoresSafeArea()
-                    )
-            )
+            Color(.systemBackground)
+                .ignoresSafeArea()
+                .overlay(
+                    Image("Frame")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
+                )
+        )
         .environment(\.layoutDirection, .rightToLeft)
     }
 }
@@ -93,22 +95,16 @@ struct LevelsView: View {
 struct LevelsListView: View {
     let levels: [Level]
     let currentLevel: Int
-    @EnvironmentObject var walletState: WalletState 
+    @EnvironmentObject var walletState: WalletState
 
     var totalHeight: CGFloat {
         CGFloat(levels.count) * cardHeight + CGFloat(levels.count - 1) * cardGap
     }
 
-    var fillHeight: CGFloat {
-        guard currentLevel > 1 else { return 0 }
-        let completedIndex = currentLevel - 2
-        let idx = min(completedIndex, levels.count - 1)
-        return dotY(for: idx)
-    }
-
     var body: some View {
         ZStack(alignment: .topLeading) {
 
+            // ── الكروت ──
             VStack(spacing: cardGap) {
                 ForEach(levels, id: \.id) { level in
                     let state = levelState(for: level.id)
@@ -126,23 +122,50 @@ struct LevelsListView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, dotSize + 12)
 
+            // ── اللاين والنقاط ──
             ZStack(alignment: .top) {
 
-                Rectangle()
-                    .fill(
-                        LinearGradient(
-                            stops: [
-                                .init(color: Color(hex: "#0E2357"), location: 0.0),
-                                .init(color: Color(hex: "#999999"), location: 0.4),
-                                .init(color: Color(hex: "#2C2A28"), location: 1.0),
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-                    .frame(width: 2, height: dotY(for: levels.count - 1) - dotY(for: 0) - dotSize / 2)
-                    .offset(x: dotSize / 2 - 12, y: 0)
+                // لاين منفصل لكل segment بين نقطتين
+                // إذا النقطة العلوية مكتملة أو نشطة → gradient أزرق (نفس الكود الأصلي)
+                // إذا مقفلة → رمادي شفاف
+                ForEach(0..<levels.count - 1, id: \.self) { index in
+                    let topState      = levelState(for: levels[index].id)
+                    let segmentHeight = dotY(for: index + 1) - dotY(for: index) - dotSize
+                    let yOffset       = dotY(for: index) - dotY(for: 0) + dotSize / 2
 
+                    if topState == .completed {
+                        // ✅ مكتمل → أزرق ثابت كله
+                        Rectangle()
+                            .fill(Color(hex: "#0E2357"))
+                            .frame(width: 2, height: segmentHeight)
+                            .offset(x: dotSize / 2 - 12, y: yOffset)
+
+                    } else if topState == .active {
+                        
+                        Rectangle()
+                            .fill(
+                                LinearGradient(
+                                    stops: [
+                                        .init(color: Color(hex: "#0E2357"), location: 0.0),
+                                        .init(color: Color(hex: "#999999"), location: 0.7),
+                                        .init(color: Color(hex: "#2C2A28"), location: 1.0),
+                                    ],
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                )
+                            )
+                            .frame(width: 2, height: segmentHeight)
+                            .offset(x: dotSize / 2 - 12, y: yOffset)
+
+                    } else {
+                        Rectangle()
+                            .fill(Color(hex: "#2C2A28").opacity(0.4))
+                            .frame(width: 2, height: segmentHeight)
+                            .offset(x: dotSize / 2 - 12, y: yOffset)
+                    }
+                }
+
+                // النقاط - ما تغيرت
                 ForEach(Array(levels.enumerated()), id: \.element.id) { index, level in
                     ProgressDotView(state: levelState(for: level.id))
                         .offset(y: dotY(for: index) - dotSize / 2 - dotY(for: 0))
