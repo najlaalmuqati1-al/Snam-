@@ -304,12 +304,22 @@ struct CompanyRowView: View {
                         .font(svArabic("Regular", size: 12))
                         .foregroundColor(.secondary)
                 }
-
-                Image(company.imageName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 30, height: 30)
-                    .clipShape(Circle())
+                Text(
+                    company.fakeName == "Najd Energy" ? "⚡️" :
+                    company.fakeName == "Desert Bank" ? "🏦" :
+                    company.fakeName == "Najd Telecom" ? "📡" :
+                    company.fakeName == "Souq Arabia" ? "🛍️" :
+                    company.fakeName == "NeoTech KSA" ? "💻" :
+                    company.fakeName == "Palm Foods" ? "🌴" :
+                    company.fakeName == "Golden Cement" ? "🏗️" :
+                    company.fakeName == "Sky Airlines" ? "✈️" :
+                    company.fakeName == "Future Health" ? "🏥" :
+                    "🚚"
+                )
+                .font(.system(size: 24))
+                .frame(width: 30, height: 30)
+                
+                .clipShape(Circle())
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
         }

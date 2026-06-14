@@ -22,7 +22,7 @@ struct PortfolioRootView: View {
 
             if vm.showCongrats {
                 PortfolioCongratsView(vm: vm, onFinished: {
-                    walletState.collectReward(forLevel: 3);                    selectedTab = 2
+                    walletState.collectReward(forLevel: 5);                    selectedTab = 2
                     dismiss()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         vm.collectReward()  // ← بعد الـ dismiss

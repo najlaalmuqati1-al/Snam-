@@ -14,7 +14,7 @@ struct YourAppName: App { // هنا اسم تطبيقك
     var body: some Scene {
         WindowGroup {
             AppContainerView {
-                MainTabView()
+                SanamOnboardingView()
             }
             .environmentObject(walletState)
             .preferredColorScheme(walletState.appAppearance.colorScheme)
@@ -23,5 +23,5 @@ struct YourAppName: App { // هنا اسم تطبيقك
 }
 
 #Preview{
-    MainTabView()
+    SanamOnboardingView()
 }
