@@ -46,10 +46,10 @@ struct WalletButton: View {
         Button(action: action) {
 
             Text(title)
-                .font(.system(size: 22, weight: .semibold))
+                .font(.system(size: 14, weight: .semibold))
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
-                .frame(height: 44)
+                .frame(width: 107,height: 27)
                 .background(
                     ZStack {
 
@@ -71,6 +71,69 @@ struct WalletButton: View {
         }
     }
 }
+
+struct CircleButton: View {
+    
+    let action: () -> Void
+
+    var body: some View {
+
+        
+        
+        Button{}label: {
+            ZStack{
+                
+                Circle()
+                    .frame(width: 44,height: 44)
+                    .foregroundStyle(.brandPrimary)
+                    .shadow(color: .black.opacity(0.1), radius: 1)
+                    .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 1)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 100)
+                    .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                                    )
+                
+                Image(systemName:"square.and.arrow.up")
+                    .font(.system(size: 20,weight: .medium))
+                    .foregroundStyle(.white)
+            }//z
+        }
+       
+    
+    }
+}
+
+struct SmallButton: View {
+
+    let title: String
+    let action: () -> Void
+
+    var body: some View {
+
+        Button(action: action) {
+            
+            ZStack{
+                
+                Circle()
+                    .frame(width: 107,height: 27)
+                    .foregroundStyle(.brandPrimary)
+                    .shadow(color: .black.opacity(0.1), radius: 1)
+                    .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 1)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 100)
+                    .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                                    )
+                
+                Text(title)
+                    .font(.system(size: 20))
+                    .foregroundStyle(.white)
+            }//z
+        }//b
+    
+    }
+}
+
+
 //طريقة استخدامه
 /**
  
