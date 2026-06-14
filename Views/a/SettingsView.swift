@@ -12,9 +12,6 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var walletState: WalletState
 
-    @State private var navigateToWalletAppearance = false
-    @State private var showLanguagePicker = false
-
     private func svArabic(_ weight: String, size: CGFloat) -> Font {
         .custom("SVArabic-\(weight)", size: size, relativeTo: .body)
     }
@@ -46,45 +43,13 @@ struct SettingsView: View {
                                     destination: AnyView(
                                         WalletAppearanceView(walletState: walletState)
                                             .environmentObject(walletState)
-                                            // العنوان مضبوط داخل WalletAppearanceView
                                     )
                                 )
                             ]
                         )
 
-                        // ── General Section ──────────────────────────
-                        settingsGroup(
-                            title: "إعدادات عامة",
-                            items: [
-                                SettingsItem(
-                                    icon: "globe",
-                                    iconColor: .gray,
-                                    title: "اللغة",
-                                    destination: AnyView(
-                                        LanguageSettingsHelperView()
-                                            .environmentObject(walletState)
-                                    )
-                                ),
-                                SettingsItem(
-                                    icon: "sun.max.fill",
-                                    iconColor: .gray,
-                                    title: "شكل التطبيق",
-                                    destination: AnyView(
-                                        AppearanceSettingsHelperView()
-                                            .environmentObject(walletState)
-                                    )
-                                ),
-                                SettingsItem(
-                                    icon: "shield.fill",
-                                    iconColor: .gray,
-                                    title: "الخصوصية والأمان",
-                                    destination: AnyView(
-                                        PrivacySecurityView()
-                                            .environmentObject(walletState)
-                                    )
-                                ),
-                            ]
-                        )
+                        // ── General Section (appearance dropdown + privacy link) ─────────
+                        generalGroup
 
                         Spacer().frame(height: 60)
                     }
@@ -96,6 +61,101 @@ struct SettingsView: View {
         .environment(\.layoutDirection, .leftToRight)
         .navigationTitle("الإعدادات")
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    // MARK: - General Group (contains appearance dropdown + privacy link)
+    private var generalGroup: some View {
+        VStack(alignment: .trailing, spacing: 12) {
+            Text("إعدادات عامة")
+                .font(svArabic("Bold", size: 24))
+                .foregroundColor(.primary)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.bottom, 8)
+
+            VStack(spacing: 0) {
+                // 1) Appearance row (dropdown)
+                appearanceRow
+
+                // Divider
+                Rectangle()
+                    .fill(Color.primary.opacity(0.1))
+                    .frame(height: 1)
+                    .padding(.leading, 18)
+
+                // 2) Privacy & Security row (NavigationLink)
+                NavigationLink {
+                    PrivacySecurityView()
+                        .environmentObject(walletState)
+                } label: {
+                    HStack(spacing: 16) {
+                        Spacer()
+
+                        Text("الخصوصية والأمان")
+                            .font(svArabic("Medium", size: 18))
+                            .foregroundColor(.primary)
+
+                        Image(systemName: "shield.fill")
+                            .font(.system(size: 22, weight: .medium))
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 18)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(.vertical, 4)
+            .background(
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                    .fill(Color.secondary.opacity(0.06))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 22, style: .continuous)
+                            .stroke(Color.primary.opacity(0.25), lineWidth: 1.0)
+                    )
+            )
+        }
+    }
+
+    // MARK: - Appearance Row with dropdown menu
+    private var appearanceRow: some View {
+        HStack(spacing: 16) {
+            Spacer()
+
+            Menu {
+                // خيارات المظهر (يتبع النظام/فاتح/داكن)
+                ForEach(AppAppearance.allCases) { option in
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            walletState.appAppearance = option
+                        }
+                    } label: {
+                        HStack {
+                            if walletState.appAppearance == option {
+                                Image(systemName: "checkmark")
+                            }
+                            Text(option.title)
+                        }
+                    }
+                }
+            } label: {
+                HStack(spacing: 8) {
+                    Text("شكل التطبيق")
+                        .font(svArabic("Medium", size: 18))
+                        .foregroundColor(.primary)
+                    Text("(\(walletState.appAppearance.title))")
+                        .font(svArabic("Regular", size: 16))
+                        .foregroundColor(.secondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+
+            Image(systemName: "sun.max.fill")
+                .font(.system(size: 22, weight: .medium))
+                .foregroundColor(.secondary)
+        }
+        .padding(.horizontal, 18)
+        .padding(.vertical, 18)
+        .contentShape(Rectangle())
     }
 
     // MARK: - Settings Group Builder
@@ -141,7 +201,6 @@ struct SettingsView: View {
     @ViewBuilder
     private func settingsRow(item: SettingsItem) -> some View {
         HStack(spacing: 16) {
-            // تمت إزالة سهم chevron.left من الصف لتجنب تكرار زر الرجوع
             Spacer()
 
             Text(item.title)
@@ -164,104 +223,6 @@ struct SettingsItem {
     let iconColor: Color
     let title: String
     let destination: AnyView
-}
-
-// MARK: - Language Settings Helper View
-struct LanguageSettingsHelperView: View {
-    @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var walletState: WalletState
-
-    private func svArabic(_ weight: String, size: CGFloat) -> Font {
-        .custom("SVArabic-\(weight)", size: size, relativeTo: .body)
-    }
-
-    var body: some View {
-        ZStack {
-            Color(.systemBackground)
-                .ignoresSafeArea()
-                .overlay(
-                    Image("Frame")
-                        .resizable()
-                        .scaledToFill()
-                        .ignoresSafeArea()
-                )
-            VStack(spacing: 22) {
-                Text("لتغيير لغة التطبيق، افتح إعدادات النظام، ثم ابحث عن تطبيق سنام واختر اللغة المفضّلة.")
-                    .font(svArabic("Regular", size: 18))
-                    .foregroundColor(.primary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 28)
-
-                Button(action: openAppSettings) {
-                    Text("فتح إعدادات التطبيق")
-                        .font(svArabic("Bold", size: 18))
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 52)
-                        .background(Color.white)
-                        .clipShape(Capsule())
-                }
-                .padding(.horizontal, 26)
-
-                Spacer()
-            }
-        }
-        .environment(\.layoutDirection, .leftToRight)
-    }
-
-    private func openAppSettings() {
-        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-}
-
-// MARK: - Appearance Settings Helper View
-struct AppearanceSettingsHelperView: View {
-    @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var walletState: WalletState
-
-    private func svArabic(_ weight: String, size: CGFloat) -> Font {
-        .custom("SVArabic-\(weight)", size: size, relativeTo: .body)
-    }
-
-    var body: some View {
-        ZStack {
-            Color(.systemBackground)
-                .ignoresSafeArea()
-                .overlay(
-                    Image("Frame")
-                        .resizable()
-                        .scaledToFill()
-                        .ignoresSafeArea()
-                )
-            VStack(spacing: 22) {
-                Text("لتغيير المظهر (فاتح/داكن) أو الاعتماد على مظهر النظام، افتح إعدادات التطبيق من إعدادات النظام.")
-                    .font(svArabic("Regular", size: 18))
-                    .foregroundColor(.primary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 28)
-
-                Button(action: openAppSettings) {
-                    Text("فتح إعدادات التطبيق")
-                        .font(svArabic("Bold", size: 18))
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 52)
-                        .background(Color.white)
-                        .clipShape(Capsule())
-                }
-                .padding(.horizontal, 26)
-
-                Spacer()
-            }
-        }
-        .environment(\.layoutDirection, .leftToRight)
-    }
-
-    private func openAppSettings() {
-        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
 }
 
 // MARK: - Privacy & Security Screen
@@ -304,7 +265,7 @@ struct PrivacySecurityView: View {
                         .padding(.horizontal, 26)
                         .padding(.top, 14)
 
-                        // فقرات بتعداد رقمي والرقم على اليسار
+                        // فقرات بتعداد رقمي
                         VStack(alignment: .trailing, spacing: 26) {
                             numberedSectionRow(
                                 number: 1,
@@ -338,10 +299,8 @@ struct PrivacySecurityView: View {
         .environment(\.layoutDirection, .leftToRight)
     }
 
-    // فقرة بتعداد رقمي والرقم في الجهة اليسار
     private func numberedSectionRow(number: Int, title: String, subtitle: String) -> some View {
         HStack(alignment: .top, spacing: 6) {
-            // العمود النصي بمحاذاة يمين
             VStack(alignment: .trailing, spacing: 6) {
                 HStack(spacing: 8) {
                     Text(title)

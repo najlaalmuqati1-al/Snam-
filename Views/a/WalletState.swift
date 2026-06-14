@@ -8,6 +8,31 @@
 import SwiftUI
 import Combine
 
+// MARK: - App-wide Appearance
+enum AppAppearance: String, CaseIterable, Identifiable {
+    case system
+    case light
+    case dark
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .system: return "يتبع النظام"
+        case .light:  return "فاتح"
+        case .dark:   return "داكن"
+        }
+    }
+
+    var colorScheme: ColorScheme? {
+        switch self {
+        case .system: return nil
+        case .light:  return .light
+        case .dark:   return .dark
+        }
+    }
+}
+
 // MARK: - Shared Wallet State (Observable across all screens)
 /// This object is injected at the root and shared between
 /// MainView ↔ SettingsView ↔ WalletAppearanceView
@@ -17,6 +42,8 @@ final class WalletState: ObservableObject {
     @AppStorage("walletBalance") var balance: Double = 0
     @AppStorage("collectedLevelsData") private var collectedLevelsData: String = ""
 
+    // App Appearance persistence
+    @AppStorage("appAppearance") private var appAppearanceRaw: String = AppAppearance.system.rawValue
 
     // Toast state to notify MainView after saving wallet appearance
     @Published var showWalletSavedToast: Bool = false
@@ -31,6 +58,15 @@ final class WalletState: ObservableObject {
         Set(collectedLevelsData.split(separator: ",").compactMap { Int($0) })
     }
 
+    // Expose typed appearance with bridging to AppStorage
+    var appAppearance: AppAppearance {
+        get { AppAppearance(rawValue: appAppearanceRaw) ?? .system }
+        set {
+            appAppearanceRaw = newValue.rawValue
+            objectWillChange.send()
+        }
+    }
+
     func collectReward(forLevel level: Int) {
         var collected = collectedLevels
         guard !collected.contains(level) else { return }
@@ -39,6 +75,7 @@ final class WalletState: ObservableObject {
         balance += 100
     }
 }
+
 #Preview {
     WalletCardView(
         theme: CardTheme.allThemes[0],

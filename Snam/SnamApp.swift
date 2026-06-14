@@ -9,14 +9,19 @@ import SwiftUI
 
 @main
 struct YourAppName: App { // هنا اسم تطبيقك
+    @StateObject private var walletState = WalletState()
+
     var body: some Scene {
         WindowGroup {
             AppContainerView {
-                MainTabView() // شاشة المراحل الحين صارت محصنة بداخل الخلفية الموحدة
+                MainTabView()
             }
+            .environmentObject(walletState)
+            .preferredColorScheme(walletState.appAppearance.colorScheme)
         }
     }
 }
+
 #Preview{
     MainTabView()
 }
