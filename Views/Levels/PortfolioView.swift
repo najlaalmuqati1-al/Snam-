@@ -63,7 +63,7 @@ struct PortfolioMainView: View {
                     // هيدر موحّد مع رجوع لصفحة اللفلز
                  
                     
-                    Text("وزع المبلغ التالي كحد ادنى على قطاعين مختلفين")
+                    Text("وزع الدراهم اتاليه كحد ادنى على قطاعين مختلفين")
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color.primary.opacity(0.55)) // ← primary
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -96,7 +96,7 @@ struct PortfolioMainView: View {
                             Image(systemName: "info.circle")
                                 .font(.system(size: 13))
                                 .foregroundColor(Color.white.opacity(0.45))
-                            Text("اختر قطاع آخر لتوزيع أموالك")
+                            Text("اختر قطاع آخر توزع فيه دراهمك")
                                 .font(.system(size: 13))
                                 .foregroundColor(Color.primary.opacity(0.45)) // ← primary
                             Spacer()
@@ -128,7 +128,7 @@ struct PortfolioMainView: View {
     var navBar: some View {
         HStack {
             Spacer()
-            Text("تحدي التنويع")
+            Text("مايسترو المحافظ")
                 .font(.system(size: 18, weight: .bold))
                 .foregroundColor(.primary) // ← primary
             Spacer()
@@ -288,7 +288,7 @@ struct PortfolioMainView: View {
                 Image(systemName: "info.circle")
                     .font(.system(size: 13))
                     .foregroundColor(Color.primary.opacity(0.5)) // ← primary
-                Text("وزع باقي المبلغ على القطاعات المختاره")
+                Text("وزع باقي المبلغ على القطاعات اللي اخترته")
                     .font(.system(size: 13))
                     .foregroundColor(Color.primary.opacity(0.5)) // ← primary
                 Spacer()
@@ -302,7 +302,7 @@ struct PortfolioMainView: View {
                      vm.selectedTabIDs.allSatisfy { id in
                          vm.sectors.first(where: { $0.id == id })?.allocation ?? 0 > 0
                      } // تعديل الشرط ع الاقل اضافة سنام واحد لكل قطاع
-        return PrimaryButton(title: "تأكيد التوزيع") {
+        return PrimaryButton(title: "خلصت توزيع") {
             if hasAny { vm.confirm() }
         }
         .padding(.bottom, 2)
