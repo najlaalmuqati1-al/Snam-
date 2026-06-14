@@ -152,8 +152,8 @@ struct MarketListViewV2: View {
                     HStack {
                         
                         Text("المحاكي")
-                            .font(.system(size: 36, weight: .black))
-                            .foregroundColor(.white)
+                            .font(.system(size: 34, weight: .black))
+                            .foregroundColor(.primary)
                         
                         Spacer()
                         
